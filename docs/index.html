@@ -1,8 +1,136 @@
 <html>
-    <head>
-        Melay
-    </head>
-    <body>
-        <h1>Melay</h1><h2>Simple. Easy. Secure.</h2>
-    </body>
+
+<head>
+    <title>Melay</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous" />
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" ></script>
+    <!--bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb">
+
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn">
+
+    </script>
+    <!--font awesome -->
+    <script src="https://use.fontawesome.com/b45c3c60e3.js">
+
+    </script>
+
+    <style>
+        body {
+            background-color: #935d8c;
+            color: rgba(255, 255, 255, 0.65);
+        }
+        
+        a {
+            -moz-transition: color 0.2s ease, border-bottom 0.2s ease;
+            -webkit-transition: color 0.2s ease, border-bottom 0.2s ease;
+            -ms-transition: color 0.2s ease, border-bottom 0.2s ease;
+            transition: color 0.2s ease, border-bottom 0.2s ease;
+            text-decoration: none;
+            border-bottom: dotted 1px;
+            color: inherit;
+        }
+        
+        a:hover {
+            border-bottom-color: transparent;
+        }
+        
+        p {
+            margin: 0 0 2em 0;
+        }
+        
+        p.content {
+            -moz-columns: 20em 2;
+            -webkit-columns: 20em 2;
+            -ms-columns: 20em 2;
+            columns: 20em 2;
+            -moz-column-gap: 2em;
+            -webkit-column-gap: 2em;
+            -ms-column-gap: 2em;
+            column-gap: 2em;
+            text-align: justify;
+        }
+        
+        #header {
+            padding: 5em 5em 1em 5em;
+            text-align: center;
+        }
+        
+        #header h1 {
+            margin: 0 0 0.25em 0;
+        }
+        
+        #header p {
+            font-size: 1.25em;
+            letter-spacing: -0.025em;
+        }
+        
+        #header.alt {
+            padding: 7em 5em 4em 5em;
+        }
+        
+        #header.alt h1 {
+            font-size: 3.25em;
+        }
+        
+        #header.alt > * {
+            -moz-transition: opacity 3s ease;
+            -webkit-transition: opacity 3s ease;
+            -ms-transition: opacity 3s ease;
+            transition: opacity 3s ease;
+            -moz-transition-delay: 0.5s;
+            -webkit-transition-delay: 0.5s;
+            -ms-transition-delay: 0.5s;
+            transition-delay: 0.5s;
+            opacity: 1;
+        }
+        
+        #header.alt .logo {
+            -moz-transition: opacity 1.25s ease, -moz-transform 0.5s ease;
+            -webkit-transition: opacity 1.25s ease, -webkit-transform 0.5s ease;
+            -ms-transition: opacity 1.25s ease, -ms-transform 0.5s ease;
+            transition: opacity 1.25s ease, transform 0.5s ease;
+            -moz-transition-delay: 0s;
+            -webkit-transition-delay: 0s;
+            -ms-transition-delay: 0s;
+            transition-delay: 0s;
+            margin: 0 0 1.5em 0;
+        }
+        
+        body.is-loading #header.alt > * {
+            opacity: 0;
+        }
+        
+        body.is-loading #header.alt .logo {
+            -moz-transform: scale(0.8) rotate(-30deg);
+            -webkit-transform: scale(0.8) rotate(-30deg);
+            -ms-transform: scale(0.8) rotate(-30deg);
+            transform: scale(0.8) rotate(-30deg);
+        }
+    </style>
+
+</head>
+
+<body class='is-loading'>
+    <div class='container text-center alt' id='header'>
+        <div class="logo img-round"><i class="fa fa-comments-o fa-3x " aria-hidden="true"></i> </div>
+        <h1>Melay</h1>
+        <p>Simple. Easy. Secure.</p>
+    </div>
+
+</body>
+<script>
+    $(function ({
+        $('body').removeClass('is-loading');
+    )});
+
+</script>
+
 </html>
