@@ -23,13 +23,22 @@
     </script>
 
     <style>
+        /* colors
+    2C3E50 dark
+    E74C3C red
+    ECF0F1 white
+    3498DB light blue
+    2980B9 medium blue
+    */
+        
+        @import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400";
         body {
-            background-color: #046380;
+            background-color: #E74C3C;
             color: rgba(255, 255, 255, 0.65);
-            background-image: url("images/overlay.png"), -moz-linear-gradient(45deg, #046380 15%, #E6E2AF 85%);
-            background-image: url("images/overlay.png"), -webkit-linear-gradient(45deg, #046380 15%, #E6E2AF 85%);
-            background-image: url("images/overlay.png"), -ms-linear-gradient(45deg, #046380 15%, #E6E2AF 85%);
-            background-image: url("images/overlay.png"), linear-gradient(45deg, #046380 15%, #E6E2AF 85%);
+            background-image: url("images/overlay.png"), -moz-linear-gradient(45deg, #E74C3C 15%, #3498DB 85%);
+            background-image: url("images/overlay.png"), -webkit-linear-gradient(45deg, #E74C3C 15%, #3498DB 85%);
+            background-image: url("images/overlay.png"), -ms-linear-gradient(45deg, #E74C3C 15%, #3498DB 85%);
+            background-image: url("images/overlay.png"), linear-gradient(45deg, #2980B9 15%, #3498DB 85%);
         }
         
         body,
@@ -37,8 +46,7 @@
         select,
         textarea {
             font-family: "Source Sans Pro", Helvetica, sans-serif;
-            font-size: 17pt;
-            font-weight: 300;
+            font-weight: 200;
             line-height: 1.65;
         }
         
@@ -69,30 +77,15 @@
             border-bottom-color: transparent;
         }
         
-        p {
-            margin: 0 0 2em 0;
-        }
-        
-        p.content {
-            -moz-columns: 20em 2;
-            -webkit-columns: 20em 2;
-            -ms-columns: 20em 2;
-            columns: 20em 2;
-            -moz-column-gap: 2em;
-            -webkit-column-gap: 2em;
-            -ms-column-gap: 2em;
-            column-gap: 2em;
-            text-align: justify;
-        }
-        
         #header {
-            padding: 5em 5em 1em 5em;
+            padding: 5em 5em 5em 5em;
             text-align: center;
         }
         
         #header h1 {
             margin: 0 0 0.25em 0;
             font-weight: 200;
+            font-size: 4.5em;
         }
         
         #header p {
@@ -100,15 +93,7 @@
             letter-spacing: -0.025em;
         }
         
-        #header.alt {
-            padding: 7em 5em 4em 5em;
-        }
-        
-        #header.alt h1 {
-            font-size: 3.25em;
-        }
-        
-        #header.alt > * {
+        #header > * {
             -moz-transition: opacity 3s ease;
             -webkit-transition: opacity 3s ease;
             -ms-transition: opacity 3s ease;
@@ -120,7 +105,7 @@
             opacity: 1;
         }
         
-        #header.alt .logo {
+        #header .logo {
             -moz-transition: opacity 1.25s ease, -moz-transform 0.5s ease;
             -webkit-transition: opacity 1.25s ease, -webkit-transform 0.5s ease;
             -ms-transition: opacity 1.25s ease, -ms-transform 0.5s ease;
@@ -132,18 +117,18 @@
             margin: 0 0 1.5em 0;
         }
         
-        #header.alt .logo > * {
+        #header .logo i {
             border-radius: 50%;
-            padding: .4em;
+            padding: .6em;
             background-color: rgba(255, 255, 255, 0.65098);
-            color: #046380;
+            color: #2C3E50;
         }
         
-        body.is-loading #header.alt > * {
+        body.is-loading #header > * {
             opacity: 0;
         }
         
-        body.is-loading #header.alt .logo {
+        body.is-loading #header .logo {
             -moz-transform: scale(0.8) rotate(-30deg);
             -webkit-transform: scale(0.8) rotate(-30deg);
             -ms-transform: scale(0.8) rotate(-30deg);
@@ -157,8 +142,6 @@
             transition: background-color 0.2s ease, border-top-left-radius 0.2s ease, border-top-right-radius 0.2s ease, padding 0.2s ease;
             background-color: #ffffff;
             color: #636363;
-            position: absolute;
-            width:100%;
             padding: 1em;
             background-color: #f7f7f7;
             border-top-left-radius: 0.25em;
@@ -167,45 +150,8 @@
             text-align: center;
         }
         
-        #nav input,
-        #nav select,
-        #nav textarea {
-            color: #636363;
-        }
-        
         #nav a:hover {
             color: #636363;
-        }
-        
-        #nav strong,
-        #nav b {
-            color: #636363;
-        }
-        
-        #nav h1,
-        #nav h2,
-        #nav h3,
-        #nav h4,
-        #nav h5,
-        #nav h6 {
-            color: #636363;
-        }
-        
-        #nav blockquote {
-            border-left-color: #dddddd;
-        }
-        
-        #nav code {
-            background: rgba(222, 222, 222, 0.25);
-            border-color: #dddddd;
-        }
-        
-        #nav hr {
-            border-bottom-color: #dddddd;
-        }
-        
-        #nav + #main {
-            padding-top: 4.25em;
         }
         
         #nav ul {
@@ -244,53 +190,43 @@
         }
         
         #nav ul li a.active {
-            background-color: #ffffff;
+            background-color: #ECF0F1;
             box-shadow: none;
         }
         
-        #nav.alt {
-            position: fixed;
-            top: 0;
-            padding: 0.5em 1em;
-            background-color: rgba(247, 247, 247, 0.95);
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-            z-index: 10000;
-        }
-        
-        #nav.alt ul li {
-            margin: 0 0.175em;
-        }
-        
-        #nav.alt ul li a {
-            font-size: 0.9em;
-        }
-        
         #main {
-            background-color: #ffffff;
+            background-color: #ECF0F1;
             color: #636363;
-            width:100%;
-            border-radius: 0.25em;
+            width: 100%;
         }
     </style>
 
 </head>
 
-<body class='is-loading'>
+<body class='is-loading' data-spy="scroll" data-target="#navbar">
     <div class='container'>
         <div class='text-center alt' id='header'>
-            <div class="logo"><i class="fa fa-comments-o fa-2x " aria-hidden="true"></i> </div>
+            <div class="logo"><i class="fa fa-comments-o fa-3x " aria-hidden="true"></i> </div>
             <h1>Melay</h1>
-            <p>Simple. Easy. Secure.</p>
+            <p>Get your messages from your phone everywhere. Simple. Easy. Secure.</p>
         </div>
         <!-- Nav -->
-        <nav id="nav">
-            <ul>
-                <li><a href="#intro" class="active">Introduction</a></li>
-                <li><a href="#first">First Section</a></li>
-                <li><a href="#second">Second Section</a></li>
-                <li><a href="#cta">Get Started</a></li>
+        <nav id="navbar" class='navbar-light bg-faded navbar'>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
             </ul>
+
         </nav>
 
         <!-- Main -->
@@ -350,9 +286,10 @@
     $(function () {
         $(window).on('load', function () {
             window.setTimeout(function () {
-                $('body').removeClass('is-loading');
+                $('body').removeClass('is-loading').scrollspy({ target: '#navbar' });
             }, 100);
         });
+
     });
 
 </script>
