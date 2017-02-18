@@ -198,6 +198,27 @@
             background-color: #ECF0F1;
             color: #636363;
             width: 100%;
+            padding:1em;
+        }
+
+        #main *{
+            opacity:1.0;
+            -moz-transition: opacity 1.25s ease, -moz-transform 0.5s ease;
+            -webkit-transition: opacity 1.25s ease, -webkit-transform 0.5s ease;
+            -ms-transition: opacity 1.25s ease, -ms-transform 0.5s ease;
+            transition: opacity 1.25s ease, transform 0.5s ease;
+            -moz-transition-delay: 0.1s;
+            -webkit-transition-delay: 0.1s;
+            -ms-transition-delay: 0.1s;
+            transition-delay: 0.1s;
+        }
+
+        body.is-loading div #main>*{
+            opacity:0.0;
+             -moz-transform: scale(0.8) rotate(-10deg);
+            -webkit-transform: scale(0.8) rotate(-10deg);
+            -ms-transform: scale(0.8) rotate(-10deg);
+            transform: scale(0.8) rotate(-10deg);
         }
     </style>
 
@@ -233,50 +254,14 @@
         <div id="main">
             <!-- Introduction -->
             <section id="intro" class="main">
-                <div class="spotlight">
-                    <div class="content">
-                        <header class="major">
-                            <h2>Ipsum sed adipiscing</h2>
-                        </header>
-                        <p>Sed lorem ipsum dolor sit amet nullam consequat feugiat consequat magna adipiscing magna etiam amet
-                            veroeros. Lorem ipsum dolor tempus sit cursus. Tempus nisl et nullam lorem ipsum dolor sit amet
-                            aliquam.
-                        </p>
-                        <ul class="actions">
-                            <li><a href="generic.html" class="button">Learn More</a></li>
-                        </ul>
-                    </div>
-                    <span class="image"><img src="images/pic01.jpg" alt="" /></span>
-                </div>
+                <h2>Intro goes here</h2>
+                <p>Big content. Real big content</p>
             </section>
 
             <!-- First Section -->
             <section id="first" class="main special">
-                <header class="major">
-                    <h2>Magna veroeros</h2>
-                </header>
-                <ul class="features">
-                    <li>
-                        <span class="icon major style1 fa-code"></span>
-                        <h3>Ipsum consequat</h3>
-                        <p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-                    </li>
-                    <li>
-                        <span class="icon major style3 fa-copy"></span>
-                        <h3>Amed sed feugiat</h3>
-                        <p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-                    </li>
-                    <li>
-                        <span class="icon major style5 fa-diamond"></span>
-                        <h3>Dolor nullam</h3>
-                        <p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-                    </li>
-                </ul>
-                <footer class="major">
-                    <ul class="actions">
-                        <li><a href="generic.html" class="button">Learn More</a></li>
-                    </ul>
-                </footer>
+               <h2>Intro goes here</h2>
+               <p>More content goes here</p>
             </section>
         </div>
     </div>
@@ -286,7 +271,8 @@
     $(function () {
         $(window).on('load', function () {
             window.setTimeout(function () {
-                $('body').removeClass('is-loading').scrollspy({ target: '#navbar' });
+                $('body').removeClass('is-loading');
+                $('body').scrollspy({ target: '#navbar' });
             }, 100);
         });
 
