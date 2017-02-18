@@ -6,15 +6,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    </script>
+    <!--bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
         crossorigin="anonymous" />
-    <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-    <!--bootstrap -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n">
 
     </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" crossorigin="anonymous" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb">
+
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn">
 
     </script>
     <!--font awesome -->
@@ -33,12 +35,12 @@
         
         @import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400";
         body {
-            background-color: #E74C3C;
+            background-color: #3498DB;
             color: rgba(255, 255, 255, 0.65);
             background-image: url("images/overlay.png"), -moz-linear-gradient(45deg, #E74C3C 15%, #3498DB 85%);
             background-image: url("images/overlay.png"), -webkit-linear-gradient(45deg, #E74C3C 15%, #3498DB 85%);
             background-image: url("images/overlay.png"), -ms-linear-gradient(45deg, #E74C3C 15%, #3498DB 85%);
-            background-image: url("images/overlay.png"), linear-gradient(45deg, #2980B9 15%, #3498DB 85%);
+            background-image: url("images/overlay.png"), linear-gradient(45deg, #E74C3C 15%, #3498DB 85%);
         }
         
         body,
@@ -121,7 +123,7 @@
             border-radius: 50%;
             padding: .6em;
             background-color: rgba(255, 255, 255, 0.65098);
-            color: #2C3E50;
+            color: #2980B9;
         }
         
         body.is-loading #header > * {
@@ -194,31 +196,107 @@
             box-shadow: none;
         }
         
+        #navbar.alt {
+            position: fixed;
+            top: 0;
+            width:100%;
+            padding: 0.5em 1em;
+            background-color: rgba(247, 247, 247, 0.95);
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            z-index: 10000;
+        }
+        
         #main {
+            position:relative;
             background-color: #ECF0F1;
             color: #636363;
             width: 100%;
-            padding:1em;
+            padding: 1em;
+            border-bottom-left-radius: .25em;
+            border-bottom-right-radius: .25em;
         }
-
-        #main *{
-            opacity:1.0;
+        
+        #main,
+        #footer {
             -moz-transition: opacity 1.25s ease, -moz-transform 0.5s ease;
             -webkit-transition: opacity 1.25s ease, -webkit-transform 0.5s ease;
             -ms-transition: opacity 1.25s ease, -ms-transform 0.5s ease;
             transition: opacity 1.25s ease, transform 0.5s ease;
+            transition-delay: 0.1s;
             -moz-transition-delay: 0.1s;
             -webkit-transition-delay: 0.1s;
             -ms-transition-delay: 0.1s;
-            transition-delay: 0.1s;
         }
-
-        body.is-loading div #main>*{
-            opacity:0.0;
-             -moz-transform: scale(0.8) rotate(-10deg);
+        
+        #main * {
+            opacity: 1.0;
+            -moz-transition: opacity 1.25s ease, -moz-transform 0.5s ease;
+            -webkit-transition: opacity 1.25s ease, -webkit-transform 0.5s ease;
+            -ms-transition: opacity 1.25s ease, -ms-transform 0.5s ease;
+            transition: opacity 1.25s ease, transform 0.5s ease;
+            -moz-transition-delay: 0.5s;
+            -webkit-transition-delay: 0.5s;
+            -ms-transition-delay: 0.5s;
+            transition-delay: 0.5s;
+        }
+        
+        #main section:not(:first-child) {
+            border-top: solid 1px #dddddd;
+        }
+        
+        #main section {
+            padding: 5em 5em 3em 5em;
+        }
+        
+        body.is-loading div #main,
+        body.is-loading div #footer {
+            -moz-transform: translateY(100vh);
+            -webkit-transform: translateY(100vh);
+            -ms-transform: translateY(100vh);
+            transform: translateY(100vh);
+            opacity: 0.0;
+        }
+        
+        body.is-loading div #main>* {
+            opacity: 0.0;
+            -moz-transform: scale(0.8) rotate(-10deg);
             -webkit-transform: scale(0.8) rotate(-10deg);
             -ms-transform: scale(0.8) rotate(-10deg);
             transform: scale(0.8) rotate(-10deg);
+        }
+        
+        section h2 {
+            font-size: 2em;
+            margin-bottom: 2em;
+            line-height: 1.5;
+            letter-spacing: -0.025em;
+            font-weight: 300;
+        }
+        
+        section h2:after {
+            background-color: #dddddd;
+            background-image: linear-gradient(90deg, #E74C3C, #3498DB, #2980B9);
+            display: block;
+            content: '';
+            width: 3.25em;
+            height: 2px;
+            margin: 0.7em 0 1em 0;
+            border-radius: 2px;
+        }
+        
+        #footer {
+            transition-delay: 0.2s;
+            -moz-transition-delay: 0.2s;
+            -webkit-transition-delay: 0.2s;
+            -ms-transition-delay: 0.2s;
+        }
+        
+        #footer .copyright {
+            width: 100%;
+            margin: 2.5em 0 2em 0;
+            font-size: 0.8em;
+            text-align: center;
         }
     </style>
 
@@ -230,52 +308,110 @@
             <div class="logo"><i class="fa fa-comments-o fa-3x " aria-hidden="true"></i> </div>
             <h1>Melay</h1>
             <p>Get your messages from your phone everywhere. Simple. Easy. Secure.</p>
+            <!-- Nav -->
+            <!-- todo: fix navbar if scroll past it -->
         </div>
-        <!-- Nav -->
-        <nav id="navbar" class='navbar-light bg-faded navbar'>
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-
-        </nav>
-
         <!-- Main -->
         <div id="main">
+            <nav id="navbar" class='navbar-light bg-faded navbar'>
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#intro">What is it</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#getstarted">Get Started</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+
+            </nav>
             <!-- Introduction -->
             <section id="intro" class="main">
-                <h2>Intro goes here</h2>
-                <p>Big content. Real big content</p>
+                <h2>What is it?</h2>
+                <div class='row'>
+                    <div class='col-lg-8 col-sm-12'>
+                        <p>Being able to reply to your friends and family using the method we all communicate with, SMS, from
+                            anywhere. There are many text message forwarding services out there. Melay does it different
+                            because it is open source, encrypted, and most important can be served up on a server you own.
+                        </p>
+                        <p>Melay (<b>Me</b>ssage Re<b>lay</b>) uses services that you can provision for free on your own such
+                            as firebase, heroku, azure, and others. Or you could host the service on the desktop at home!
+                        </p>
+                        <p>So whenever you get a message on your android phone, it can be answered on your PC, Mac, tablet,
+                            web browser, or even another android phone.</p>
+                    </div>
+                    <div class='col-lg-4 col-sm-12'>
+                        <img class='img-fluid' src='images/android phone.png' />
+                    </div>
+                </div>
             </section>
 
             <!-- First Section -->
-            <section id="first" class="main special">
-               <h2>Intro goes here</h2>
-               <p>More content goes here</p>
+            <section id="getstarted" class="main special">
+                <h2>How do I get started?</h2>
+                <p>Sed lorem ipsum dolor sit amet nullam consequat feugiat consequat magna adipiscing magna etiam amet veroeros.
+                    Lorem ipsum dolor tempus sit cursus. Tempus nisl et nullam lorem ipsum dolor sit amet aliquam.</p>
             </section>
         </div>
+        <footer id="footer" class='row'>
+            <section class='col-lg-6 col-sm-12'>
+                <h2>Aliquam sed mauris</h2>
+                <p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore
+                    veroeros. eget dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit,
+                    vitae tincidunt odio.</p>
+                <ul class="actions">
+                    <li><a href="generic.html" class="button">Learn More</a></li>
+                </ul>
+            </section>
+            <section class='col-lg-6 col-sm-12'>
+                <h2>Etiam feugiat</h2>
+                <dl class="alt">
+                    <dt>Address</dt>
+                    <dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
+                    <dt>Phone</dt>
+                    <dd>(000) 000-0000 x 0000</dd>
+                    <dt>Email</dt>
+                    <dd><a href="#">information@untitled.tld</a></dd>
+                </dl>
+                <ul class="icons">
+                    <li><a href="#" class="icon fa-twitter alt"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon fa-facebook alt"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon fa-instagram alt"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon fa-github alt"><span class="label">GitHub</span></a></li>
+                    <li><a href="#" class="icon fa-dribbble alt"><span class="label">Dribbble</span></a></li>
+                </ul>
+            </section>
+            <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </footer>
+
     </div>
 
 </body>
 <script>
+    /* jquery.scrollex v0.2.1 | (c) @ajlkn | github.com/ajlkn/jquery.scrollex | MIT licensed */
+    !function (t) { function e(t, e, n) { return "string" == typeof t && ("%" == t.slice(-1) ? t = parseInt(t.substring(0, t.length - 1)) / 100 * e : "vh" == t.slice(-2) ? t = parseInt(t.substring(0, t.length - 2)) / 100 * n : "px" == t.slice(-2) && (t = parseInt(t.substring(0, t.length - 2)))), t } var n = t(window), i = 1, o = {}; n.on("scroll", function () { var e = n.scrollTop(); t.map(o, function (t) { window.clearTimeout(t.timeoutId), t.timeoutId = window.setTimeout(function () { t.handler(e) }, t.options.delay) }) }).on("load", function () { n.trigger("scroll") }), jQuery.fn.scrollex = function (l) { var s = t(this); if (0 == this.length) return s; if (this.length > 1) { for (var r = 0; r < this.length; r++)t(this[r]).scrollex(l); return s } if (s.data("_scrollexId")) return s; var a, u, h, c, p; switch (a = i++ , u = jQuery.extend({ top: 0, bottom: 0, delay: 0, mode: "default", enter: null, leave: null, initialize: null, terminate: null, scroll: null }, l), u.mode) { case "top": h = function (t, e, n, i, o) { return t >= i && o >= t }; break; case "bottom": h = function (t, e, n, i, o) { return n >= i && o >= n }; break; case "middle": h = function (t, e, n, i, o) { return e >= i && o >= e }; break; case "top-only": h = function (t, e, n, i, o) { return i >= t && n >= i }; break; case "bottom-only": h = function (t, e, n, i, o) { return n >= o && o >= t }; break; default: case "default": h = function (t, e, n, i, o) { return n >= i && o >= t } }return c = function (t) { var i, o, l, s, r, a, u = this.state, h = !1, c = this.$element.offset(); i = n.height(), o = t + i / 2, l = t + i, s = this.$element.outerHeight(), r = c.top + e(this.options.top, s, i), a = c.top + s - e(this.options.bottom, s, i), h = this.test(t, o, l, r, a), h != u && (this.state = h, h ? this.options.enter && this.options.enter.apply(this.element) : this.options.leave && this.options.leave.apply(this.element)), this.options.scroll && this.options.scroll.apply(this.element, [(o - r) / (a - r)]) }, p = { id: a, options: u, test: h, handler: c, state: null, element: this, $element: s, timeoutId: null }, o[a] = p, s.data("_scrollexId", p.id), p.options.initialize && p.options.initialize.apply(this), s }, jQuery.fn.unscrollex = function () { var e = t(this); if (0 == this.length) return e; if (this.length > 1) { for (var n = 0; n < this.length; n++)t(this[n]).unscrollex(); return e } var i, l; return (i = e.data("_scrollexId")) ? (l = o[i], window.clearTimeout(l.timeoutId), delete o[i], e.removeData("_scrollexId"), l.options.terminate && l.options.terminate.apply(this), e) : e } } (jQuery);
     $(function () {
         $(window).on('load', function () {
             window.setTimeout(function () {
                 $('body').removeClass('is-loading');
                 $('body').scrollspy({ target: '#navbar' });
-            }, 100);
-        });
+                $('#main').scrollex({
+                    mode: 'top',
+                    enter: function () {
+                        $('#navbar').addClass('container alt');
+                    },
+                    leave: function () {
+                        $('#navbar').removeClass('alt container');
+                    },
+                }, 100);
+            });
 
+        });
     });
 
 </script>
