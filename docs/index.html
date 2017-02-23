@@ -207,7 +207,7 @@
         }
         
         #main {
-            position:relative;
+            position: relative;
             background-color: #ECF0F1;
             color: #636363;
             width: 100%;
@@ -341,8 +341,8 @@
                         <p>Melay (<b>Me</b>ssage Re<b>lay</b>) uses services that you can provision for free on your own such
                             as firebase, heroku, azure, and others. Or you could host the service on the desktop at home!
                         </p>
-                        <p>So whenever you get a message on your android phone, it can be answered on your PC, Mac, tablet,
-                            web browser, or even another android phone.</p>
+                        <p>So whenever you get a SMS message on your android phone, it can be viewed and answered on your PC,
+                            Mac, tablet, web browser, or even another android phone.</p>
                     </div>
                     <div class='col-lg-4 col-sm-12'>
                         <img class='img-fluid' src='images/android phone.png' />
@@ -350,18 +350,34 @@
                 </div>
             </section>
 
-             <!-- First Section -->
+            <!-- First Section -->
             <section id="how" class="main special">
                 <h2>How does it work?</h2>
-                <p>Sed lorem ipsum dolor sit amet nullam consequat feugiat consequat magna adipiscing magna etiam amet veroeros.
-                    Lorem ipsum dolor tempus sit cursus. Tempus nisl et nullam lorem ipsum dolor sit amet aliquam.</p>
+                <p>There are plenty of cloud providers out there.</p>
+                <p class='text-center'>[Images of mentioned cloud providers]</p>
+                <p>We make it easy to spin up your own personal version of Melay to run on any of the options provided here.
+                    When configuring the app on your phone, desktop, or tablet, the url to your own web service will be used.
+                    In addition to using cryptography, you <b>own the message data</b> passing from your phone to the internet.</p>
+                <p>Push notifications are sent out from my own push notification server. These messages are passed encrypted
+                    from your server to my push notification server. This is done because many services such as Apple Notification
+                    Service and Windows Notification Service expect an app's notifications to come from a specific URL or
+                    with a key. My experience as a dev is that it is a bad idea to put the key to an application in the source
+                    code itself. If you need your own push notification server, the code for all the clients is open source
+                    at github and you are welcome to compile your own.</p>
             </section>
 
             <!-- Second Section -->
             <section id="getstarted" class="main special">
                 <h2>How do I get started?</h2>
-                <p>Sed lorem ipsum dolor sit amet nullam consequat feugiat consequat magna adipiscing magna etiam amet veroeros.
-                    Lorem ipsum dolor tempus sit cursus. Tempus nisl et nullam lorem ipsum dolor sit amet aliquam.</p>
+                <p>First, select your hosting solution. This can be a cloud provider or on your own machine. There are some caveats to each approach.</p>
+                <div class='text-center'><button class='btn btn-lg btn-primary'>Get Started</button>
+                    <ul>
+                        <li>Link to GitHub (self-host)</li>
+                        <li>Link to Heroku spin up</li>
+                        <li>Link to Azure spin up</li>
+                        <li>Link to Firebase</li>
+                    </ul>
+                </div>
             </section>
         </div>
         <footer id="footer" class='row'>
@@ -412,10 +428,10 @@
                     enter: function () {
                         navwidth = $('#navbar').outerWidth();
                         console.log(navwidth);
-                        $('#navbar').addClass('alt').css('width',navwidth);
+                        $('#navbar').addClass('alt').css('width', navwidth);
                     },
                     leave: function () {
-                        $('#navbar').removeClass('alt').css('width','');
+                        $('#navbar').removeClass('alt').css('width', '');
                     },
                 }, 100);
             });
