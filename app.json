@@ -1,4 +1,6 @@
 {
+  "name": "Melay",
+  "description": "A real-time SMS Relay built with Feathers and NeDB",
   "keywords": [
     "node",
     "express",
