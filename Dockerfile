@@ -9,6 +9,7 @@ COPY src/ src/
 ENV NODE_ENV 'production'
 ENV PORT '8080'
 ENV NEDB_BASE_PATH '../data'
+ENV DATABASE_URI setMongoDBURI
 ENV SECRET 'lots and lots of secrets'
 ENV GITHUB_CLIENT_ID 'client id'
 ENV GITHUB_CLIENT_SECRET 'client secret'
