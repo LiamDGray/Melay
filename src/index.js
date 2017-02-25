@@ -39,6 +39,7 @@ const promise = new Promise(function(resolve) {
     // Start the server
     var server = app.listen(port);
     server.on('listening', function() {
+      console.log("Feathers Message MongoDB service running on ${app.get('host')}:${port}");
       resolve(server);
     });
   }).catch(function(error){
