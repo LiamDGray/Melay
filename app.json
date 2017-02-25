@@ -1,14 +1,13 @@
 {
   "name": "Melay",
-  "description": "A real-time SMS Relay built with Feathers and NeDB",
+  "description": "A real-time SMS Relay built with Feathers and mongoDB",
   "keywords": [
     "node",
     "express",
     "feathers",
     "feathersjs",
     "chat",
-    "realtime",
-    "nedb"
+    "realtime"
   ],
   "website": "http://feathersjs.com",
   "repository": "https://github.com/feathersjs/feathers-chat",
@@ -19,6 +18,10 @@
       "description": "Your secret for encrypting JWT's used with Feather authentication",
       "required": true,
       "generator": "secret"
+    },
+    "MASTER_KEY": {
+      "description": "A key that overrides all permissions. Keep this secret.",
+      "value": "myMasterKey"
     }
   },
   "formation": [
