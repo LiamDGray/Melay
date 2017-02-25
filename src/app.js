@@ -14,6 +14,9 @@ const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
 
+//TODO: complete rewrite needed. I'll eventually get going on this. 
+//TODO: Change out database option to something stored seperately on heroku
+
 const app = feathers();
 
 app.configure(configuration(path.join(__dirname, '..')));
