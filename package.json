@@ -30,6 +30,7 @@
     "compression": "^1.6.1",
     "cors": "^2.7.1",
     "feathers": "^2.0.0",
+    "mongodb":"^2.2.20",
     "feathers-authentication": "^0.7.0",
     "feathers-configuration": "^0.4.1",
     "feathers-mongodb":"^2.8.0",
