@@ -1,7 +1,12 @@
 'use strict';
 
 const port = process.env.PORT || app.get('port');
+const path = require('path');
+const serveStatic = require('feathers').static;
+const compress = require('compression');
+const cors = require('cors');
 const feathers = require('feathers');
+const hooks = require('feathers-hooks');
 const rest = require('feathers-rest');
 const socketio = require('feathers-socketio');
 const handler = require('feathers-errors/handler');
@@ -23,6 +28,9 @@ const app = feathers()
   .configure(socketio())
   // Enable REST services
   .configure(rest())
+  //turn on CORS for fun
+  .options('*', cors())
+  .use(cors())
   // Turn on JSON parser for REST services
   .use(bodyParser.json())
   // Turn on URL-encoded parser for REST services
