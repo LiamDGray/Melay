@@ -9,6 +9,13 @@ const bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 const service = require('feathers-mongodb');
 
+var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+
+if (!databaseUri) {
+  console.log('DATABASE_URI not specified, falling back to localhost.');
+}
+
+
 // Create a feathers instance.
 const app = feathers()
   // Enable Socket.io
@@ -18,12 +25,16 @@ const app = feathers()
   // Turn on JSON parser for REST services
   .use(bodyParser.json())
   // Turn on URL-encoded parser for REST services
-  .use(bodyParser.urlencoded({extended: true}));
+  .use(bodyParser.urlencoded({extended: true}))
+  // favico
+  .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
+  // Serve static files
+  .use('/', serveStatic( app.get('public') ));
 
 
 const promise = new Promise(function(resolve) {
   // Connect to your MongoDB instance(s)
-  MongoClient.connect('mongodb://localhost:27017/melay').then(function(db){
+  MongoClient.connect(databaseUri || 'mongodb://localhost:27017/dev').then(function(db){
     // Connect to the db, create and register a Feathers service.
     app.use('/messages', service({
       Model: db.collection('messages'),
