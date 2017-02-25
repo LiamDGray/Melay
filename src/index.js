@@ -1,6 +1,6 @@
 'use strict';
 
-const port = process.env.PORT || app.get('port');
+const port = process.env.PORT || 3030
 const path = require('path');
 const serveStatic = require('feathers').static;
 const compress = require('compression');
@@ -26,6 +26,8 @@ if (!databaseUri) {
 const app = feathers()
   // Enable Socket.io
   .configure(socketio())
+  // add files
+  .configure(configuration(path.join(__dirname, '..')))
   // Enable REST services
   .configure(rest())
   //turn on CORS for fun
@@ -34,9 +36,9 @@ const app = feathers()
   // Turn on JSON parser for REST services
   .use(bodyParser.json())
   // Turn on URL-encoded parser for REST services
-  .use(bodyParser.urlencoded({extended: true}))
+  .use(bodyParser.urlencoded({extended: true}));
   // favico
-  .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
+  app.use(favicon( path.join(app.get('public'), 'favicon.ico') ))
   // Serve static files
   .use('/', serveStatic( app.get('public') ));
 
