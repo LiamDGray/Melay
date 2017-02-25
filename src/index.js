@@ -14,6 +14,7 @@ const bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 const service = require('feathers-mongodb');
 const favicon = require('serve-favicon');
+const configuration = require('feathers-configuration');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
