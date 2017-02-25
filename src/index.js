@@ -8,6 +8,7 @@ const handler = require('feathers-errors/handler');
 const bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 const service = require('feathers-mongodb');
+const favicon = require('serve-favicon');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
