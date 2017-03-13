@@ -1,7 +1,7 @@
 {
-  "host": "chat.feathersjs.com",
-  "port": "PORT",
-  "nedb": "../data/",
+  "host": "melay-server-app.feathersjs.com",
+  "port": 80,
+  "mongodb": "DATABASE_URL",
   "public": "../public/",
   "auth": {
     "token": {
