@@ -13,6 +13,7 @@ const bodyParser = require('body-parser');
 const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
+const mongoDBurl =  process.env.MONGODB_URI || "mongodb://localhost";
 
 const app = feathers();
 
