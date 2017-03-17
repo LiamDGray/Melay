@@ -7,6 +7,7 @@ module.exports = function() {
   const app = this;
 
   mongoose.connect(app.get('mongodb'));
+  console.log("Connecting to Mongo at "+app.get('mongodb'));
   mongoose.Promise = global.Promise;
 
   app.configure(authentication);
