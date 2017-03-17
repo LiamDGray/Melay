@@ -1,7 +1,6 @@
 {
   "host": "localhost",
   "port": 3030,
-  "mongodb": "mongodb://heroku_zxq3w45f:bqie5dkq2ab51t3pda61od1rrg@ds161179.mlab.com:61179/heroku_zxq3w45f",
   "public": "../public/",
   "auth": {
     "token": {

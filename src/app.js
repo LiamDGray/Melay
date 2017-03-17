@@ -13,7 +13,12 @@ const bodyParser = require('body-parser');
 const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
-const mongoDBurl =  process.env.MONGODB_URI || "mongodb://localhost";
+
+const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+
+if (!databaseUri) {
+  console.log('DATABASE_URI not specified, falling back to localhost.');
+}
 
 const app = feathers();
 
@@ -21,6 +26,7 @@ app.configure(configuration(path.join(__dirname, '..')));
 
 app.use(compress())
   .options('*', cors())
+  .set("mongodb", databaseUri)
   .use(cors())
   .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
   .use('/', serveStatic( app.get('public') ))
