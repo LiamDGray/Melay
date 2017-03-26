@@ -96,6 +96,13 @@
     messageService.on('created', function (message) {
       console.log('Someone created a message', message);
     });
+
+    messageService.find({
+      query: {
+        $sort: { createdAt: -1 },
+        $limit: 25
+      }
+    }).then(page => console.log(page));
   </script>
 </head>
 
