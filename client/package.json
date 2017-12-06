@@ -1,0 +1,94 @@
+{
+  "name": "melay",
+  "version": "0.0.1",
+  "description": "Universal React solution based on React Native and Create React App.",
+  "author": {
+    "email": "matthewfcarlson@gmail.com",
+    "name": "Matthew Carlson",
+    "url": "https://matthewfcarlson.github.io"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "boilerplate"
+  ],
+  "license": "Beerware",
+  "scripts": {
+    "start-native-cli": "node node_modules/react-native/local-cli/cli.js start",
+    "start-ios": "react-native run-ios --simulator=\"iPhone 7\"",
+    "start-android": "react-native run-android",
+    "start-windows": "react-native run-windows",
+    "start-web": "react-scripts start",
+    "build-web": "react-scripts build",
+    "test": "jest --watch --env=jsdom",
+    "coverage": "jest --coverage --env=jsdom",
+    "lint": "eslint --ext=jsx --ext=js src/",
+    "flow": "flow",
+    "old-precommit": "jest --env=jsdom && flow && lint-staged"
+  },
+  "dependencies": {
+    "native-base": ">2.1.0",
+    "ramda": "^0.23.0",
+    "react": "16.0.0",
+    "react-dom": "^16.2.0",
+    "react-native": "0.50.4",
+    "react-native-windows": "^0.50.0-rc.2",
+    "react-redux": ">5.0.4",
+    "react-router": ">4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-tap-event-plugin": "^3.0.2",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
+    "redux-observable": "^0.14.1",
+    "redux-persist": "^4.8.0",
+    "remote-redux-devtools": "^0.5.10",
+    "reselect": "^3.0.1",
+    "rxjs": "^5.5.4",
+    "styled-components": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.1",
+    "babel-preset-flow": "6.23.0",
+    "babel-preset-react-native": "1.9.2",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb": "15.0.1",
+    "eslint-plugin-flowtype": "2.33.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "fetch-mock": "^5.11.0",
+    "flow-bin": "^0.46.0",
+    "husky": "0.13.3",
+    "jest": "^20.0.1",
+    "jest-fetch-mock": "1.1.1",
+    "lint-staged": "3.4.1",
+    "prettier-eslint-cli": "4.0.4",
+    "react-scripts": ">=1.0.17",
+    "react-test-renderer": "^16.2.0",
+    "redux-mock-store": "^1.2.3",
+    "rnpm-plugin-windows": "^0.2.8"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier-eslint --write \"src/*/*.js\"",
+      "eslint",
+      "git add"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.(css|less)$": "<rootDir>/flowFixModules.js"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|@shoutem/theme|@shoutem/animation|@shoutem/ui)"
+    ],
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ],
+    "preset": "react-native"
+  },
+  "main": "index.js"
+}
