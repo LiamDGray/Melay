@@ -34,6 +34,7 @@
     "react-dom": "^16.2.0",
     "react-native": "0.50.4",
     "react-native-get-sms-android": "^1.4.0",
+    "react-native-storage": "^0.2.2",
     "react-native-windows": "^0.50.0-rc.2",
     "react-redux": ">5.0.4",
     "react-router": ">4.1.1",
@@ -46,8 +47,7 @@
     "remote-redux-devtools": "^0.5.10",
     "reselect": "^3.0.1",
     "rxjs": "^5.5.4",
-    "styled-components": "^2.0.1",
-    "react-native-storage": "^0.2.2"
+    "styled-components": "^2.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
