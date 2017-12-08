@@ -7,31 +7,14 @@ import { AppRegistry } from "react-native";
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { Container, Header, Spinner, Body, Title, Button } from "native-base";
-import { Azure } from "azure-storage";
+import { Azure } from "./src/api/azure";
 import { SmsAndroid } from "react-native-get-sms-android";
 
 import { DeviceEventEmitter } from "react-native";
 
-
-DeviceEventEmitter.addListener('sms_onDelivery', (msg) => {
-    console.log(msg); 
+DeviceEventEmitter.addListener("sms_onDelivery", msg => {
+  console.log(msg);
 });
-
-
-//creates the azure table
-export const createAzureTable = () => {
-  const tableService = Azure.createTableService();
-  tableService.createTableIfNotExists("melay", function(
-    error,
-    result,
-    response
-  ) {
-    if (!error) {
-      // result contains true if created; false if already exists
-    }
-  });
-  return tableService;
-};
 
 export const sendSMS = (phoneNumber, message) => {
   SmsAndroid.autoSend(
@@ -76,14 +59,15 @@ export const loadSMSMessages = () => {
         console.log("-->" + obj.body);
       });
     }
-  )
+  );
 };
 
 export const uploadSMSMessages = () => {
-    let DB = createAzureTable();
-    loadSMSMessages();
+  Azure.init("Connection string");
+  
+  loadSMSMessages();
 };
-  /* 
+/* 
 Each sms will be represents by a JSON object represented below
 
 {

@@ -24,30 +24,41 @@
     "coverage": "jest --coverage --env=jsdom",
     "lint": "eslint --ext=jsx --ext=js src/",
     "flow": "flow",
-    "old-precommit": "jest --env=jsdom && flow && lint-staged"
+    "old-precommit": "jest --env=jsdom && flow && lint-staged",
+    "postinstall": "node_modules/.bin/rn-nodeify --install fs,stream,os,http,https  --hack"
   },
   "dependencies": {
+    "asyncstorage-down": "^4.0.1",
     "azure-storage": "^2.6.0",
     "native-base": ">2.1.0",
+    "path": "^0.12.7",
     "ramda": "^0.23.0",
     "react": "16.0.0",
     "react-dom": "^16.2.0",
     "react-native": "0.50.4",
+    "react-native-crypto": "^2.1.0",
     "react-native-get-sms-android": "^1.4.0",
+    "react-native-level-fs": "^3.0.0",
+    "react-native-os": "^1.0.1",
+    "react-native-randombytes": "^3.0.0",
     "react-native-storage": "^0.2.2",
     "react-native-windows": "^0.50.0-rc.2",
     "react-redux": ">5.0.4",
     "react-router": ">4.1.1",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^3.0.2",
+    "readable-stream": "^1.0.33",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-observable": "^0.14.1",
     "redux-persist": "^4.8.0",
     "remote-redux-devtools": "^0.5.10",
     "reselect": "^3.0.1",
+    "rn-nodeify": "^8.2.0",
     "rxjs": "^5.5.4",
-    "styled-components": "^2.0.1"
+    "stream-browserify": "^1.0.0",
+    "styled-components": "^2.0.1",
+    "react-native-http": "tradle/react-native-http#834492d"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -93,5 +104,27 @@
     ],
     "preset": "react-native"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "react-native": {
+    "crypto": "react-native-crypto",
+    "fs": "react-native-level-fs",
+    "os": "react-native-os",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  },
+  "browser": {
+    "crypto": "react-native-crypto",
+    "fs": "react-native-level-fs",
+    "os": "react-native-os",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  }
 }
