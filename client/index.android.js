@@ -12,11 +12,11 @@ import { SmsAndroid } from "react-native-get-sms-android";
 
 import { DeviceEventEmitter } from "react-native";
 
-/*
+
 DeviceEventEmitter.addListener('sms_onDelivery', (msg) => {
     console.log(msg); 
 });
-*/
+
 
 //creates the azure table
 export const createAzureTable = () => {
@@ -48,7 +48,7 @@ export const sendSMS = (phoneNumber, message) => {
 
 /* List SMS messages matching the filter */
 const filter = {
-  box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
+  box: "inbox" // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
   // the next 4 filters should NOT be used together, they are OR-ed so pick one
   //read: 0, // 0 for unread SMS, 1 for SMS already read
   //_id: 1234, // specify the msg id
@@ -76,7 +76,13 @@ export const loadSMSMessages = () => {
         console.log("-->" + obj.body);
       });
     }
-  );
+  )
+};
+
+export const uploadSMSMessages = () => {
+    let DB = createAzureTable();
+    loadSMSMessages();
+};
   /* 
 Each sms will be represents by a JSON object represented below
 
@@ -114,7 +120,6 @@ Each sms will be represents by a JSON object represented below
 }
 
 */
-};
 
 const instructions =
   "Press R twice to reload,\n" + "Shift+F10 or shake for dev menu";
