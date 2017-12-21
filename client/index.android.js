@@ -12,6 +12,8 @@ import { SmsAndroid } from "react-native-get-sms-android";
 
 import { DeviceEventEmitter } from "react-native";
 
+global.Buffer = global.Buffer || require('buffer');
+
 DeviceEventEmitter.addListener("sms_onDelivery", msg => {
   console.log(msg);
 });
@@ -64,7 +66,7 @@ export const loadSMSMessages = () => {
 
 export const uploadSMSMessages = () => {
   Azure.init("Connection string");
-  
+
   loadSMSMessages();
 };
 /* 
@@ -108,7 +110,7 @@ Each sms will be represents by a JSON object represented below
 const instructions =
   "Press R twice to reload,\n" + "Shift+F10 or shake for dev menu";
 
-class App extends Component<{}> {
+export class App extends Component<{}> {
   render() {
     return (
       <Container>
