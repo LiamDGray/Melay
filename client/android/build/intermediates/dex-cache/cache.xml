@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\Melay\react-native-navigation\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ea90f6e8ee043703ed901f0d9ccf8dd050f9885a">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\Melay-react-native-navigation-unspecified_fc7b5b0142838d405253b4526dc41dc9d90e69ae.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.0\5871fb60dc68d67da54a663c3fd636a10a532948\jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\jsr305-3.0.0_793bf4b4a1f4176d5c88f2eb9e63cbcbfc418e36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-25.3.1_c2ffb29fe956abe9813b3896c961c6d52e4181a6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-25.3.1_6fb69ed8f7bc8fe89cc7a451ce6fba92239eb924.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.3.0_09c54d6d9a9ba9a6cec9bf2925e45ef52a8f8049.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\Melay\react-native-get-sms-android\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="aea1751aed92574fbf207339d89744d30ecad91f">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\Melay-react-native-get-sms-android-unspecified_a91429d2c1b2260f94f69a9ca8d4fc085fc4a74c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.aurelhubert\ahbottomnavigation\2.0.6\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="c8ba41bea7f78f8bdf3a803b9d08eb3fff416706">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.aurelhubert-ahbottomnavigation-2.0.6_247e48c65dbc105b62ff8983f81adb3013ccbc16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.3.1_2819997118348e47e4c53f0ffb523fca30e3a01b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.balysv.materialmenu\material-menu-toolbar\1.5.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="55d7bf547c88cb7c8c7c5cdbf3b06dd66c9750f8">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.balysv.materialmenu-material-menu-toolbar-1.5.4_ea86abb9092c387c8cd17a4ea6184f7837d88bb0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\support-annotations-25.3.1_fa89772c24fea563547fa62a70ca7ba176a9fc2b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.13.0\a9283170b7305c8d92d25aff02a6ab7e45d06cbe\okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\okio-1.13.0_7f2c152c0b6ed37c3439540c0eec63fd22e248c5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\library-2.4.0_26229f1b16ffe43eb823ad6a3933502e5b420e3c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.51.0\jars\libs\infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\infer-annotations-4.0_4e47c4f28864e5ebc0c41d69600cf9ad818e0760.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fresco-1.3.0_394c686b477ebb7a61dc9e8892dc36b4d24ac3ff.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-25.3.1_487a3cefbe83305dac45ec2622b736e933f9a4ae.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-25.3.1_772b47baa2747be4b6b3bdcffbc889d755d54ca7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.51.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="99941aaaf86dc5e525cd9208c2f7c9a624f4f004">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.react-react-native-0.51.0_9e82e17c038f7f214c4127162e150da317b5f35b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp-urlconnection\3.6.0\3f9b16b774f2c36cfd86dd2053d0b3059531dacc\okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-3.6.0_cd5a68fdccb1876a86fd4e2158c6309070f44f9d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.balysv.materialmenu\material-menu\1.5.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="1f6ff1728c297524e82b875ce2dfda946f4bca41">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.balysv.materialmenu-material-menu-1.5.4_5d2166b761337e7081c9859996556db6c86c4d3d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-25.3.1_6cc4dae689c11eb15adb613cdd6da97b03ecde8f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-okhttp3\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-okhttp3-1.3.0_4bef8c76c05e5fea18b828db30921bbcfdd2b39a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\transition\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-transition-25.3.1_7f678f64502a6b2437b6389263c5043c59d5fff0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.3.1_c282bde4707f024768ed635c8c076139bbd02cf8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.soloader\soloader\0.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.soloader-soloader-0.1.0_25f70af7f058b4212f03a13030afee08380dda62.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.3.0_edf783de1a1d731eea426ecc686390943749c627.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\bolts-tasks-1.4.0_91c4653e89fbdc9de75733311b09f262fb056e11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\.gradle\caches\modules-2\files-2.1\com.facebook.fbui.textlayoutbuilder\staticlayout-proxy\1.0\f162442a19fff13995fbd51ba414d9ee05579080\staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\staticlayout-proxy-1.0_ca38edad8d48476b9e8cdb5f90359aaa78188e55.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.fbui.textlayoutbuilder\textlayoutbuilder\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_0c4b6bd1920e4a041e727ec840f1433f496ffe44.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\javax.inject-1_f8951b98d2e694ddd660b69696773c3d84a0d951.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.6.0\69edde9fc4b01c9fd51d25b83428837478c27254\okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\okhttp-3.6.0_3216bbd6ffb221b87d3ba2453a14ce8c108c9d2c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fbcore-1.3.0_f2fb4dcb84a0c5e833dd49b77300b9e8f4d1869c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-1.3.0_2d7368b974dacfd9c12f7ebb3ba17fa9feac7d4d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-25.3.1_bb05d793003429f155e83d46ed435cebb9228071.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-25.3.1_117af3a13e47146c003e32939208767304e6acfd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-25.3.1_15345ac24a7fa25851228b31939747febefe11af.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\exploded-aar\com.android.support\design\25.3.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="C:\Users\matth\GitHub\Melay\client\android\app\build\intermediates\pre-dexed\debug\com.android.support-design-25.3.1_30998e9c0737cbba385fdbdce176d08c7e999eae.jar" />
+    </item>
+
+</items>

@@ -51,7 +51,8 @@ const {
  */
 const BackendFactory = require('../../lib/BackendFactory').default
 
-import {Actions} from 'react-native-router-flux'
+//import {Actions} from 'react-native-router-flux'
+import {Navigation} from 'react-native-navigation'
 
 import {appAuthToken} from '../../lib/AppAuthToken'
 
@@ -137,7 +138,16 @@ export function logout () {
         dispatch(loginState())
         dispatch(logoutSuccess())
         dispatch(deleteSessionToken())
-        Actions.InitialLoginForm()
+        //Actions.InitialLoginForm()
+        Navigation.resetTo({
+          screen: 'Melay.Main', // unique ID registered with Navigation.registerScreen
+          title: undefined, // navigation bar title of the pushed screen (optional)
+          passProps: {}, // simple serializable object that will pass as props to the pushed screen (optional)
+          animated: true, // does the resetTo have transition animation or does it happen immediately (optional)
+          animationType: 'fade', // 'fade' (for both) / 'slide-horizontal' (for android) does the resetTo have different transition animation (optional)
+          navigatorStyle: {}, // override the navigator style for the pushed screen (optional)
+          navigatorButtons: {} // override the nav buttons for the pushed screen (optional)
+        });
       })
 
       .catch((error) => {
@@ -240,17 +250,17 @@ export function getSessionToken () {
         if (token) {
           dispatch(sessionTokenRequestSuccess(token))
           dispatch(logoutState())
-          Actions.Tabbar()
+          //Actions.Tabbar()
         } else {
           dispatch(sessionTokenRequestFailure())
-          Actions.InitialLoginForm()
+          //Actions.InitialLoginForm()
         }
       })
 
       .catch((error) => {
         dispatch(sessionTokenRequestFailure(error))
         dispatch(loginState())
-        Actions.InitialLoginForm()
+        //Actions.InitialLoginForm()
       })
   }
 }
