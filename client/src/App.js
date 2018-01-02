@@ -3,23 +3,43 @@ import { StyleSheet, Text, View, AppRegistry, Platform } from "react-native";
 //REDUX
 import { Provider } from "react-redux";
 //the store
-import configureStore from "./src/lib/configureStore";
+import configureStore from "./lib/configureStore";
 //actions
-import { setPlatform, setVersion } from "./src/reducers/device/deviceActions";
-import { setStore } from "./src/reducers/global/globalActions";
+import { setPlatform, setVersion } from "./reducers/device/deviceActions";
+import { setStore } from "./reducers/global/globalActions";
 import { Navigation } from "react-native-navigation";
 
-import pack from "./package";
+import AuthInitialState from "./reducers/auth/authInitialState";
+import DeviceInitialState from "./reducers/device/deviceInitialState";
+import GlobalInitialState from "./reducers/global/globalInitialState";
+import ProfileInitialState from "./reducers/profile/profileInitialState";
 
-var VERISON = pack.VERSION;
-var PLATFORM = Platform.OS;
+import pack from "../package";
 
-const styles = StyleSheet.create({
-  tabBar: {
-    height: 70
-  }
-});
+//register all the navigation screens
+import { registerScreens } from "./screens";
 
+//apply this navigator style
+const navigatorStyle = {
+  statusBarColor: "black",
+  statusBarTextColorScheme: "light",
+  navigationBarColor: "black",
+  navBarBackgroundColor: "#0a0a0a",
+  navBarTextColor: "white",
+  navBarButtonColor: "white",
+  tabBarButtonColor: "red",
+  tabBarSelectedButtonColor: "red",
+  tabBarBackgroundColor: "white",
+  topBarElevationShadowEnabled: false,
+  navBarHideOnScroll: true,
+  tabBarHidden: true,
+  drawUnderTabBar: true
+};
+
+/** ## Initial state
+ * Create instances for the keys of each structure in snowflake
+ * @returns {Object} object with 4 keys
+ */
 function getInitialState() {
   const _initState = {
     auth: new AuthInitialState(),
@@ -29,17 +49,21 @@ function getInitialState() {
   };
   return _initState;
 }
+//start the store with some initial state
+const store = configureStore(getInitialState());
 
-//register all the navigation screens
-import { registerScreens } from "./src/containers/index";
+store.dispatch(setPlatform(Platform.OS));
+store.dispatch(setVersion(pack.VERSION));
+store.dispatch(setStore(store));
 
-registerScreens();
+//register all the screens
+registerScreens(store, Provider);
 
 Navigation.startSingleScreenApp({
   screen: {
     screen: "Melay.Main", // unique ID registered with Navigation.registerScreen
     title: "Welcome", // title of the screen as appears in the nav bar (optional)
-    navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+    navigatorStyle: navigatorStyle, // override the navigator style for the screen, see "Styling the navigator" below (optional)
     navigatorButtons: {} // override the nav buttons for the screen, see "Adding buttons to the navigator" below (optional)
   },
   /*drawer: { // optional, add this if you want a side menu drawer in your app

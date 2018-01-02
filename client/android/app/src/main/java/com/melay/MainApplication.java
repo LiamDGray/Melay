@@ -3,6 +3,8 @@ package com.melay;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.react.SmsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

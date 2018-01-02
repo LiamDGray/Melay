@@ -4,7 +4,6 @@
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "jest-expo": "23.0.0",
     "react-test-renderer": "16.0.0"
   },
   "scripts": {
@@ -19,7 +18,7 @@
   "dependencies": {
     "immutable": "^3.8.1",
     "key-mirror": "^1.0.1",
-    "native-base": "~2.3.5",
+    "native-base": "^2.3.5",
     "react": "^16.0.0",
     "react-mixin": "^4.0.0",
     "react-native": "^0.51.0",
