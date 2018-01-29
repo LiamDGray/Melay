@@ -5,6 +5,7 @@ import android.content.Intent;
 
 /**
  * Created by matth on 1/26/2018.
+ * This class syncs to the server in your preferences
  */
 
 public class SyncService extends IntentService {

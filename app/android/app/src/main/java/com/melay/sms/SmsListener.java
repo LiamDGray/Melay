@@ -10,47 +10,28 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.melay.sync.MailboxArchiveService;
+
 /**
  * Created by matth on 1/26/2018.
  */
 
 public class SmsListener extends BroadcastReceiver {
 
-    // Get the object of SmsManager
-    final SmsManager sms = SmsManager.getDefault();
-    String mobile, body;
+    static String TAG = SmsListener.class.getCanonicalName();
 
     public void onReceive(Context context, Intent intent) {
 
         // Retrieves a map of extended data from the intent.
-        final Bundle bundle = intent.getExtras();
+        Log.i(TAG, "Received a message, starting archiving service in 1 second.");
 
+        // give it a second to put the sms that just arrived into the inbox
         try {
-
-            if (bundle != null) {
-
-                final Object[] pdusObj = (Object[]) bundle.get("pdus");
-
-                for (int i = 0; i < pdusObj.length; i++) {
-
-                    SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
-                    String phoneNumber = currentMessage.getDisplayOriginatingAddress();
-
-                    String senderNum = phoneNumber;
-                    String message = currentMessage.getDisplayMessageBody();
-                    mobile = senderNum.replaceAll("\\s", "");
-                    body = message;//.replaceAll("\\s", "+");
-
-
-                    Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + body);
-
-
-                } // end for loop
-            } // bundle is null
-
-        } catch (Exception e) {
-            Log.e("SmsReceiver", "Exception smsReceiver" + e);
-
+            Thread.sleep(1000);
+        } catch(InterruptedException ex) {
+            Log.e(TAG, ex.getMessage(), ex);
         }
+
+        context.startService(new Intent(context, MailboxArchiveService.class));
     }
 }
