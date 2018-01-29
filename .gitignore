@@ -76,3 +76,6 @@ lib/
 data/
 
 *.bat
+
+app/android/app/build/*
+app/android/.gradle/*
