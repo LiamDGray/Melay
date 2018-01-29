@@ -6,15 +6,18 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {text: ''};
+    this.onPressButton = this.onPressButton.bind(this);
     var self = this;
+
+    console.log("Starting to get preferences");
     SharedPreferences.getItem("AZURE_CONN_STRING", function(Value){
-      self.state.text = Value;
+      console.log("Retrieved preferences", Value);
+      self.setState({text:Value});
     });
   }
-  _onPressButton(event ) {
-    Alert.alert('You set the settings to ' + event);
-    console.log(event);
-    console.log(this);
+  onPressButton(event ) {
+    console.log("Pressed Button");
+    Alert.alert('You set the settings to ' + this.state.text);
     SharedPreferences.setItem("AZURE_CONN_STRING",this.state.text);
   }
   
@@ -39,7 +42,7 @@ export default class App extends React.Component {
         </View>
         <View style={styles.pane2}>
         <Button
-            onPress={this._onPressButton}
+            onPress={this.onPressButton}
             title="Save Changes"
             color="#841584"
           />
