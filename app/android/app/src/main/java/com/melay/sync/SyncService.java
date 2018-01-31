@@ -41,6 +41,7 @@ public class SyncService extends IntentService {
 
         //TODO if we have run within the last 30 seconds, we should not update
         //...
+        //create a data factory
         RemoteDBFactory factory = new RemoteDBFactory(this);
         IRemoteDB db = factory.CreateDB();
         // Do work here, based on the contents of dataString

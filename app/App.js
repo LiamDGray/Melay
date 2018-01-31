@@ -42,6 +42,7 @@ export default class App extends React.Component {
     console.log("Pressed Button");
     Alert.alert('You set the settings to ' + this.state.text);
     SharedPreferences.setItem("AZURE_CONN_STRING",this.state.text);
+    requestSMSPermission();
   }
   //TODO ask for permissions
   

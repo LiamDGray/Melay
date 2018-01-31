@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by matth on 1/30/2018.
+ * TODO create transparent encryption and decryption service
  */
 
 public class LocalMessageDatabase {
