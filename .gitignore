@@ -73,7 +73,6 @@ node_modules
 .lock-wscript
 
 lib/
-data/
 
 *.bat
 
