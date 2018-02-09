@@ -1,6 +1,6 @@
 package com.melay.sync.remote;
 
-import com.melay.sync.local.LocalMessageDatabase;
+import com.melay.sync.local.LocalDatabase;
 
 /**
  * Created by matth on 1/30/2018.
@@ -8,7 +8,7 @@ import com.melay.sync.local.LocalMessageDatabase;
 
 public abstract class IRemoteDB {
 
-    protected LocalMessageDatabase localMessages;
+    protected LocalDatabase localMessages;
     /**
     Syncs the data to the database
      */

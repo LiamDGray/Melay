@@ -149,12 +149,32 @@ android {
     }
 }
 
+def dbflow_version = "4.2.4"
+def sqlcipher_version = "3.5.9"
 dependencies {
+    compile project(':react-native-shared-preferences')
+    compile project(':appcenter-crashes')
+    compile project(':appcenter-analytics')
+    compile project(':appcenter')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile 'com.microsoft.azure.android:azure-storage-android:2.0.0@aar'
     compile project(":react-native-shared-preferences")
+
+    //DBFlow
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+
+    // sql-cipher database encryption (optional)
+    compile "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}"
+    compile "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar"
+
+    //Azure
+    compile 'com.microsoft.azure.android:azure-storage-android:2.0.0@aar'
+
+
 
 }
 

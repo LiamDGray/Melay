@@ -13,7 +13,8 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.melay.sync.data.MelayMessage;
-import com.melay.sync.local.LocalMessageDatabase;
+import com.melay.sync.data.Syncable;
+import com.melay.sync.local.LocalDatabase;
 
 /**
  * Created by matth on 1/28/2018.
@@ -32,7 +33,7 @@ public class MailboxArchiveService extends Service {
 
     ArchivingThread thread;
 
-    LocalMessageDatabase localDB;
+    LocalDatabase localDB;
 
     public MailboxArchiveService() {
 
@@ -44,8 +45,9 @@ public class MailboxArchiveService extends Service {
             thread = new ArchivingThread();
         }
 
-        if (localDB == null){
-            localDB = new LocalMessageDatabase();
+        if (localDB == null) {
+            localDB = new LocalDatabase();
+            localDB.setContext(this);
         }
 
     }
@@ -76,19 +78,20 @@ public class MailboxArchiveService extends Service {
 
                 Date lastRun = localDB.GetLastRun();
                 //TODO if we have run within the last 30 seconds, we should not update
-
+                //TODO we should only import a max number at time otherwise wait for the job scheduler to fire
                 List<MelayMessage> data = new ArrayList<MelayMessage>();
+
                 int cutoffId = localDB.GetLastReadMessageId();
+                Log.i(TAG, "Reading all messages greater than " + cutoffId);
 
-                int newCutoffId = Math.max(
-                        addUnarchivedSMS(data, "content://sms/inbox", cutoffId, true),
-                        addUnarchivedSMS(data, "content://sms/sent", cutoffId, false)
-                );
+                addUnarchivedSMS(data, "content://sms/inbox", cutoffId, true);
+                addUnarchivedSMS(data, "content://sms/sent", cutoffId, false);
 
-                newCutoffId = Math.max(
-                        newCutoffId,
-                        addUnarchivedSMS(data, "content://sms/drafts", cutoffId, true)
-                );
+
+                //TODO add functionality for drafts
+                //addUnarchivedSMS(data, "content://sms/drafts", cutoffId, true)
+
+                //TODO add functionality for MMS
                 /*newCutoffId = Math.max(
                         newCutoffId,
                         addUnarchivedMMS(data, "content://mms/inbox", cutoffId, false)
@@ -100,7 +103,8 @@ public class MailboxArchiveService extends Service {
                 );*/
 
                 if (data.size() > 0) {
-                    //client.archive(data.toArray(new Sms[] {}));
+                    boolean archiveSuccess = localDB.ProcessMessages(data);
+
                     //preferences.setArchivingCutoffId(newCutoffId);
                     Log.i(TAG, "Successfully archived " + data.size() + " messages.");
                 } else {
@@ -125,8 +129,11 @@ public class MailboxArchiveService extends Service {
                     "_id > ?", new String[]{cutoffId + ""}, "_id");
 
             while (cursor.moveToNext()) {
-                data.add(fromCursor(cursor, incoming));
-                cutoffId = cursor.getInt(0);
+                data.add(smsFromCursor(cursor, incoming));
+                MelayMessage newMessage = smsFromCursor(cursor, incoming);
+                newMessage.UpdateState(Syncable.DataStatus.CHANGED_ON_DEVICE);
+                data.add(newMessage);
+                //TODO figure out where to encrypt it
             }
 
             cursor.close();
@@ -142,9 +149,11 @@ public class MailboxArchiveService extends Service {
                     "message_id > ?", new String[]{cutoffId + ""}, "message_id");
 
             while (cursor.moveToNext()) {
-                data.add(fromCursor(cursor, incoming));
-                //check if it has been read
-                cutoffId = cursor.getInt(0);
+                MelayMessage newMessage = smsFromCursor(cursor, incoming);
+                newMessage.UpdateState(Syncable.DataStatus.CHANGED_ON_DEVICE);
+                data.add(newMessage);
+                //TODO figure out where to encrypt it
+
             }
 
             cursor.close();
@@ -152,7 +161,7 @@ public class MailboxArchiveService extends Service {
             return cutoffId;
         }
 
-        private MelayMessage fromCursor(Cursor cursor, boolean incoming) {
+        private MelayMessage smsFromCursor(Cursor cursor, boolean incoming) {
             int paramIdx = 0;
             return new MelayMessage(
                     -1,
@@ -160,6 +169,7 @@ public class MailboxArchiveService extends Service {
                     cursor.getString(paramIdx++), //address
                     cursor.getString(paramIdx++), //body
                     new Date(cursor.getLong(paramIdx++)), //date
+                    cursor.getInt(paramIdx++),
                     incoming);
         }
     }

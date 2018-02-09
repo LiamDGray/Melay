@@ -1,12 +1,10 @@
 package com.melay.sync.remote;
 
-import com.melay.sync.local.LocalMessageDatabase;
-
 /**
  * Created by matth on 1/30/2018.
  */
 
-public class RemoteAzureDB implements IRemoteDB {
+public class RemoteAzureDB extends IRemoteDB {
 
     @Override
     public void SyncMessages() {

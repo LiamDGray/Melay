@@ -21,7 +21,8 @@ public class MmsListener extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         // Retrieves a map of extended data from the intent.
-        Log.i(TAG, "Received a message, starting archiving service in 1 second.");
+        //TODO log these comments out to a file so we can read the debugging output
+        Log.i(TAG, "Received a MMS message, starting archiving service in 1 second.");
 
         // give it a second to put the sms that just arrived into the inbox
         try {
