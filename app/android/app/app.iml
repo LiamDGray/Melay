@@ -124,7 +124,10 @@
     <orderEntry type="library" exported="" name="com.github.Raizlabs.DBFlow:dbflow-core:4.2.4@jar" level="project" />
     <orderEntry type="library" exported="" name="com.facebook.fbui.textlayoutbuilder:textlayoutbuilder-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="org.webkit:android-jsc-r174650" level="project" />
+    <orderEntry type="module" module-name="appcenter-analytics" exported="" />
+    <orderEntry type="module" module-name="appcenter-crashes" exported="" />
     <orderEntry type="module" module-name="react-native-shared-preferences" exported="" />
+    <orderEntry type="module" module-name="appcenter" exported="" />
     <orderEntry type="library" exported="" name="android-android-23" level="project" />
   </component>
 </module>

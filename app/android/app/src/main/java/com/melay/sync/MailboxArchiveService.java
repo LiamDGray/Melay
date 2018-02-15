@@ -30,6 +30,7 @@ public class MailboxArchiveService extends Service {
 
 
     static String TAG = MailboxArchiveService.class.getCanonicalName();
+    static int maxToRead = 100;
 
     ArchivingThread thread;
 
@@ -59,7 +60,7 @@ public class MailboxArchiveService extends Service {
 
     @Override
     public void onCreate() {
-        Log.i(TAG, "ArchivingService started!");
+        SyncLog.write(TAG, "Archiving Service has started");
 
         ensureSetup();
         thread.start();
@@ -82,7 +83,7 @@ public class MailboxArchiveService extends Service {
                 List<MelayMessage> data = new ArrayList<MelayMessage>();
 
                 int cutoffId = localDB.GetLastReadMessageId();
-                Log.i(TAG, "Reading all messages greater than " + cutoffId);
+                SyncLog.write(TAG, "Reading all messages greater than " + cutoffId);
 
                 addUnarchivedSMS(data, "content://sms/inbox", cutoffId, true);
                 addUnarchivedSMS(data, "content://sms/sent", cutoffId, false);
@@ -128,7 +129,8 @@ public class MailboxArchiveService extends Service {
                     new String[]{"_id", "address", "body", "date", "seen"},
                     "_id > ?", new String[]{cutoffId + ""}, "_id");
 
-            while (cursor.moveToNext()) {
+
+            while (cursor.moveToNext() && data.size() < maxToRead) {
                 data.add(smsFromCursor(cursor, incoming));
                 MelayMessage newMessage = smsFromCursor(cursor, incoming);
                 newMessage.UpdateState(Syncable.DataStatus.CHANGED_ON_DEVICE);
@@ -148,7 +150,7 @@ public class MailboxArchiveService extends Service {
                     new String[]{"message_id", "address", "content_class", "content_location", "content_type", "body", "date", "text_only", "seen", "creator"},
                     "message_id > ?", new String[]{cutoffId + ""}, "message_id");
 
-            while (cursor.moveToNext()) {
+            while (cursor.moveToNext() && data.size() < maxToRead) {
                 MelayMessage newMessage = smsFromCursor(cursor, incoming);
                 newMessage.UpdateState(Syncable.DataStatus.CHANGED_ON_DEVICE);
                 data.add(newMessage);
