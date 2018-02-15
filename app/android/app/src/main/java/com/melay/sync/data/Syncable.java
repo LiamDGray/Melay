@@ -23,5 +23,7 @@ public interface Syncable {
     /* gets the state */
     public DataStatus GetState();
 
+    public boolean isDataEqual(Object o);
+
 
 }

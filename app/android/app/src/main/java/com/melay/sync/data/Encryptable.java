@@ -1,6 +1,7 @@
 package com.melay.sync.data;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 import javax.crypto.NoSuchPaddingException;
 
@@ -68,6 +69,27 @@ public abstract class Encryptable {
 
         }
         return null;
+    }
+    protected String[] EncryptString(String[] plainText, String key) {
+        String[] output = new String[plainText.length];
+        for (int i = 0; i < plainText.length; i++) {
+            try {
+                CheckSetup();
+                output[i] = _cryptor.encrypt (plainText[i], key, iv); //encrypt
+
+                System.out.println("encrypted text=" + output);
+
+
+            } catch (Exception e) {
+
+                // TODO Auto-generated catch block
+
+                e.printStackTrace();
+
+            }
+        }
+        return output;
+
     }
 
     protected String DecryptString(String input, String key){

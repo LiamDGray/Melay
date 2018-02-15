@@ -33,12 +33,14 @@ public class MelayMessage extends Encryptable implements Syncable {
     @Column
     Date sent; //when it was sent
 
+    //not encrypted
+    @Column
+    boolean unsent = false;
     @Column
     boolean read = false; //if the user has read it
     @Column
     boolean incoming = false; //if the user sent it
-    //----------------------
-    //not encrypted
+
     @Column
     DataStatus status = DataStatus.ON_DEVICE; //this should not be encrypted
 
@@ -48,6 +50,9 @@ public class MelayMessage extends Encryptable implements Syncable {
     @Override
     public void Encrypt(String key) {
         //encrypt the various methods on the data
+        from = this.EncryptString(from, key);
+        body = this.EncryptString(body, key);
+        to = this.EncryptString(to, key);
         encrypted = true;
     }
 
@@ -116,6 +121,18 @@ public class MelayMessage extends Encryptable implements Syncable {
     @Override
     public DataStatus GetState() {
         return status;
+    }
+
+    @Override
+    public boolean isDataEqual(Object o) {
+        MelayMessage other = (MelayMessage) o;
+        if (other == null) return false;
+        if (other.getId() != id) return false;
+        if (other.isRead() != read) return false;
+        if (other.sent != sent) return false;
+
+        //don't compare body since that's possibly encrypted
+        return true;
     }
 
 
