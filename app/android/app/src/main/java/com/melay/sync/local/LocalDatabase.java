@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.melay.sync.SyncLog;
 import com.melay.sync.data.MelayMessage;
 import com.melay.sync.data.Syncable;
 import com.raizlabs.android.dbflow.annotation.Database;
@@ -40,14 +41,14 @@ public class LocalDatabase {
     }
 
     public boolean ProcessMessages(List<MelayMessage> data){
-        Log.i(NAME,"Processing messages "+data.size());
+        SyncLog.write(NAME,"Processing messages "+data.size());
         try {
             DatabaseDefinition db = FlowManager.getDatabase(LocalDatabase.class);
             ModelAdapter<MelayMessage> adapter = FlowManager.getModelAdapter(MelayMessage.class);
 
             int lastReadID = -1;
             for (MelayMessage message : data) {
-                Log.i(NAME, message.toString());
+                SyncLog.write(NAME, message.toString());
                 if (message.isRead() && message.getId() > lastReadID) {
                     lastReadID = message.getId();
                 }
@@ -55,7 +56,7 @@ public class LocalDatabase {
                 //insert it into the database
                 try {
                     long result = adapter.insert(message);
-                    Log.i(NAME, "Insert result" + result);
+                    SyncLog.write(NAME, "Insert result" + result);
                 }
                 catch (Exception e){ //TODO only catch SQL exceptions
                     //there's already an entry in the database
@@ -64,18 +65,18 @@ public class LocalDatabase {
 
                     //TODO check if we are already synced
                     boolean result = adapter.update(message);
-                    Log.i(NAME, "Update result" + result);
+                    SyncLog.write(NAME, "Update result" + result);
                 }
 
             }
-            Log.i(NAME, "Last read id is" + lastReadID);
+            SyncLog.write(NAME, "Last read id is" + lastReadID);
             if (lastReadID > 0) {
                 StoreLastReadMessageID(lastReadID);
             }
             return true;
         }
         catch (Exception e){
-            Log.e(NAME,e.toString());
+            SyncLog.write(NAME,"ERROR:"+e.toString());
             return false;
         }
     }
@@ -88,7 +89,7 @@ public class LocalDatabase {
 
         //int id = settings.getInt("MELAY_LAST_READ_ID", 0);
 
-        Log.i(NAME,"Storing last read id  "+id);
+        SyncLog.write(NAME,"Storing last read id  "+id);
     }
 
     /**
@@ -100,7 +101,7 @@ public class LocalDatabase {
         //TODO get the last read message from shared preferences
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         int id = settings.getInt("MELAY_LAST_READ_ID", 0);
-        Log.i(NAME,"Reading last read id  "+id);
+        SyncLog.write(NAME,"Reading last read id  "+id);
         return id;
     }
 }
