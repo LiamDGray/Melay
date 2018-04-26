@@ -49,6 +49,8 @@ public class MelayMessage extends Encryptable implements Syncable {
 
     @Override
     public void Encrypt(String key) {
+        //if we are already encrypted, don't mess with it
+        if (encrypted) return;
         //encrypt the various methods on the data
         from = this.EncryptString(from, key);
         body = this.EncryptString(body, key);

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.melay.sync.MailboxArchiveService;
+import com.melay.sync.SyncLog;
 
 /**
  * Created by matth on 1/26/2018.
@@ -26,10 +27,10 @@ public class SmsListener extends WakefulBroadcastReceiver {
         // Retrieves a map of extended data from the intent.
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
 
-            Log.i(TAG, "Received a message, starting archiving service in 1 second.");
+            SyncLog.write(TAG, "Received a message, starting archiving service in 1 second.");
         }
         else {
-            Log.i(TAG, "Received a "+intent.getAction()+", starting archiving service in 1 second.");
+            SyncLog.write(TAG, "Received a "+intent.getAction()+", starting archiving service in 1 second.");
         }
 
         // give it a second to put the sms that just arrived into the inbox
