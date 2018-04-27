@@ -79,3 +79,11 @@ lib/
 app/android/app/build/*
 app/android/.gradle/*
 *.code-workspace
+
+# JetBrains project files
+.idea
+
+
+# NativeScript application
+/dist
+
