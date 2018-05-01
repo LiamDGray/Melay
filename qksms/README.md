@@ -1,10 +1,10 @@
-![QKSMS](https://user-images.githubusercontent.com/4358785/39079306-a5a409b6-44e5-11e8-8589-b4acd63b636e.jpg)
 
-# QKSMS
+# Melay
 
-[![Build Status](https://travis-ci.org/moezbhatti/qksms.svg?branch=master)](https://travis-ci.org/moezbhatti/qksms)
 
 QKSMS is an open source replacement to the [stock messaging app](https://github.com/android/platform_packages_apps_mms) on Android. It is currently available on the [Google Play Store](https://play.google.com/store/apps/details?id=com.moez.QKSMS) and on [F-Droid](https://f-droid.org/repository/browse/?fdid=com.moez.QKSMS)
+
+It is heavily based on Melay 
 
 [![Download on Google Play](http://i.imgur.com/rHhHvZw.png)](https://play.google.com/store/apps/details?id=com.moez.QKSMS)
 [![Download on F-Droid](https://f-droid.org/wiki/images/0/06/F-Droid-button_get-it-on.png)](https://f-droid.org/repository/browse/?fdid=com.moez.QKSMS)
@@ -15,7 +15,7 @@ A great bug report contains a description of the problem and steps to reproduce 
 
 When reporting a bug, please make sure to provide the following information
 - Steps to reproduce the issue
-- QKSMS version
+- Melay version
 - Device / OS information
 
 ## Translations
