@@ -45,11 +45,13 @@ import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.compose_activity.*
+import tech.mattico.melay.R.id.message
 import tech.mattico.melay.model.Contact
 import tech.mattico.melay.model.Message
 import javax.inject.Inject
 
 class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
+
 
     override val viewModelClass = ComposeViewModel::class
     override val activityVisibleIntent: Subject<Boolean> = PublishSubject.create()
@@ -211,7 +213,7 @@ class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
         message.setText(draft)
     }
 
-    override fun showMenu(menuItems: List<common.MenuItem>) {
+    override fun showMenu(menuItems: List<MenuItem>) {
         dialog.adapter.data = menuItems
         dialog.show(this)
     }

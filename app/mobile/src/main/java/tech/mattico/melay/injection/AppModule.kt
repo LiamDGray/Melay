@@ -26,17 +26,8 @@ import com.f2prateek.rx.preferences2.RxSharedPreferences
 
 import dagger.Module
 import dagger.Provides
+import tech.mattico.melay.manager.*
 
-import tech.mattico.melay.manager.ExternalBlockingManager
-import tech.mattico.melay.manager.ExternalBlockingManagerImpl
-import tech.mattico.melay.manager.KeyManager
-import tech.mattico.melay.manager.KeyManagerImpl
-import tech.mattico.melay.manager.NotificationManager
-import tech.mattico.melay.manager.PermissionManager
-import tech.mattico.melay.manager.PermissionManagerImpl
-import tech.mattico.melay.manager.RatingManager
-import tech.mattico.melay.manager.WidgetManager
-import tech.mattico.melay.manager.WidgetManagerImpl
 import tech.mattico.melay.mapper.CursorToContact
 import tech.mattico.melay.mapper.CursorToContactImpl
 import tech.mattico.melay.mapper.CursorToConversation
@@ -47,7 +38,6 @@ import tech.mattico.melay.mapper.CursorToPart
 import tech.mattico.melay.mapper.CursorToPartImpl
 import tech.mattico.melay.mapper.CursorToRecipient
 import tech.mattico.melay.mapper.CursorToRecipientImpl
-import tech.mattico.melay.manager.RatingManagerImpl
 import tech.mattico.melay.repository.*
 
 import javax.inject.Singleton

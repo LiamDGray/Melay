@@ -107,7 +107,7 @@
                 <action android:name="android.provider.action.EXTERNAL_PROVIDER_CHANGE" />
             </intent-filter>
         </receiver>
-        <!--receiver android:name="feature.widget.WidgetProvider">
+        <!--receiver android:name="tech.mattico.melay.view.widget.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

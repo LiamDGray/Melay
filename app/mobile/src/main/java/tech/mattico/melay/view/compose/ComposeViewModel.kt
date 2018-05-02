@@ -21,6 +21,7 @@ package tech.mattico.melay.view.compose
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.telephony.PhoneNumberUtils
 import android.telephony.SmsMessage
 import android.view.KeyEvent
@@ -222,7 +223,11 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
 
                     // If the entry is a valid destination, allow it as a recipient
                     if (PhoneNumberUtils.isWellFormedSmsAddress(query.toString())) {
-                        val newAddress = PhoneNumberUtils.formatNumber(query.toString(), Locale.getDefault().country)
+                        val newAddress = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            PhoneNumberUtils.formatNumber(query.toString(), Locale.getDefault().country)
+                        } else {
+                            TODO("VERSION.SDK_INT < LOLLIPOP")
+                        }
                         val newContact = Contact(numbers = RealmList(PhoneNumber(address = newAddress
                                 ?: query.toString())))
                         filteredContacts = listOf(newContact) + filteredContacts

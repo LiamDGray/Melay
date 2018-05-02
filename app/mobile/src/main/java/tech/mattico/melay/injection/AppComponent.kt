@@ -62,9 +62,10 @@ import tech.mattico.melay.view.settings.about.AboutViewModel
 import tech.mattico.melay.view.setup.SetupActivity
 import tech.mattico.melay.view.setup.SetupViewModel
 import tech.mattico.melay.view.themepicker.ThemePickerActivity
-import tech.mattico.melay.view.themepicker.ThemePickerViewModel
+import tech.mattico.melay.view.themepicker.ThemePickerViewModel*/
 import tech.mattico.melay.view.widget.WidgetAdapter
-import tech.mattico.melay.view.widget.WidgetProvider*/
+import tech.mattico.melay.view.widget.WidgetProvider
+//receivers
 import tech.mattico.melay.receiver.DefaultSmsChangedReceiver
 import tech.mattico.melay.receiver.MarkReadReceiver
 import tech.mattico.melay.receiver.MarkSeenReceiver
@@ -117,11 +118,11 @@ interface AppComponent {
     fun inject(receiver: RemoteMessagingReceiver)
     fun inject(receiver: SmsProviderChangedReceiver)
     fun inject(receiver: SmsReceiver)
-    /*fun inject(receiver: WidgetProvider)
+    fun inject(receiver: WidgetProvider)
 
     fun inject(service: WidgetAdapter)
 
-    fun inject(view: AvatarView)
+    /*fun inject(view: AvatarView)
     fun inject(view: DetailedChipView)
     fun inject(view: PagerTitleView)
     fun inject(view: PreferenceView)

@@ -29,6 +29,7 @@ import tech.mattico.melay.view.Navigator
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.toolbar.*
+import tech.mattico.melay.view.base.MelayViewModel
 import kotlin.reflect.KClass
 
 abstract class MelayActivity<VM : MelayViewModel<*, *>> : AppCompatActivity() {
