@@ -1,8 +1,13 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'realm-android' // Realm needs to be before Kotlin or the build will fail
+
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -13,6 +18,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "AMPLITUDE_API_KEY", "\"${System.getenv("AMPLITUDE_API_KEY")}\""
+        buildConfigField "String", "BUGSNAG_API_KEY", "\"${System.getenv("BUGSNAG_API_KEY")}\""
+        buildConfigField "String", "MIXPANEL_API_KEY", "\"${System.getenv("MIXPANEL_API_KEY")}\""
     }
     buildTypes {
         release {
@@ -36,9 +45,24 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    //BugSnag
+    implementation "com.bugsnag:bugsnag-android:4.1.1"
+    //TODO find a different bug platform?
+
     //WEAR
     wearApp project(':wear')
     implementation 'com.google.android.gms:play-services-wearable:+'
+
+    // autodispose
+    implementation "com.uber.autodispose:autodispose-android-archcomponents-kotlin:$autodispose_version"
+    implementation "com.uber.autodispose:autodispose-android-archcomponents-test-kotlin:$autodispose_version"
+    implementation "com.uber.autodispose:autodispose-android-kotlin:$autodispose_version"
+    implementation "com.uber.autodispose:autodispose-kotlin:$autodispose_version"
+
+    //GLIDE
+    // glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     //UI
     implementation "com.google.android:flexbox:0.3.1"
@@ -47,6 +71,28 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+    // rxbinding
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbinding_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rxbinding_version"
+
+    // dagger
+    implementation("io.realm:android-adapters:$realm_adapters_version") { transitive = false }
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    compileOnly "javax.annotation:jsr250-api:1.0"
+
+    // realm
+    kapt "io.realm:realm-annotations:$realm_version"
+    kapt "io.realm:realm-annotations-processor:$realm_version"
+
+    //androidx
+    implementation "androidx.core:core-ktx:$ktx_version"
+
+    //jetbrains
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    //Preferences
+    implementation "com.f2prateek.rx.preferences2:rx-preferences:$rx_preferences_version"
 
     //SMS
     implementation 'com.klinkerapps:android-smsmms:5.0.0'
