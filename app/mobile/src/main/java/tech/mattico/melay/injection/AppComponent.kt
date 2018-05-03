@@ -34,34 +34,8 @@ import tech.mattico.melay.view.widget.MelayTextView
 import tech.mattico.melay.view.widget.Separator
 import tech.mattico.melay.utils.ContactImageLoader
 
-import tech.mattico.melay.view.MainActivity
 import tech.mattico.melay.view.compose.ComposeViewModel
 import tech.mattico.melay.view.compose.ComposeActivity
-/*
-import tech.mattico.melay.view.blocked.BlockedActivity
-import tech.mattico.melay.view.blocked.BlockedViewModel
-
-import tech.mattico.melay.view.compose.DetailedChipView
-import tech.mattico.melay.view.conversationinfo.ConversationInfoActivity
-import tech.mattico.melay.view.conversationinfo.ConversationInfoViewModel
-import tech.mattico.melay.view.gallery.GalleryActivity
-import tech.mattico.melay.view.gallery.GalleryViewModel
-
-import tech.mattico.melay.view.main.MainViewModel
-import tech.mattico.melay.view.notificationprefs.NotificationPrefsActivity
-import tech.mattico.melay.view.notificationprefs.NotificationPrefsViewModel
-import tech.mattico.melay.view.plus.PlusActivity
-import tech.mattico.melay.view.plus.PlusViewModel
-import tech.mattico.melay.view.qkreply.MelayReplyActivity
-import tech.mattico.melay.view.qkreply.MelayReplyViewModel
-import tech.mattico.melay.view.settings.SettingsActivity
-import tech.mattico.melay.view.settings.SettingsViewModel
-import tech.mattico.melay.view.settings.about.AboutActivity
-import tech.mattico.melay.view.settings.about.AboutViewModel
-import tech.mattico.melay.view.setup.SetupActivity
-import tech.mattico.melay.view.setup.SetupViewModel
-import tech.mattico.melay.view.themepicker.ThemePickerActivity
-import tech.mattico.melay.view.themepicker.ThemePickerViewModel*/
 import tech.mattico.melay.view.widget.WidgetAdapter
 import tech.mattico.melay.view.widget.WidgetProvider
 //receivers
@@ -78,6 +52,8 @@ import tech.mattico.melay.receiver.SmsProviderChangedReceiver
 import tech.mattico.melay.receiver.SmsReceiver
 import tech.mattico.melay.receiver.SmsSentReceiver
 import tech.mattico.melay.view.compose.DetailedChipView
+import tech.mattico.melay.view.main.MainActivity
+import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyActivity
 import tech.mattico.melay.view.reply.MelayReplyViewModel
 import javax.inject.Singleton
@@ -138,9 +114,10 @@ interface AppComponent {
 
 
     fun inject(viewModel: ComposeViewModel)
-    /*
+
 
     fun inject(viewModel: MainViewModel)
+    /*
     fun inject(viewModel: SetupViewModel)
     fun inject(viewModel: AboutViewModel)
     fun inject(viewModel: BlockedViewModel)

@@ -35,7 +35,7 @@ import tech.mattico.melay.utils.Colors
 import tech.mattico.melay.utils.DateFormatter
 import tech.mattico.melay.utils.GlideApp
 import tech.mattico.melay.utils.extensions.dpToPx
-import tech.mattico.melay.view.MainActivity
+import tech.mattico.melay.view.main.MainActivity
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.model.Contact
 import tech.mattico.melay.model.Conversation

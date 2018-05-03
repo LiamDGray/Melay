@@ -32,8 +32,8 @@ import tech.mattico.melay.R
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.manager.WidgetManager
 import tech.mattico.melay.utils.Colors
-import tech.mattico.melay.view.MainActivity
 import tech.mattico.melay.view.compose.ComposeActivity
+import tech.mattico.melay.view.main.MainActivity
 import timber.log.Timber
 import javax.inject.Inject
 

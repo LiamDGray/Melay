@@ -22,8 +22,6 @@ import android.app.Application
 import android.support.text.emoji.EmojiCompat
 import android.support.text.emoji.FontRequestEmojiCompatConfig
 import android.support.v4.provider.FontRequest
-import com.bugsnag.android.Bugsnag
-import com.bugsnag.android.Configuration
 import tech.mattico.melay.BuildConfig
 
 import tech.mattico.melay.utils.NightModeManager
@@ -33,7 +31,7 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import tech.mattico.melay.R
 //import tech.mattico.melay.manager.AnalyticsManager
-//import tech.mattico.melay.migration.MelayRealmMigration
+import tech.mattico.melay.migration.MelayRealmMigration
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -58,7 +56,7 @@ class MelayApplication : Application() {
         Realm.init(this)
         Realm.setDefaultConfiguration(RealmConfiguration.Builder()
                 .compactOnLaunch()
-                //.migration(MelayRealmMigration())
+                .migration(MelayRealmMigration())
                 .schemaVersion(1)
                 .build())
 
@@ -68,12 +66,13 @@ class MelayApplication : Application() {
         nightModeManager.updateCurrentTheme()
 
         //TODO: remove this?
-        /*val fontRequest = FontRequest(
+        val fontRequest = FontRequest(
                 "com.google.android.gms.fonts",
                 "com.google.android.gms",
-                "Noto Color Emoji Compat"); //,R.array.com_google_android_gms_fonts_certs)
+                "Noto Color Emoji Compat",
+                R.array.com_google_android_gms_fonts_certs)
 
-        EmojiCompat.init(FontRequestEmojiCompatConfig(this, fontRequest))*/
+        EmojiCompat.init(FontRequestEmojiCompatConfig(this, fontRequest))
 
         Timber.plant(Timber.DebugTree())
     }

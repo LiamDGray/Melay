@@ -7,13 +7,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "tech.mattico.melay"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -29,14 +28,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
+
+    // lifecycle
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
+
     //ANDROID
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation "com.android.support:support-emoji-appcompat:$support_version"
 
@@ -46,7 +55,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //BugSnag
-    implementation "com.bugsnag:bugsnag-android:4.1.1"
+    //implementation "com.bugsnag:bugsnag-android:4.1.1"
     //TODO find a different bug platform?
 
     //WEAR
@@ -83,7 +92,6 @@ dependencies {
 
     //shortcut badger
     implementation "me.leolin:ShortcutBadger:1.1.21"
-
 
     // realm
     implementation("io.realm:android-adapters:$realm_adapters_version") { transitive = false }
