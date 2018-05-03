@@ -35,7 +35,7 @@
         <enum name="toolbar" value="3" />
     </attr>
 
-    <declare-styleable name="QkTextView">
+    <declare-styleable name="MelayTextView">
         <attr name="textColor" />
         <attr name="textSize" />
     </declare-styleable>

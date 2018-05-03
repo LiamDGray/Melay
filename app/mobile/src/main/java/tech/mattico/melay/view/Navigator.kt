@@ -58,6 +58,8 @@ import tech.mattico.melay.view.themepicker.ThemePickerViewModel
 import tech.mattico.melay.manager.NotificationManager
 import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyViewModel
+import tech.mattico.melay.view.setup.SetupActivity
+import tech.mattico.melay.view.setup.SetupViewModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -79,8 +81,8 @@ class Navigator @Inject constructor(private val context: Context, private val no
     }
 
     fun showSetupActivity() {
-        //TODO val intent = Intent(context, SetupActivity::class.java)
-        //startActivity(intent)
+        val intent = Intent(context, SetupActivity::class.java)
+        startActivity(intent)
     }
 
     fun showMelaysmsPlusActivity() {
@@ -257,9 +259,9 @@ class Navigator @Inject constructor(private val context: Context, private val no
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return when (modelClass) {
                 MainViewModel::class.java -> MainViewModel()
-                /*PlusViewModel::class.java -> PlusViewModel()
+                //PlusViewModel::class.java -> PlusViewModel()
                 SetupViewModel::class.java -> SetupViewModel()
-                AboutViewModel::class.java -> AboutViewModel()*/
+                //AboutViewModel::class.java -> AboutViewModel()
                 ComposeViewModel::class.java -> ComposeViewModel(intent)
                 /*ConversationInfoViewModel::class.java -> ConversationInfoViewModel(intent)
                 GalleryViewModel::class.java -> GalleryViewModel(intent)

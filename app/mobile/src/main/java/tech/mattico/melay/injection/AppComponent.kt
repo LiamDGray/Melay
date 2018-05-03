@@ -56,19 +56,19 @@ import tech.mattico.melay.view.main.MainActivity
 import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyActivity
 import tech.mattico.melay.view.reply.MelayReplyViewModel
+import tech.mattico.melay.view.setup.SetupActivity
+import tech.mattico.melay.view.setup.SetupViewModel
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [(AppModule::class)])
 interface AppComponent {
 
-    fun inject(application: MelayApplication) //MelayApplication
-
-
+    fun inject(application: MelayApplication)
     fun inject(activity: MainActivity)
     fun inject(activity: ComposeActivity)
-    /*
     fun inject(activity: SetupActivity)
+    /*
     fun inject(activity: AboutActivity)
     fun inject(activity: BlockedActivity)
 
@@ -117,9 +117,8 @@ interface AppComponent {
 
 
     fun inject(viewModel: MainViewModel)
-    /*
     fun inject(viewModel: SetupViewModel)
-    fun inject(viewModel: AboutViewModel)
+    /*fun inject(viewModel: AboutViewModel)
     fun inject(viewModel: BlockedViewModel)
 
     fun inject(viewModel: ConversationInfoViewModel)

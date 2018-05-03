@@ -65,7 +65,7 @@
         </activity>
         <!--//TODO fix this-->
         <!--activity android:name="feature.settings.SettingsActivity" />
-        <activity android:name="feature.setup.SetupActivity" /-->
+        <activity android:name="tech.mattico.melay.view.setup.SetupActivity" /-->
         <receiver android:name="receiver.DefaultSmsChangedReceiver">
             <intent-filter>
                 <action android:name="android.provider.action.DEFAULT_SMS_PACKAGE_CHANGED" />

@@ -77,9 +77,9 @@ open class MelayTextView @JvmOverloads constructor(context: Context, attrs: Attr
             appComponent.inject(this)
         }
 
-        context.obtainStyledAttributes(attrs, R.styleable.QkTextView)?.run {
-            val colorAttr = getInt(R.styleable.QkTextView_textColor, -1)
-            val textSizeAttr = getInt(R.styleable.QkTextView_textSize, -1)
+        context.obtainStyledAttributes(attrs, R.styleable.MelayTextView)?.run {
+            val colorAttr = getInt(R.styleable.MelayTextView_textColor, -1)
+            val textSizeAttr = getInt(R.styleable.MelayTextView_textSize, -1)
 
             if (isInEditMode) {
                 setTextColor(context.getColorCompat(when (colorAttr) {
