@@ -30,17 +30,17 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.moez.QKSMS.R
-import common.util.Colors
-import common.util.DateFormatter
-import common.util.GlideApp
-import common.util.extensions.dpToPx
-import feature.main.MainActivity
-import injection.appComponent
-import model.Contact
-import model.Conversation
-import model.PhoneNumber
-import repository.MessageRepository
+import tech.mattico.melay.R
+import tech.mattico.melay.utils.Colors
+import tech.mattico.melay.utils.DateFormatter
+import tech.mattico.melay.utils.GlideApp
+import tech.mattico.melay.utils.extensions.dpToPx
+import tech.mattico.melay.view.MainActivity
+import tech.mattico.melay.injection.appComponent
+import tech.mattico.melay.model.Contact
+import tech.mattico.melay.model.Conversation
+import tech.mattico.melay.model.PhoneNumber
+import tech.mattico.melay.repository.IMessageRepository
 import javax.inject.Inject
 
 class WidgetAdapter(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
@@ -52,7 +52,7 @@ class WidgetAdapter(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
     @Inject lateinit var context: Context
     @Inject lateinit var colors: Colors
     @Inject lateinit var dateFormatter: DateFormatter
-    @Inject lateinit var messageRepo: MessageRepository
+    @Inject lateinit var messageRepo: IMessageRepository
 
     private val appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
     private val smallWidget = intent.getBooleanExtra("small_widget", false)

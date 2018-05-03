@@ -67,6 +67,7 @@ dependencies {
     implementation "com.google.android:flexbox:0.3.1"
     implementation "com.jakewharton.timber:timber:$timber_version"
     implementation "com.mlsdev.rximagepicker:library:2.0.2"
+    implementation "androidx.core:core-ktx:$ktx_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
@@ -78,6 +79,10 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     compileOnly "javax.annotation:jsr250-api:1.0"
+
+    //shortcut badger
+    implementation "me.leolin:ShortcutBadger:1.1.21"
+
 
     // realm
     implementation("io.realm:android-adapters:$realm_adapters_version") { transitive = false }
