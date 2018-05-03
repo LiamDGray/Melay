@@ -24,6 +24,7 @@ import com.uber.autodispose.android.lifecycle.scope
 import tech.mattico.melay.R
 import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.rxkotlin.Observables
 import tech.mattico.melay.view.Navigator
 import tech.mattico.melay.view.base.MelayViewModel
 import tech.mattico.melay.injection.appComponent
@@ -36,7 +37,7 @@ import io.reactivex.subjects.Subject
 import io.realm.RealmResults
 import tech.mattico.melay.model.Conversation
 import tech.mattico.melay.model.Message
-
+import io.reactivex.Observable
 import tech.mattico.melay.repository.IMessageRepository
 import tech.mattico.melay.utils.extensions.asObservable
 import tech.mattico.melay.utils.extensions.mapNotNull
@@ -78,6 +79,7 @@ class MelayReplyViewModel(intent: Intent) : MelayViewModel<MelayReplyView, Melay
                 .filter { it.isEmpty() }
                 .subscribe { newState { it.copy(hasError = true) } }
 
+        disposables += conversation
                 .doOnNext { conversation -> newState { it.copy(title = conversation.getTitle()) } }
                 .distinctUntilChanged { conversation -> conversation.id } // We only need to set the messages once
                 .map { conversation -> messageRepo.getUnreadMessages(conversation.id) }
