@@ -251,7 +251,7 @@
                 app:summary="@string/Melay_plus_blacklist_summary"
                 app:title="@string/Melay_plus_blacklist_title" />
 
-            <!--common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0.25"
@@ -265,7 +265,7 @@
                 android:alpha="0.25"
                 app:icon="@drawable/ic_reply_white_24dp"
                 app:summary="@string/Melay_plus_respond_summary"
-                app:title="@string/Melay_plus_respond_title" /-->
+                app:title="@string/Melay_plus_respond_title" />
 
         </LinearLayout>
 

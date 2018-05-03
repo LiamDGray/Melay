@@ -21,7 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:parentTag="common.widget.PreferenceView">
+    tools:parentTag="tech.mattico.melay.view.widget.PreferenceView">
 
     <ImageView
         android:id="@+id/icon"
