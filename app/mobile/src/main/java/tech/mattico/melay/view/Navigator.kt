@@ -56,6 +56,7 @@ import tech.mattico.melay.view.themepicker.ThemePickerActivity
 import tech.mattico.melay.view.themepicker.ThemePickerViewModel
 */
 import tech.mattico.melay.manager.NotificationManager
+import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyViewModel
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -255,8 +256,8 @@ class Navigator @Inject constructor(private val context: Context, private val no
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return when (modelClass) {
-                /*MainViewModel::class.java -> MainViewModel()
-                PlusViewModel::class.java -> PlusViewModel()
+                MainViewModel::class.java -> MainViewModel()
+                /*PlusViewModel::class.java -> PlusViewModel()
                 SetupViewModel::class.java -> SetupViewModel()
                 AboutViewModel::class.java -> AboutViewModel()*/
                 ComposeViewModel::class.java -> ComposeViewModel(intent)
