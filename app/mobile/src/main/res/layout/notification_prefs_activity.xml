@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/white">
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/toolbarTitle"
             style="@style/ToolbarText"
             tools:text="Notifications" />
@@ -51,7 +51,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp">
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/notificationsO"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 app:title="@string/settings_notifications_title"
                 tools:visibility="gone" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/notifications"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,37 +67,37 @@
                 app:title="@string/settings_notifications_title"
                 app:widget="@layout/settings_switch_widget" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/notificationPreviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/settings_notification_previews_title"
                 tools:summary="Show name and message" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/vibration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/settings_vibration_title"
                 app:widget="@layout/settings_switch_widget" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/ringtone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/settings_ringtone_title" />
 
-            <common.widget.Separator
+            <tech.mattico.melay.view.widget.Separator
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp" />
 
-            <common.widget.QkTextView
+            <tech.mattico.melay.view.widget.MelayTextView
                 style="@style/PreferenceCategory"
                 android:text="@string/settings_category_qkreply" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/qkreply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                 app:title="@string/settings_qkreply_title"
                 app:widget="@layout/settings_switch_widget" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/qkreplyTapDismiss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
         android:background="@drawable/ab_shadow"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"

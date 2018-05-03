@@ -19,6 +19,8 @@
 package tech.mattico.melay.view.widget
 
 import android.content.Context
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.Gravity
@@ -27,11 +29,11 @@ import android.widget.TextView
 import tech.mattico.melay.R
 import com.uber.autodispose.android.scope
 import com.uber.autodispose.kotlin.autoDisposable
-import common.util.Colors
-import common.util.extensions.getColorCompat
-import common.util.extensions.setTint
-import common.util.extensions.setVisible
-import injection.appComponent
+import tech.mattico.melay.utils.Colors
+import tech.mattico.melay.utils.extensions.getColorCompat
+import tech.mattico.melay.utils.extensions.setTint
+import tech.mattico.melay.utils.extensions.setVisible
+import tech.mattico.melay.injection.appComponent
 import kotlinx.android.synthetic.main.preference_view.view.*
 import javax.inject.Inject
 
@@ -95,6 +97,7 @@ class PreferenceView @JvmOverloads constructor(context: Context, attrs: Attribut
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 

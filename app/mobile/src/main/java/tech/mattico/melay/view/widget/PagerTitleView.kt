@@ -28,9 +28,9 @@ import android.widget.TextView
 import tech.mattico.melay.R
 import com.uber.autodispose.android.scope
 import com.uber.autodispose.kotlin.autoDisposable
-import common.util.Colors
-import common.util.extensions.forEach
-import injection.appComponent
+import tech.mattico.melay.utils.Colors
+import tech.mattico.melay.utils.extensions.forEach
+import tech.mattico.melay.injection.appComponent
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject

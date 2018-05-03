@@ -32,12 +32,12 @@
         android:background="@drawable/chip_background"
         android:orientation="horizontal">
 
-        <common.widget.AvatarView
+        <tech.mattico.melay.view.widget.AvatarView
             android:id="@+id/avatar"
             android:layout_width="36dp"
             android:layout_height="36dp" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -56,6 +56,7 @@ import tech.mattico.melay.view.themepicker.ThemePickerActivity
 import tech.mattico.melay.view.themepicker.ThemePickerViewModel
 */
 import tech.mattico.melay.manager.NotificationManager
+import tech.mattico.melay.view.reply.MelayReplyViewModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -262,8 +263,9 @@ class Navigator @Inject constructor(private val context: Context, private val no
                 /*ConversationInfoViewModel::class.java -> ConversationInfoViewModel(intent)
                 GalleryViewModel::class.java -> GalleryViewModel(intent)
                 NotificationPrefsViewModel::class.java -> NotificationPrefsViewModel(intent)
+                */
                 MelayReplyViewModel::class.java -> MelayReplyViewModel(intent)
-                SettingsViewModel::class.java -> SettingsViewModel()
+                /*SettingsViewModel::class.java -> SettingsViewModel()
                 BlockedViewModel::class.java -> BlockedViewModel()
                 ThemePickerViewModel::class.java -> ThemePickerViewModel(intent)*/
                 else -> throw IllegalArgumentException("Invalid ViewModel class. If this is a new ViewModel, please add it to Navigator.kt")

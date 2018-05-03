@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:layout_width="match_parent"
         android:layout_height="1dp" />
 

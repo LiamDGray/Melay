@@ -24,7 +24,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/ripple">
 
-    <common.widget.MelayTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/timestamp"
         style="@style/TextSecondary"
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toBottomOf="@id/timestamp" />
 
-    <common.widget.AvatarView
+    <tech.mattico.melay.view.widget.AvatarView
         android:id="@+id/avatar"
         android:layout_width="36dp"
         android:layout_height="36dp"
@@ -57,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="@id/body"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <common.widget.TightTextView
+    <tech.mattico.melay.view.widget.TightTextView
         android:id="@+id/body"
         style="@style/TextPrimary"
         android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
         tools:backgroundTint="@color/tools_theme"
         tools:text="@tools:sample/lorem" />
 
-    <common.widget.MelayTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

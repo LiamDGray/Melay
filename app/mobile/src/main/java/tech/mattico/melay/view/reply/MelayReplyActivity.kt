@@ -19,21 +19,30 @@
 package tech.mattico.melay.view.reply
 
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.textChanges
+import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.kotlin.autoDisposable
 import tech.mattico.melay.R
 import tech.mattico.melay.injection.appComponent
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import kotlinx.android.synthetic.main.qkreply_activity.*
 import tech.mattico.melay.model.Message
 import tech.mattico.melay.utils.Preferences
+import tech.mattico.melay.utils.extensions.autoScrollToStart
+import tech.mattico.melay.utils.extensions.setBackgroundTint
+import tech.mattico.melay.utils.extensions.setVisible
 import tech.mattico.melay.view.base.MelayThemedActivity
 import tech.mattico.melay.view.compose.MessagesAdapter
 import javax.inject.Inject
@@ -52,6 +61,7 @@ class MelayReplyActivity : MelayThemedActivity<MelayReplyViewModel>(), MelayRepl
         appComponent.inject(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)

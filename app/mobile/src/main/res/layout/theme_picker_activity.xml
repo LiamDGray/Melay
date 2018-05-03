@@ -26,7 +26,7 @@
 
     <include layout="@layout/toolbar" />
 
-    <common.widget.PagerTitleView
+    <tech.mattico.melay.view.widget.PagerTitleView
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -62,7 +62,7 @@
             android:layout_height="8dp"
             android:background="@drawable/ab_shadow" />
 
-        <common.widget.Separator
+        <tech.mattico.melay.view.widget.Separator
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="bottom" />

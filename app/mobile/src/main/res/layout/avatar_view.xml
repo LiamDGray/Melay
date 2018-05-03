@@ -25,7 +25,7 @@
     tools:background="@color/tools_theme"
     tools:parentTag="common.widget.AvatarView">
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/initial"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

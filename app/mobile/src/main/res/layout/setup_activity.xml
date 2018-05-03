@@ -29,7 +29,7 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -37,7 +37,7 @@
         app:textColor="primary"
         app:textSize="toolbar" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         style="@style/TextSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp">
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/skip"
             style="@style/TextSecondary"
             android:layout_width="0dp"
@@ -66,7 +66,7 @@
             android:textAllCaps="true"
             android:textStyle="bold" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/next"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -81,7 +81,7 @@
 
     </LinearLayout>
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:layout_width="match_parent"
         android:layout_height="1dp" />
 

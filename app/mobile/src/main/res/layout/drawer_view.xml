@@ -36,7 +36,7 @@
             android:src="@drawable/ic_inbox_black_24dp"
             tools:tint="@color/tools_theme" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             style="@style/DrawerText"
             android:text="@string/drawer_inbox" />
 
@@ -52,7 +52,7 @@
             android:src="@drawable/ic_archive_black_24dp"
             tools:tint="@color/textSecondary" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             style="@style/DrawerText"
             android:text="@string/drawer_archived" />
 
@@ -69,18 +69,18 @@
             android:src="@drawable/ic_event_black_24dp"
             tools:tint="@color/textSecondary" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             style="@style/DrawerText"
             android:text="@string/drawer_scheduled" />
 
     </LinearLayout>
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="8dp" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         style="@style/TextSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
             android:src="@drawable/ic_settings_black_24dp"
             tools:tint="@color/textSecondary" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             style="@style/DrawerText"
             android:text="@string/drawer_settings" />
 
@@ -113,7 +113,7 @@
             android:src="@drawable/ic_star_black_24dp"
             tools:tint="@color/textSecondary" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             style="@style/DrawerText"
             android:text="@string/drawer_plus" />
 
@@ -129,7 +129,7 @@
             android:src="@drawable/ic_help_black_24dp"
             tools:tint="@color/textSecondary" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             style="@style/DrawerText"
             android:text="@string/drawer_help" />
 
@@ -159,7 +159,7 @@
             app:layout_constraintTop_toTopOf="@id/rateTitle"
             tools:tint="@color/tools_theme" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/rateTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
             app:textColor="primary"
             app:textSize="primary" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/rateSummary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
             app:textColor="secondary"
             app:textSize="secondary" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/rateDismiss"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -202,7 +202,7 @@
             app:textColor="tertiary"
             app:textSize="secondary" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/rateOkay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

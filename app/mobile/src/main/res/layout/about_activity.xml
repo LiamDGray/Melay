@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/white">
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/toolbarTitle"
             style="@style/ToolbarText"
             tools:text="@string/about_title" />
@@ -51,49 +51,49 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp">
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/about_version_title"
                 tools:summary="3.0.8" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/developer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:summary="@string/about_developer"
                 app:title="@string/about_developer_title" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/source"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:summary="@string/about_source"
                 app:title="@string/about_source_title" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/changelog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:summary="@string/about_changelog"
                 app:title="@string/about_changelog_title" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:summary="@string/about_contact"
                 app:title="@string/about_contact_title" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/license"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:summary="@string/about_license"
                 app:title="@string/about_license_title" />
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/copyright"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
         android:background="@drawable/ab_shadow"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"

@@ -24,10 +24,10 @@ import android.support.v7.widget.SwitchCompat
 import android.util.AttributeSet
 import com.uber.autodispose.android.scope
 import com.uber.autodispose.kotlin.autoDisposable
-import common.util.Colors
-import common.util.extensions.withAlpha
-import injection.appComponent
 import io.reactivex.rxkotlin.Observables
+import tech.mattico.melay.injection.appComponent
+import tech.mattico.melay.utils.Colors
+import tech.mattico.melay.utils.extensions.withAlpha
 import javax.inject.Inject
 
 class MelaySwitch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : SwitchCompat(context, attrs) {

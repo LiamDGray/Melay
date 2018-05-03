@@ -40,14 +40,14 @@
         android:paddingRight="24dp"
         android:paddingTop="16dp">
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/titleView"
             style="@style/TextPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Default SMS App" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/summaryView"
             style="@style/TextSecondary"
             android:layout_width="match_parent"

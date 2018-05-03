@@ -69,7 +69,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:backgroundTint="@color/backgroundLight" />
 
-    <common.widget.QkEditText
+    <tech.mattico.melay.view.widget.MelayEditText
         android:id="@+id/message"
         style="@style/TextPrimary"
         android:layout_width="0dp"
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@id/messages"
         app:textColorHint="tertiary" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/counter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/toolbarTitle"
             style="@style/ToolbarText"
             tools:text="Conversations" />

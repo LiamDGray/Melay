@@ -21,7 +21,7 @@ package tech.mattico.melay.view.widget
 import android.content.Context
 import android.util.AttributeSet
 
-class TightTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : QkTextView(context, attrs) {
+class TightTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : MelayTextView(context, attrs) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)

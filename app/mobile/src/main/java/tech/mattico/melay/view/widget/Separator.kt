@@ -24,9 +24,9 @@ import android.view.View
 import tech.mattico.melay.R
 import com.uber.autodispose.android.scope
 import com.uber.autodispose.kotlin.autoDisposable
-import common.util.Colors
-import common.util.extensions.getColorCompat
-import injection.appComponent
+import tech.mattico.melay.injection.appComponent
+import tech.mattico.melay.utils.Colors
+import tech.mattico.melay.utils.extensions.getColorCompat
 import javax.inject.Inject
 
 class Separator @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {

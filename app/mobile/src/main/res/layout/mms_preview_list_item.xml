@@ -23,7 +23,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="2dp">
 
-    <common.widget.BubbleImageView
+    <tech.mattico.melay.view.widget.BubbleImageView
         android:id="@+id/thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

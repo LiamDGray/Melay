@@ -23,7 +23,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:background="@color/white">
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/toolbarTitle"
         style="@style/ToolbarText"
         tools:text="Conversations" />

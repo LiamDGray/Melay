@@ -19,13 +19,16 @@
 package tech.mattico.melay.view.widget
 
 import android.content.Context
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
 import tech.mattico.melay.R
 import kotlinx.android.synthetic.main.group_avatar_view.view.*
-import model.Recipient
+import tech.mattico.melay.model.Recipient
 
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class GroupAvatarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ConstraintLayout(context, attrs) {
 
     var contacts: List<Recipient> = ArrayList()

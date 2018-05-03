@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:listitem="@layout/message_list_item_in" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/messagesEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
         app:layout_constraintStart_toEndOf="@id/camera"
         tools:tint="@color/textSecondary" />
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:id="@+id/attachSeparator"
         android:layout_width="1dp"
         android:layout_height="0dp"
@@ -163,7 +163,7 @@
         app:layout_constraintStart_toEndOf="@id/gallery"
         app:layout_constraintTop_toBottomOf="@id/attachments" />
 
-    <common.widget.QkEditText
+    <tech.mattico.melay.view.widget.MelayEditText
         android:id="@+id/message"
         style="@style/TextPrimary"
         android:layout_width="0dp"
@@ -183,7 +183,7 @@
         app:layout_constraintStart_toEndOf="@id/attachSeparator"
         app:textColorHint="tertiary" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/counter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/toolbarLight">
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/toolbarTitle"
             style="@style/ToolbarText" />
 
@@ -244,7 +244,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:layout_constraintBottom_toBottomOf="parent" />

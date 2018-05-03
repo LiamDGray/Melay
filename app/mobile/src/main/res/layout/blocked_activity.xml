@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/empty"
         style="@style/TextSecondary"
         android:layout_width="0dp"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <common.widget.PreferenceView
+            <tech.mattico.melay.view.widget.PreferenceView
                 android:id="@+id/shouldIAnswer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 app:title="@string/settings_should_i_answer_title"
                 app:widget="@layout/settings_switch_widget" />
 
-            <common.widget.Separator
+            <tech.mattico.melay.view.widget.Separator
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
 

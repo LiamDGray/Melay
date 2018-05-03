@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/white">
 
-            <common.widget.QkEditText
+            <tech.mattico.melay.view.widget.MelayEditText
                 android:id="@+id/toolbarSearch"
                 style="@style/ToolbarText"
                 app:textColorHint="tertiary"
@@ -69,7 +69,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <common.widget.QkTextView
+        <tech.mattico.melay.view.widget.MelayTextView
             android:id="@+id/syncingLabel"
             style="@style/TextSecondary"
             android:layout_width="0dp"
@@ -92,7 +92,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-            <common.widget.QkTextView
+            <tech.mattico.melay.view.widget.MelayTextView
                 android:id="@+id/empty"
                 style="@style/TextSecondary"
                 android:layout_width="match_parent"
@@ -135,7 +135,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-        <common.widget.Separator
+        <tech.mattico.melay.view.widget.Separator
             android:layout_width="match_parent"
             android:layout_height="1dp"
             app:layout_constraintBottom_toBottomOf="parent" />

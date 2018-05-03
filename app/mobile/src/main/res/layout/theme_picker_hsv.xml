@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/hexLabel"
         style="@style/TextSecondary"
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/picker" />
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:id="@+id/hexSeparator"
         android:layout_width="1dp"
         android:layout_height="0dp"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toEndOf="@id/hexLabel"
         app:layout_constraintTop_toTopOf="@id/hexLabel" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/hexSign"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -54,7 +54,7 @@
         app:textSize="secondary"
         tools:ignore="HardcodedText" />
 
-    <common.widget.QkEditText
+    <tech.mattico.melay.view.widget.MelayEditText
         android:id="@+id/hex"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="applyDivider, clear, apply" />
 
-    <common.widget.Separator
+    <tech.mattico.melay.view.widget.Separator
         android:id="@+id/applyDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -93,7 +93,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:tint="@color/textSecondary" />
 
-    <common.widget.QkTextView
+    <tech.mattico.melay.view.widget.MelayTextView
         android:id="@+id/apply"
         style="@style/TextButton"
         android:layout_width="wrap_content"
