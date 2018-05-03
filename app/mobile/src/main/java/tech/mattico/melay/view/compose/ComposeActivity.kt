@@ -21,7 +21,9 @@ package tech.mattico.melay.view.compose
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.view.KeyEvent
 import android.view.Menu
@@ -83,6 +85,7 @@ class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
         appComponent.inject(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.compose_activity)
@@ -213,7 +216,7 @@ class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
         message.setText(draft)
     }
 
-    override fun showMenu(menuItems: List<MenuItem>) {
+    override fun showMenu(menuItems: List<tech.mattico.melay.view.MenuItem>) {
         dialog.adapter.data = menuItems
         dialog.show(this)
     }

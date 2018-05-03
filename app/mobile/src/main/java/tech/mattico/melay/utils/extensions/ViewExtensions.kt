@@ -22,6 +22,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.os.Build
+import android.support.annotation.RequiresApi
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -33,10 +34,12 @@ fun EditText.showKeyboard() {
     imm.showSoftInput(this, 0)
 }
 
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun ImageView.setTint(color: Int) {
     imageTintList = ColorStateList.valueOf(color)
 }
 
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun View.setBackgroundTint(color: Int) {
 
     // API 21 doesn't support this

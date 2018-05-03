@@ -16,23 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
  */
-package tech.mattico.melay.interactor
+package tech.mattico.melay.view.widget
 
-import io.reactivex.Flowable
-import tech.mattico.melay.repository.ImageRepository
-import tech.mattico.melay.repository.IMessageRepository
-import javax.inject.Inject
+import android.content.Context
+import android.util.AttributeSet
+import android.widget.ImageView
 
-class SaveImage @Inject constructor(
-        private val imageRepository: ImageRepository,
-        private val messageRepo: IMessageRepository
-) : Interactor<Long>() {
+class SquareImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ImageView(context, attrs) {
 
-    override fun buildObservable(params: Long): Flowable<*> {
-        return Flowable.just(params)
-                .map { partId -> messageRepo.getPart(partId) }
-                .map { part -> part.getUri() }
-                .doOnNext { uri -> imageRepository.saveImage(uri) }
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec)
     }
 
 }

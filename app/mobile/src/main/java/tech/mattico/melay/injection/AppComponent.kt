@@ -24,7 +24,6 @@ import tech.mattico.melay.MelayApplication
 
 import tech.mattico.melay.view.MelayDialog
 
-/*
 
 import tech.mattico.melay.view.widget.AvatarView
 import tech.mattico.melay.view.widget.PagerTitleView
@@ -32,7 +31,7 @@ import tech.mattico.melay.view.widget.PreferenceView
 import tech.mattico.melay.view.widget.MelayEditText
 import tech.mattico.melay.view.widget.MelaySwitch
 import tech.mattico.melay.view.widget.MelayTextView
-import tech.mattico.melay.view.widget.Separator*/
+import tech.mattico.melay.view.widget.Separator
 import tech.mattico.melay.utils.ContactImageLoader
 
 import tech.mattico.melay.view.MainActivity
@@ -78,6 +77,8 @@ import tech.mattico.melay.receiver.SmsDeliveredReceiver
 import tech.mattico.melay.receiver.SmsProviderChangedReceiver
 import tech.mattico.melay.receiver.SmsReceiver
 import tech.mattico.melay.receiver.SmsSentReceiver
+import tech.mattico.melay.view.reply.MelayReplyActivity
+import tech.mattico.melay.view.reply.MelayReplyViewModel
 import javax.inject.Singleton
 
 @Singleton
@@ -98,7 +99,9 @@ interface AppComponent {
     fun inject(activity: GalleryActivity)
     fun inject(activity: NotificationPrefsActivity)
     fun inject(activity: PlusActivity)
+    */
     fun inject(activity: MelayReplyActivity)
+    /*
     fun inject(activity: SettingsActivity)
     fun inject(activity: ThemePickerActivity)
     */
@@ -122,15 +125,16 @@ interface AppComponent {
 
     fun inject(service: WidgetAdapter)
 
-    /*fun inject(view: AvatarView)
-    fun inject(view: DetailedChipView)
+    fun inject(view: AvatarView)
+
+    //fun inject(view: DetailedChipView)
     fun inject(view: PagerTitleView)
     fun inject(view: PreferenceView)
     fun inject(view: MelayEditText)
     fun inject(view: MelaySwitch)
     fun inject(view: MelayTextView)
     fun inject(view: Separator)
-    */
+
 
     fun inject(viewModel: ComposeViewModel)
     /*
@@ -144,7 +148,9 @@ interface AppComponent {
     fun inject(viewModel: GalleryViewModel)
     fun inject(viewModel: NotificationPrefsViewModel)
     fun inject(viewModel: PlusViewModel)
+    */
     fun inject(viewModel: MelayReplyViewModel)
+    /*
     fun inject(viewModel: SettingsViewModel)
     fun inject(viewModel: ThemePickerViewModel)*/
 

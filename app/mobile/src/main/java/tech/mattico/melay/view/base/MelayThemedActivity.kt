@@ -27,6 +27,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.support.annotation.RequiresApi
+import android.support.v4.graphics.drawable.DrawableCompat.setTint
 import tech.mattico.melay.R
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.kotlin.autoDisposable

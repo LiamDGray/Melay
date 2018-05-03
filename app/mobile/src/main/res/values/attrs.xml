@@ -40,7 +40,7 @@
         <attr name="textSize" />
     </declare-styleable>
 
-    <declare-styleable name="QkEditText">
+    <declare-styleable name="MelayEditText">
         <attr name="textColor" />
         <attr name="textSize" />
         <attr name="textColorHint" format="enum">

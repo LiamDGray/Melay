@@ -16,23 +16,18 @@
  * You should have received a copy of the GNU General Public License
  * along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
  */
-package tech.mattico.melay.interactor
+package tech.mattico.melay.view.reply
 
-import io.reactivex.Flowable
-import tech.mattico.melay.repository.ImageRepository
-import tech.mattico.melay.repository.IMessageRepository
-import javax.inject.Inject
+import tech.mattico.melay.view.base.MelayView
+import io.reactivex.Observable
 
-class SaveImage @Inject constructor(
-        private val imageRepository: ImageRepository,
-        private val messageRepo: IMessageRepository
-) : Interactor<Long>() {
+interface MelayReplyView : MelayView<MelayReplyState> {
 
-    override fun buildObservable(params: Long): Flowable<*> {
-        return Flowable.just(params)
-                .map { partId -> messageRepo.getPart(partId) }
-                .map { part -> part.getUri() }
-                .doOnNext { uri -> imageRepository.saveImage(uri) }
-    }
+    val menuItemIntent: Observable<Int>
+    val textChangedIntent: Observable<CharSequence>
+    val sendIntent: Observable<Unit>
+
+    fun setDraft(draft: String)
+    fun finish()
 
 }

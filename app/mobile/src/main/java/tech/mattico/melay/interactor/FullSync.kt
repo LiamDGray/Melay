@@ -19,14 +19,14 @@
 package tech.mattico.melay.interactor
 
 import io.reactivex.Flowable
-import manager.KeyManager
-import tech.mattico.melay.repository.SyncRepository
+import tech.mattico.melay.manager.KeyManager
+import tech.mattico.melay.repository.ISyncRepository
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FullSync @Inject constructor(
-        private val syncManager: SyncRepository,
+        private val syncManager: ISyncRepository,
         private val keys: KeyManager
 ) : Interactor<Unit>() {
 

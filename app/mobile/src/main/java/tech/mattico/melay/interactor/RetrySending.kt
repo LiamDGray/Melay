@@ -19,7 +19,7 @@
 package tech.mattico.melay.interactor
 
 import io.reactivex.Flowable
-import model.Message
+import tech.mattico.melay.model.Message
 import tech.mattico.melay.repository.IMessageRepository
 import javax.inject.Inject
 

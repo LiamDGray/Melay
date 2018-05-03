@@ -31,7 +31,7 @@
     android:maxHeight="320dp"
     android:maxWidth="320dp"
     tools:backgroundTint="@color/backgroundLight"
-    tools:context="feature.qkreply.QkReplyActivity">
+    tools:context=".view.reply.MelayReplyActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messages"

@@ -46,6 +46,7 @@ import tech.mattico.melay.repository.IMessageRepository
 import tech.mattico.melay.utils.Preferences
 import tech.mattico.melay.utils.Colors
 import tech.mattico.melay.utils.tryOrNull
+import tech.mattico.melay.view.reply.MelayReplyActivity
 import javax.inject.Inject
 import javax.inject.Singleton
 
