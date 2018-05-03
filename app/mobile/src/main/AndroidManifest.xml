@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name="view.compose.ComposeActivity"
-            android:parentActivityName=".view.MainActivity">
+            android:parentActivityName=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -61,8 +61,9 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
-        <activity android:name="feature.settings.SettingsActivity" />
-        <activity android:name="feature.setup.SetupActivity" />
+        <!--//TODO fix this-->
+        <!--activity android:name="feature.settings.SettingsActivity" />
+        <activity android:name="feature.setup.SetupActivity" /-->
         <receiver android:name="receiver.DefaultSmsChangedReceiver">
             <intent-filter>
                 <action android:name="android.provider.action.DEFAULT_SMS_PACKAGE_CHANGED" />
