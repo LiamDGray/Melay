@@ -54,6 +54,10 @@ import tech.mattico.melay.view.conversations.ConversationItemTouchCallback
 import tech.mattico.melay.view.widget.MelayEditText
 import javax.inject.Inject
 
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
+
 class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
 
     @Inject lateinit var navigator: Navigator
@@ -112,6 +116,9 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
 
         // Don't allow clicks to pass through the drawer layout
         drawer.clicks().subscribe()
+
+        AppCenter.start(getApplication(), "c658bc27-e599-45f5-917f-aed309b79dac",
+                Analytics::class.java, Crashes::class.java)
 
         scheduled.isEnabled = false
 

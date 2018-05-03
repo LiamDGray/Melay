@@ -255,7 +255,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0.25"
-                app:icon="@drawable/ic_forward_black_24dp"
+                app:icon="@drawable/ic_block_black_24dp"
                 app:summary="@string/Melay_plus_forward_summary"
                 app:title="@string/Melay_plus_forward_title" />
 
