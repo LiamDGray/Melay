@@ -36,7 +36,6 @@ import tech.mattico.melay.utils.extensions.setBackgroundTint
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import tech.mattico.melay.view.MelayActivity
 import javax.inject.Inject

@@ -77,6 +77,7 @@ import tech.mattico.melay.receiver.SmsDeliveredReceiver
 import tech.mattico.melay.receiver.SmsProviderChangedReceiver
 import tech.mattico.melay.receiver.SmsReceiver
 import tech.mattico.melay.receiver.SmsSentReceiver
+import tech.mattico.melay.view.compose.DetailedChipView
 import tech.mattico.melay.view.reply.MelayReplyActivity
 import tech.mattico.melay.view.reply.MelayReplyViewModel
 import javax.inject.Singleton
@@ -127,7 +128,7 @@ interface AppComponent {
 
     fun inject(view: AvatarView)
 
-    //fun inject(view: DetailedChipView)
+    fun inject(view: DetailedChipView)
     fun inject(view: PagerTitleView)
     fun inject(view: PreferenceView)
     fun inject(view: MelayEditText)

@@ -21,6 +21,8 @@ package tech.mattico.melay.view.compose
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,6 +35,8 @@ import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.attachment_list_item.view.*
 import tech.mattico.melay.R
 import tech.mattico.melay.utils.Colors
+import tech.mattico.melay.utils.extensions.setBackgroundTint
+import tech.mattico.melay.utils.extensions.setTint
 import tech.mattico.melay.view.base.MelayAdapter
 import tech.mattico.melay.view.base.MelayViewHolder
 import javax.inject.Inject
@@ -46,6 +50,7 @@ class AttachmentAdapter @Inject constructor(
 
     private val disposables = CompositeDisposable()
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MelayViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.attachment_list_item, parent, false)
 
