@@ -65,6 +65,7 @@ class BillingManager @Inject constructor(
 
             else -> purchaseListObservable
                     .map { purchases -> purchases.any { it.sku == SKU_PLUS } || purchases.any { it.sku == SKU_PLUS_DONATE } }
+                    //TODO check if user wants analystics to be on
                     .doOnNext { upgraded -> Analytics.trackEvent("User Purchased"); }
         }
     }

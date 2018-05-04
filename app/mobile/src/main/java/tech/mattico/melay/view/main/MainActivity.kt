@@ -117,9 +117,12 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         // Don't allow clicks to pass through the drawer layout
         drawer.clicks().subscribe()
 
+        //TODO check if user wants us to collect analytics
         AppCenter.start(getApplication(), "c658bc27-e599-45f5-917f-aed309b79dac",
-                Analytics::class.java, Crashes::class.java)
+                Crashes::class.java)
 
+        //TODO check if user wants us to collect analytics
+        AppCenter.start(Analytics::class.java);
         scheduled.isEnabled = false
 
         colors.background

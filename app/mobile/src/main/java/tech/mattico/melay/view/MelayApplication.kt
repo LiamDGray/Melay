@@ -41,17 +41,11 @@ class MelayApplication : Application() {
      * Inject this so that it is forced to initialize
      */
     @Suppress("unused")
-    //@Inject lateinit var analyticsManager: AnalyticsManager
-
     @Inject lateinit var nightModeManager: NightModeManager
 
     override fun onCreate() {
         super.onCreate()
 
-        //TODO: find something besides bugsnag
-        /*Bugsnag.init(this, Configuration(BuildConfig.BUGSNAG_API_KEY).apply {
-            appVersion = BuildConfig.VERSION_NAME
-        })*/
 
         Realm.init(this)
         Realm.setDefaultConfiguration(RealmConfiguration.Builder()

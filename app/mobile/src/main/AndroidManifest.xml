@@ -65,20 +65,20 @@
         </activity>
         <activity android:name="tech.mattico.melay.view.settings.SettingsActivity" />
         <activity android:name="tech.mattico.melay.view.setup.SetupActivity" />
-        <receiver android:name="receiver.DefaultSmsChangedReceiver">
+        <receiver android:name="tech.mattico.melay.receiver.DefaultSmsChangedReceiver">
             <intent-filter>
                 <action android:name="android.provider.action.DEFAULT_SMS_PACKAGE_CHANGED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="receiver.SmsReceiver"
+            android:name="tech.mattico.melay.receiver.SmsReceiver"
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_DELIVER" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="receiver.MmsReceiver"
+            android:name="tech.mattico.melay.receiver.MmsReceiver"
             android:permission="android.permission.BROADCAST_WAP_PUSH">
             <intent-filter>
                 <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
@@ -86,30 +86,30 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="receiver.MmsSentReceiver"
+            android:name="tech.mattico.melay.receiver.MmsSentReceiver"
             android:taskAffinity="com.klinker.android.messaging.MMS_SENT" />
         <receiver
-            android:name="receiver.MmsUpdatedReceiver"
+            android:name="tech.mattico.melay.receiver.MmsUpdatedReceiver"
             android:taskAffinity="tech.mattico.melay.MMS_UPDATED" />
         <receiver
-            android:name="receiver.MmsReceivedReceiver"
+            android:name="tech.mattico.melay.receiver.MmsReceivedReceiver"
             android:taskAffinity="com.klinker.android.messaging.MMS_RECEIVED" />
         <receiver
-            android:name="receiver.SmsSentReceiver"
+            android:name="tech.mattico.melay.receiver.SmsSentReceiver"
             android:taskAffinity="tech.mattico.melay.SMS_SENT" />
         <receiver
-            android:name="receiver.SmsDeliveredReceiver"
+            android:name="tech.mattico.melay.receiver.SmsDeliveredReceiver"
             android:taskAffinity="tech.mattico.melay.SMS_DELIVERED" />
-        <receiver android:name="receiver.MarkSeenReceiver" />
-        <receiver android:name="receiver.MarkReadReceiver" />
-        <receiver android:name="receiver.RemoteMessagingReceiver" />
-        <receiver android:name="receiver.NightModeReceiver" />
-        <receiver android:name="receiver.SmsProviderChangedReceiver">
+        <receiver android:name="tech.mattico.melay.receiver.MarkSeenReceiver" />
+        <receiver android:name="tech.mattico.melay.receiver.MarkReadReceiver" />
+        <receiver android:name="tech.mattico.melay.receiver.RemoteMessagingReceiver" />
+        <receiver android:name="tech.mattico.melay.receiver.NightModeReceiver" />
+        <receiver android:name="tech.mattico.melay.receiver.SmsProviderChangedReceiver">
             <intent-filter>
                 <action android:name="android.provider.action.EXTERNAL_PROVIDER_CHANGE" />
             </intent-filter>
         </receiver>
-        <!--receiver android:name="tech.mattico.melay.view.widget.WidgetProvider">
+        <receiver android:name="tech.mattico.melay.view.widget.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -120,7 +120,7 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
-        </receiver-->
+        </receiver>
 
         <service android:name="com.android.mms.transaction.TransactionService" />
         <service
