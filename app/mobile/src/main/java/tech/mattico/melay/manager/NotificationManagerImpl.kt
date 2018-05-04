@@ -61,6 +61,7 @@ class NotificationManagerImpl @Inject constructor(
     companion object {
         const val DEFAULT_CHANNEL_ID = "notifications_default"
         val VIBRATE_PATTERN = longArrayOf(0, 200, 0, 200)
+        //TODO custom vibrate patterns?
     }
 
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

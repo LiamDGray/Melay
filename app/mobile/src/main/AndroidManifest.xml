@@ -68,6 +68,17 @@
         </activity>
         <activity android:name="tech.mattico.melay.view.settings.SettingsActivity" />
         <activity android:name="tech.mattico.melay.view.setup.SetupActivity" />
+        <activity android:name="tech.mattico.melay.view.about.AboutActivity" />
+        <activity android:name="tech.mattico.melay.view.conversationinfo.ConversationInfoActivity" />
+        <!--activity android:name="tech.mattico.melay.view.notificationprefs.NotificationPrefsActivity" />
+
+        <activity android:name="feature.themepicker.ThemePickerActivity" />
+        <activity android:name="feature.plus.PlusActivity" />
+        <activity
+            android:name="feature.gallery.GalleryActivity"
+            android:theme="@style/AppThemeBlack" /-->
+
+
         <receiver android:name="tech.mattico.melay.receiver.DefaultSmsChangedReceiver">
             <intent-filter>
                 <action android:name="android.provider.action.DEFAULT_SMS_PACKAGE_CHANGED" />
