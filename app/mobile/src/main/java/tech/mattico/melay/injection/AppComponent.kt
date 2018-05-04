@@ -21,8 +21,8 @@ package tech.mattico.melay.injection
 
 import dagger.Component
 import tech.mattico.melay.MelayApplication
-import tech.mattico.melay.conversationinfo.ConversationInfoActivity
-import tech.mattico.melay.conversationinfo.ConversationInfoViewModel
+import tech.mattico.melay.view.conversationinfo.ConversationInfoActivity
+import tech.mattico.melay.view.conversationinfo.ConversationInfoViewModel
 
 import tech.mattico.melay.view.MelayDialog
 
