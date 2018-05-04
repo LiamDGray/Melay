@@ -31,6 +31,7 @@ import tech.mattico.melay.utils.Preferences
 import tech.mattico.melay.view.Navigator
 import tech.mattico.melay.view.base.MelayViewModel
 import com.uber.autodispose.android.lifecycle.scope
+import io.reactivex.rxkotlin.withLatestFrom
 import tech.mattico.melay.manager.BillingManager
 import timber.log.Timber
 import java.util.*
