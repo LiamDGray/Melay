@@ -1,4 +1,3 @@
-package tech.mattico.melay.view.compose
 /*
  * Copyright (C) 2017 Moez Bhatti <moez.bhatti@gmail.com>
  *
@@ -17,6 +16,7 @@ package tech.mattico.melay.view.compose
  * You should have received a copy of the GNU General Public License
  * along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
  */
+package tech.mattico.melay.conversations
 
 import android.content.Context
 import android.graphics.Typeface
@@ -24,13 +24,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.longClicks
+import tech.mattico.melay.utils.Colors
+import tech.mattico.melay.utils.DateFormatter
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.conversation_list_item.view.*
 import tech.mattico.melay.R
 import tech.mattico.melay.model.Conversation
-import tech.mattico.melay.utils.Colors
-import tech.mattico.melay.utils.DateFormatter
 import tech.mattico.melay.view.base.FlowableAdapter
 import tech.mattico.melay.view.base.MelayViewHolder
 import javax.inject.Inject

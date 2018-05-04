@@ -49,7 +49,6 @@ import tech.mattico.melay.utils.extensions.*
 import tech.mattico.melay.view.MelayDialog
 import tech.mattico.melay.view.Navigator
 import tech.mattico.melay.view.base.MelayThemedActivity
-import tech.mattico.melay.view.compose.ConversationsAdapter
 import tech.mattico.melay.view.conversations.ConversationItemTouchCallback
 import tech.mattico.melay.view.widget.MelayEditText
 import javax.inject.Inject
@@ -57,6 +56,7 @@ import javax.inject.Inject
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
+import tech.mattico.melay.conversations.ConversationsAdapter
 
 class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
 

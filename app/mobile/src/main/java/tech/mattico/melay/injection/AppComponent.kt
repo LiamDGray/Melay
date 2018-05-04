@@ -21,6 +21,8 @@ package tech.mattico.melay.injection
 
 import dagger.Component
 import tech.mattico.melay.MelayApplication
+import tech.mattico.melay.conversationinfo.ConversationInfoActivity
+import tech.mattico.melay.conversationinfo.ConversationInfoViewModel
 
 import tech.mattico.melay.view.MelayDialog
 
@@ -74,10 +76,10 @@ interface AppComponent {
     fun inject(activity: SetupActivity)
 
     fun inject(activity: AboutActivity)
-    /*fun inject(activity: BlockedActivity)
+    //fun inject(activity: BlockedActivity)
 
     fun inject(activity: ConversationInfoActivity)
-    fun inject(activity: GalleryActivity)
+    /*fun inject(activity: GalleryActivity)
     fun inject(activity: NotificationPrefsActivity)
     fun inject(activity: PlusActivity)
     */
@@ -118,15 +120,13 @@ interface AppComponent {
 
 
     fun inject(viewModel: ComposeViewModel)
-
-
     fun inject(viewModel: MainViewModel)
     fun inject(viewModel: SetupViewModel)
     fun inject(viewModel: AboutViewModel)
-    /*fun inject(viewModel: BlockedViewModel)
+    //fun inject(viewModel: BlockedViewModel)
 
     fun inject(viewModel: ConversationInfoViewModel)
-    fun inject(viewModel: GalleryViewModel)
+    /*fun inject(viewModel: GalleryViewModel)
     fun inject(viewModel: NotificationPrefsViewModel)
     fun inject(viewModel: PlusViewModel)
     */
