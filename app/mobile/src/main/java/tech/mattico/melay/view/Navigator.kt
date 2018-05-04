@@ -32,6 +32,7 @@ import android.provider.ContactsContract
 import android.provider.Settings
 import android.provider.Telephony
 import android.view.View
+import tech.mattico.melay.conversationinfo.ConversationInfoViewModel
 /*import tech.mattico.melay.view.blocked.BlockedActivity
 import tech.mattico.melay.view.blocked.BlockedViewModel*/
 import tech.mattico.melay.view.compose.ComposeActivity
@@ -267,8 +268,8 @@ class Navigator @Inject constructor(private val context: Context, private val no
                 SetupViewModel::class.java -> SetupViewModel()
                 AboutViewModel::class.java -> AboutViewModel()
                 ComposeViewModel::class.java -> ComposeViewModel(intent)
-                /*ConversationInfoViewModel::class.java -> ConversationInfoViewModel(intent)
-                GalleryViewModel::class.java -> GalleryViewModel(intent)
+                ConversationInfoViewModel::class.java -> ConversationInfoViewModel(intent)
+                /*GalleryViewModel::class.java -> GalleryViewModel(intent)
                 NotificationPrefsViewModel::class.java -> NotificationPrefsViewModel(intent)
                 */
                 MelayReplyViewModel::class.java -> MelayReplyViewModel(intent)

@@ -33,6 +33,7 @@ import tech.mattico.melay.R.id.skip
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.view.Navigator
 import tech.mattico.melay.view.base.MelayThemedActivity
+import timber.log.Timber
 import javax.inject.Inject
 
 class SetupActivity : MelayThemedActivity<SetupViewModel>(), SetupView {
@@ -67,10 +68,12 @@ class SetupActivity : MelayThemedActivity<SetupViewModel>(), SetupView {
     }
 
     override fun requestDefaultSms() {
+        Timber.d("Setup activity is requesting to be the default SMS app");
         navigator.showDefaultSmsDialog()
     }
 
     override fun requestPermissions() {
+        Timber.d("Setup activity is requesting permissions");
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_SMS), 0)
     }
 
