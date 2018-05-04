@@ -58,6 +58,7 @@ import tech.mattico.melay.view.themepicker.ThemePickerViewModel
 import tech.mattico.melay.manager.NotificationManager
 import tech.mattico.melay.view.about.AboutActivity
 import tech.mattico.melay.view.about.AboutViewModel
+import tech.mattico.melay.view.conversationinfo.ConversationInfoActivity
 import tech.mattico.melay.view.conversationinfo.ConversationInfoViewModel
 import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyViewModel
@@ -121,9 +122,9 @@ class Navigator @Inject constructor(private val context: Context, private val no
     }
 
     fun showConversationInfo(threadId: Long) {
-        //TODO val intent = Intent(context, ConversationInfoActivity::class.java)
-        //intent.putExtra("threadId", threadId)
-        //startActivity(intent)
+        val intent = Intent(context, ConversationInfoActivity::class.java)
+        intent.putExtra("threadId", threadId)
+        startActivity(intent)
     }
 
     fun showImage(partId: Long) {
