@@ -21,10 +21,12 @@ package tech.mattico.melay.services
 
 import android.app.IntentService
 import android.content.Intent
+import timber.log.Timber
 
 class HeadlessSmsSendService : IntentService("HeadlessSmsSendService") {
 
     override fun onHandleIntent(p0: Intent?) {
+        Timber.e("The headless SMS service has not been implemenented");
     }
 
 }

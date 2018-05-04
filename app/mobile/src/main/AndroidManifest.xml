@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name="tech.mattico.melay.view.compose.ComposeActivity"
-            android:parentActivityName=".view.main.MainActivity">
+            android:parentActivityName="tech.mattico.melay.view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -124,7 +124,7 @@
 
         <service android:name="com.android.mms.transaction.TransactionService" />
         <service
-            android:name=".services.HeadlessSmsSendService"
+            android:name="tech.mattico.melay.services.HeadlessSmsSendService"
             android:exported="true"
             android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
             <intent-filter>
@@ -138,5 +138,13 @@
             </intent-filter>
         </service>
     </application>
+
+    <service
+        android:name="tech.mattico.melay.view.widget.WidgetService"
+        android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+    <meta-data
+        android:name="preloaded_fonts"
+        android:resource="@array/preloaded_fonts" />
 
 </manifest>
