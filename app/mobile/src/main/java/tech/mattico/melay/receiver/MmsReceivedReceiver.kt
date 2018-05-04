@@ -26,23 +26,19 @@ import tech.mattico.melay.interactor.ReceiveMms
 import javax.inject.Inject
 
 class MmsReceivedReceiver : com.klinker.android.send_message.MmsReceivedReceiver() {
-    override fun onMessageReceived(p0: Context?, p1: Uri?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onError(p0: Context?, p1: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    @Inject lateinit var receiveMms: ReceiveMms
-
-    /*override fun onMessageReceived(messageUri: Uri?) {
+    override fun onMessageReceived(p0: Context?, messageUri: Uri?) {
         appComponent.inject(this)
 
         messageUri?.let { uri ->
             val pendingResult = goAsync()
             receiveMms.execute(uri) { pendingResult.finish() }
         }
-    }*/
+    }
+
+    override fun onError(p0: Context?, p1: String?) {
+        TODO("Not implemented");
+    }
+
+    @Inject lateinit var receiveMms: ReceiveMms
 
 }
