@@ -56,8 +56,12 @@ import tech.mattico.melay.view.themepicker.ThemePickerActivity
 import tech.mattico.melay.view.themepicker.ThemePickerViewModel
 */
 import tech.mattico.melay.manager.NotificationManager
+import tech.mattico.melay.view.about.AboutActivity
+import tech.mattico.melay.view.about.AboutViewModel
 import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyViewModel
+import tech.mattico.melay.view.settings.SettingsActivity
+import tech.mattico.melay.view.settings.SettingsViewModel
 import tech.mattico.melay.view.setup.SetupActivity
 import tech.mattico.melay.view.setup.SetupViewModel
 import javax.inject.Inject
@@ -147,32 +151,32 @@ class Navigator @Inject constructor(private val context: Context, private val no
     }
 
     fun showSettings() {
-        /*val intent = Intent(context, SettingsActivity::class.java)
-        startActivity(intent)*/
+        val intent = Intent(context, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     fun showAbout() {
-        /*val intent = Intent(context, AboutActivity::class.java)
-        startActivity(intent)*/
+        val intent = Intent(context, AboutActivity::class.java)
+        startActivity(intent)
     }
 
     fun showDeveloper() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/moezbhatti"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/matthewfcarlson"))
         startActivity(intent)
     }
 
     fun showSourceCode() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/moezbhatti/qksms"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/matthewfcarlson/melay"))
         startActivity(intent)
     }
 
     fun showChangelog() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/moezbhatti/qksms/releases"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/matthewfcarlson/melay/releases"))
         startActivity(intent)
     }
 
     fun showLicense() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/moezbhatti/qksms/blob/master/LICENSE"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/matthewfcarlson/melay/blob/master/LICENSE"))
         startActivity(intent)
     }
 
@@ -261,15 +265,15 @@ class Navigator @Inject constructor(private val context: Context, private val no
                 MainViewModel::class.java -> MainViewModel()
                 //PlusViewModel::class.java -> PlusViewModel()
                 SetupViewModel::class.java -> SetupViewModel()
-                //AboutViewModel::class.java -> AboutViewModel()
+                AboutViewModel::class.java -> AboutViewModel()
                 ComposeViewModel::class.java -> ComposeViewModel(intent)
                 /*ConversationInfoViewModel::class.java -> ConversationInfoViewModel(intent)
                 GalleryViewModel::class.java -> GalleryViewModel(intent)
                 NotificationPrefsViewModel::class.java -> NotificationPrefsViewModel(intent)
                 */
                 MelayReplyViewModel::class.java -> MelayReplyViewModel(intent)
-                /*SettingsViewModel::class.java -> SettingsViewModel()
-                BlockedViewModel::class.java -> BlockedViewModel()
+                SettingsViewModel::class.java -> SettingsViewModel()
+                /*BlockedViewModel::class.java -> BlockedViewModel()
                 ThemePickerViewModel::class.java -> ThemePickerViewModel(intent)*/
                 else -> throw IllegalArgumentException("Invalid ViewModel class. If this is a new ViewModel, please add it to Navigator.kt")
             } as T

@@ -58,10 +58,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    //BugSnag
-    //implementation "com.bugsnag:bugsnag-android:4.1.1"
-    //TODO find a different bug platform?
-
     //WEAR
     wearApp project(':wear')
     implementation 'com.google.android.gms:play-services-wearable:+'
@@ -75,6 +71,9 @@ dependencies {
     //GLIDE
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    //billing
+    implementation "com.android.billingclient:billing:1.0"
 
     //UI
     implementation "com.google.android:flexbox:0.3.1"
