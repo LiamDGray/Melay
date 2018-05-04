@@ -32,7 +32,6 @@ import android.provider.ContactsContract
 import android.provider.Settings
 import android.provider.Telephony
 import android.view.View
-import tech.mattico.melay.conversationinfo.ConversationInfoViewModel
 /*import tech.mattico.melay.view.blocked.BlockedActivity
 import tech.mattico.melay.view.blocked.BlockedViewModel*/
 import tech.mattico.melay.view.compose.ComposeActivity
@@ -59,6 +58,7 @@ import tech.mattico.melay.view.themepicker.ThemePickerViewModel
 import tech.mattico.melay.manager.NotificationManager
 import tech.mattico.melay.view.about.AboutActivity
 import tech.mattico.melay.view.about.AboutViewModel
+import tech.mattico.melay.view.conversationinfo.ConversationInfoViewModel
 import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyViewModel
 import tech.mattico.melay.view.settings.SettingsActivity
