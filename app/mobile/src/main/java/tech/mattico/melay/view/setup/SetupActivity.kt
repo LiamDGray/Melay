@@ -28,8 +28,6 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.setup_activity.*
 import tech.mattico.melay.R
-import tech.mattico.melay.R.id.next
-import tech.mattico.melay.R.id.skip
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.view.Navigator
 import tech.mattico.melay.view.base.MelayThemedActivity

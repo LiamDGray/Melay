@@ -25,6 +25,7 @@ import com.uber.autodispose.kotlin.autoDisposable
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.manager.PermissionManager
 import tech.mattico.melay.view.base.MelayViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 class SetupViewModel : MelayViewModel<SetupView, SetupState>(SetupState()) {
@@ -43,7 +44,7 @@ class SetupViewModel : MelayViewModel<SetupView, SetupState>(SetupState()) {
                 .autoDisposable(view.scope())
                 .subscribe {
                     val isDefault = Telephony.Sms.getDefaultSmsPackage(context) == context.packageName
-
+                    Timber.d("The default SMS package is ",Telephony.Sms.getDefaultSmsPackage(context));
                     if (!permissions.hasSmsAndContacts()) view.requestPermissions()
                     else if (isDefault) view.finish()
                 }
