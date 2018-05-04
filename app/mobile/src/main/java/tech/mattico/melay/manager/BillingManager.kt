@@ -29,6 +29,7 @@ import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
+import com.microsoft.appcenter.analytics.Analytics
 import tech.mattico.melay.BuildConfig
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -64,7 +65,7 @@ class BillingManager @Inject constructor(
 
             else -> purchaseListObservable
                     .map { purchases -> purchases.any { it.sku == SKU_PLUS } || purchases.any { it.sku == SKU_PLUS_DONATE } }
-                    //.doOnNext { upgraded -> analyticsManager.setUserProperty("Upgraded", upgraded) }
+                    .doOnNext { upgraded -> Analytics.trackEvent("User Purchased"); }
         }
     }
 
