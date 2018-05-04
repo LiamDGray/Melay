@@ -117,7 +117,7 @@ class NotificationManagerImpl @Inject constructor(
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(colors.themeForConversation(threadId).blockingFirst())
                 .setPriority(NotificationManagerCompat.IMPORTANCE_MAX)
-                //TODO .setSmallIcon(R.drawable.ic_notification)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setNumber(messages.size)
                 .setAutoCancel(true)
                 .setContentIntent(contentPI)

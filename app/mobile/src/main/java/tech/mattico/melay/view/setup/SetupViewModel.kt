@@ -44,7 +44,7 @@ class SetupViewModel : MelayViewModel<SetupView, SetupState>(SetupState()) {
                 .autoDisposable(view.scope())
                 .subscribe {
                     val isDefault = Telephony.Sms.getDefaultSmsPackage(context) == context.packageName
-                    Timber.d("The default SMS package is ",Telephony.Sms.getDefaultSmsPackage(context));
+                    Timber.d("The default SMS package is "+Telephony.Sms.getDefaultSmsPackage(context));
                     if (!permissions.hasSmsAndContacts()) view.requestPermissions()
                     else if (isDefault) view.finish()
                 }
