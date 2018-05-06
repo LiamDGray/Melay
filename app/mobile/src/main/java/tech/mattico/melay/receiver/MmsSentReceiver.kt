@@ -22,25 +22,26 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.klinker.android.send_message.MmsSentReceiver
+import com.microsoft.appcenter.analytics.Analytics
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.interactor.SyncMessage
 import javax.inject.Inject
 
 class MmsSentReceiver : MmsSentReceiver() {
-    override fun onMessageStatusUpdated(p0: Context?, p1: Intent?, p2: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     @Inject lateinit var syncMessage: SyncMessage
-
-    /*override fun onReceive(context: Context, intent: Intent) {
+    override fun onMessageStatusUpdated(context: Context?, intent: Intent?, p2: Int) {
         super.onReceive(context, intent)
         appComponent.inject(this)
 
-        Uri.parse(intent.getStringExtra("content_uri"))?.let { uri ->
+        //what is p2?
+        Analytics.trackEvent("Recieved MMS "+p2);
+
+        Uri.parse(intent?.getStringExtra("content_uri"))?.let { uri ->
             val pendingResult = goAsync()
             syncMessage.execute(uri) { pendingResult.finish() }
         }
-    }*/
+    }
+
+
 
 }
