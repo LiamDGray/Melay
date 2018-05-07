@@ -44,9 +44,9 @@ import javax.inject.Inject
 class AttachmentAdapter @Inject constructor(
         private val context: Context,
         private val colors: Colors
-) : MelayAdapter<Uri>() {
+) : MelayAdapter<Attachment>() {
 
-    val attachmentDeleted: Subject<Uri> = PublishSubject.create()
+    val attachmentDeleted: Subject<Attachment> = PublishSubject.create()
 
     private val disposables = CompositeDisposable()
 
@@ -71,14 +71,14 @@ class AttachmentAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: MelayViewHolder, position: Int) {
-        val uri = getItem(position)
+        val attachment = getItem(position)
         val view = holder.itemView
 
         view.clicks().subscribe {
-            attachmentDeleted.onNext(uri)
+            attachmentDeleted.onNext(attachment)
         }
 
-        Glide.with(context).load(uri).into(view.thumbnail)
+        Glide.with(context).load(attachment).into(view.thumbnail)
     }
 
 }

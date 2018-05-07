@@ -20,8 +20,17 @@ package tech.mattico.melay.view.widget
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Build
+import android.support.v13.view.inputmethod.EditorInfoCompat
+import android.support.v13.view.inputmethod.InputConnectionCompat
+import android.support.v13.view.inputmethod.InputContentInfoCompat
 import android.util.AttributeSet
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
+import android.view.inputmethod.InputConnectionWrapper
 import android.widget.EditText
+import com.google.android.mms.ContentType
 import tech.mattico.melay.R
 import com.uber.autodispose.android.scope
 import com.uber.autodispose.kotlin.autoDisposable
@@ -32,13 +41,33 @@ import tech.mattico.melay.view.widget.MelayTextView.Companion.SIZE_TOOLBAR
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.utils.Colors
 import tech.mattico.melay.utils.FontProvider
 import tech.mattico.melay.utils.Preferences
+import tech.mattico.melay.utils.tryOrNull
 
 import javax.inject.Inject
+/*
+ * Copyright (C) 2017 Moez Bhatti <moez.bhatti@gmail.com>
+ *
+ * This file is part of MelaySMS.
+ *
+ * MelaySMS is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * MelaySMS is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with MelaySMS.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
  * Custom implementation of EditText to allow for dynamic text colors
@@ -65,6 +94,10 @@ class MelayEditText @JvmOverloads constructor(context: Context, attrs: Attribute
     @Inject lateinit var colors: Colors
     @Inject lateinit var fontProvider: FontProvider
     @Inject lateinit var prefs: Preferences
+
+    val backspaces: Subject<Unit> = PublishSubject.create()
+    val inputContentSelected: Subject<InputContentInfoCompat> = PublishSubject.create()
+    var supportsInputContent: Boolean = false
 
     private var textColorObservable: Observable<Int>? = null
     private var textColorHintObservable: Observable<Int>? = null
@@ -168,6 +201,53 @@ class MelayEditText @JvmOverloads constructor(context: Context, attrs: Attribute
                 })
                 .autoDisposable(scope())
                 .subscribe()
+    }
+
+    override fun onCreateInputConnection(editorInfo: EditorInfo): InputConnection {
+
+        val inputConnection = object : InputConnectionWrapper(super.onCreateInputConnection(editorInfo), true) {
+            override fun sendKeyEvent(event: KeyEvent): Boolean {
+                if (event.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_DEL) {
+                    backspaces.onNext(Unit)
+                }
+                return super.sendKeyEvent(event)
+            }
+
+
+            override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
+                if (beforeLength == 1 && afterLength == 0) {
+                    sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
+                            && sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
+                }
+                return super.deleteSurroundingText(beforeLength, afterLength)
+
+            }
+        }
+
+        if (supportsInputContent) {
+            EditorInfoCompat.setContentMimeTypes(editorInfo, arrayOf(
+                    ContentType.IMAGE_JPEG,
+                    ContentType.IMAGE_JPG,
+                    ContentType.IMAGE_PNG,
+                    ContentType.IMAGE_GIF))
+        }
+
+        val callback = InputConnectionCompat.OnCommitContentListener { inputContentInfo, flags, opts ->
+            val grantReadPermission = flags and InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION != 0
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && grantReadPermission) {
+                return@OnCommitContentListener tryOrNull {
+                    inputContentInfo.requestPermission()
+                    inputContentSelected.onNext(inputContentInfo)
+                    true
+                } ?: false
+
+            }
+
+            true
+        }
+
+        return InputConnectionCompat.createWrapper(inputConnection, editorInfo, callback)
     }
 
 }

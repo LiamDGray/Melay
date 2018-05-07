@@ -233,6 +233,25 @@ class MainViewModel : MelayViewModel<MainView, MainState>(MainState()) {
                 .withLatestFrom(view.swipeConversationIntent, { _, threadId -> threadId })
                 .autoDisposable(view.scope())
                 .subscribe { threadId -> markUnarchived.execute(threadId) }
+
+        view.backPressedIntent
+                .withLatestFrom(state, { _, state ->
+                    when {
+                        state.drawerOpen -> newState { it.copy(drawerOpen = false) }
+
+                        //state.page is Inbox && state.page.selected > 0 -> view.clearSelection()
+                        state.page is Inbox && state.page.showClearButton -> view.clearSearch()
+                        //TODO implemtent clear selection button
+                        //state.page is Archived && state.page.selected > 0 -> view.clearSelection()
+
+                        state.page !is Inbox -> newState { it.copy(page = Inbox(data = conversations)) }
+
+                        else -> newState { it.copy(hasError = true) }
+                    }
+                })
+                .autoDisposable(view.scope())
+                .subscribe()
+
     }
 
 }

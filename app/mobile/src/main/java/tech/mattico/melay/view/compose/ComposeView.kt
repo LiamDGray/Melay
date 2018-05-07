@@ -19,7 +19,9 @@
 package tech.mattico.melay.view.compose
 
 import android.net.Uri
+import android.support.v13.view.inputmethod.InputContentInfoCompat
 import android.view.KeyEvent
+import android.view.inputmethod.InputContentInfo
 import tech.mattico.melay.view.MenuItem
 import tech.mattico.melay.view.base.MelayView
 import io.reactivex.Observable
@@ -31,7 +33,7 @@ interface ComposeView : MelayView<ComposeState> {
 
     val activityVisibleIntent: Observable<Boolean>
     val queryChangedIntent: Observable<CharSequence>
-    val queryKeyEventIntent: Observable<KeyEvent>
+    val queryBackspaceIntent: Observable<*>
     val queryEditorActionIntent: Observable<Int>
     val chipSelectedIntent: Subject<Contact>
     val chipDeletedIntent: Subject<Contact>
@@ -41,14 +43,16 @@ interface ComposeView : MelayView<ComposeState> {
     val messageClickIntent: Subject<Message>
     val messageLongClickIntent: Subject<Message>
     val menuItemIntent: Subject<Int>
-    val attachmentDeletedIntent: Subject<Uri>
+    val attachmentDeletedIntent: Subject<Attachment>
     val textChangedIntent: Observable<CharSequence>
     val attachIntent: Observable<Unit>
     val cameraIntent: Observable<*>
+    val inputContentIntent: Observable<InputContentInfoCompat>
     val galleryIntent: Observable<*>
     val sendIntent: Observable<Unit>
 
     fun showMenu(menuItems: List<MenuItem>)
     fun setDraft(draft: String)
+    val backPressedIntent: Observable<Unit>
 
 }

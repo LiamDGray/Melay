@@ -19,23 +19,28 @@ package tech.mattico.melay.view.compose
  * along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.content.Context
 import android.net.Uri
-import io.realm.RealmResults
-import tech.mattico.melay.model.Contact
-import tech.mattico.melay.model.Conversation
-import tech.mattico.melay.model.Message
+import android.os.Build
+import android.support.v13.view.inputmethod.InputContentInfoCompat
+import com.google.android.mms.ContentType
 
-data class ComposeState(
-        val hasError: Boolean = false,
-        val editingMode: Boolean = false,
-        val contacts: List<Contact> = ArrayList(),
-        val contactsVisible: Boolean = false,
-        val selectedConversation: Long = 0,
-        val selectedContacts: List<Contact> = ArrayList(),
-        val title: String = "",
-        val messages: Pair<Conversation, RealmResults<Message>>? = null,
-        val attachments: List<Attachment> = ArrayList(),
-        val attaching: Boolean = false,
-        val remaining: String = "",
-        val canSend: Boolean = false
-)
+data class Attachment(private val uri: Uri? = null, private val inputContent: InputContentInfoCompat? = null) {
+
+    fun getUri(): Uri? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            inputContent?.contentUri ?: uri
+        } else {
+            uri
+        }
+    }
+
+    fun isGif(context: Context): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && inputContent != null) {
+            inputContent.description.hasMimeType(ContentType.IMAGE_GIF)
+        } else {
+            context.contentResolver.getType(uri) == ContentType.IMAGE_GIF
+        }
+    }
+
+}

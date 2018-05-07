@@ -47,7 +47,6 @@ import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.compose_activity.*
-import tech.mattico.melay.R.id.message
 import tech.mattico.melay.model.Contact
 import tech.mattico.melay.model.Message
 import javax.inject.Inject
@@ -58,7 +57,7 @@ class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
     override val viewModelClass = ComposeViewModel::class
     override val activityVisibleIntent: Subject<Boolean> = PublishSubject.create()
     override val queryChangedIntent: Observable<CharSequence> by lazy { chipsAdapter.textChanges }
-    override val queryKeyEventIntent: Observable<KeyEvent> by lazy { chipsAdapter.keyEvents }
+    override val queryBackspaceIntent: Observable<*> by lazy { chipsAdapter.backspaces }
     override val queryEditorActionIntent: Observable<Int> by lazy { chipsAdapter.actions }
     override val chipSelectedIntent: Subject<Contact> by lazy { contactsAdapter.contactSelected }
     override val chipDeletedIntent: Subject<Contact> by lazy { chipsAdapter.chipDeleted }
@@ -68,12 +67,14 @@ class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
     override val messageClickIntent: Subject<Message> by lazy { messageAdapter.clicks }
     override val messageLongClickIntent: Subject<Message> by lazy { messageAdapter.longClicks }
     override val menuItemIntent: Subject<Int> by lazy { dialog.adapter.menuItemClicks }
-    override val attachmentDeletedIntent: Subject<Uri> by lazy { attachmentAdapter.attachmentDeleted }
+    override val attachmentDeletedIntent: Subject<Attachment> by lazy { attachmentAdapter.attachmentDeleted }
     override val textChangedIntent by lazy { message.textChanges() }
     override val attachIntent by lazy { attach.clicks() }
     override val cameraIntent by lazy { camera.clicks() }
     override val galleryIntent by lazy { gallery.clicks() }
+    override val inputContentIntent by lazy { message.inputContentSelected }
     override val sendIntent by lazy { send.clicks() }
+    override val backPressedIntent: Subject<Unit> = PublishSubject.create()
 
     @Inject lateinit var chipsAdapter: ChipsAdapter
     @Inject lateinit var contactsAdapter: ContactAdapter
@@ -108,6 +109,7 @@ class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
         messageList.adapter = messageAdapter
 
         attachments.adapter = attachmentAdapter
+        message.supportsInputContent = true
 
         messageBackground.backgroundTintMode = PorterDuff.Mode.MULTIPLY
 
@@ -234,6 +236,11 @@ class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
         }
 
         return true
+    }
+
+    //when they press the back button we should create the intent
+    override fun onBackPressed() {
+        backPressedIntent.onNext(Unit)
     }
 
 }

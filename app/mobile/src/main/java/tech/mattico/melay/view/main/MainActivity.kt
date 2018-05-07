@@ -103,6 +103,12 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         appComponent.inject(this)
     }
 
+    override val backPressedIntent: Subject<Unit> = PublishSubject.create();
+
+    override fun onBackPressed() {
+        backPressedIntent.onNext(Unit)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)

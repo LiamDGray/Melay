@@ -41,6 +41,7 @@ interface MainView : MelayView<MainState> {
     fun clearSearch()
     fun showDialog(menuItems: List<MenuItem>)
     fun showDeleteDialog()
+    val backPressedIntent: Observable<Unit>
 
 }
 

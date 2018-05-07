@@ -42,6 +42,7 @@ import io.reactivex.functions.Predicate
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.contact_chip.view.*
 import tech.mattico.melay.model.Contact
+import tech.mattico.melay.view.widget.MelayEditText
 import javax.inject.Inject
 
 class ChipsAdapter @Inject constructor(private val context: Context, private val colors: Colors) : MelayAdapter<Contact>() {
@@ -52,21 +53,14 @@ class ChipsAdapter @Inject constructor(private val context: Context, private val
     }
 
     private val hint: String = context.getString(R.string.title_compose)
-    private val editText = View.inflate(context, R.layout.chip_input_list_item, null) as EditText
+    private val editText = View.inflate(context, R.layout.chip_input_list_item, null) as MelayEditText
 
     var view: RecyclerView? = null
     val chipDeleted: PublishSubject<Contact> = PublishSubject.create<Contact>()
     val textChanges = editText.textChanges()
     val actions = editText.editorActions()
+    val backspaces = editText.backspaces
 
-    /**
-     * On certain devices, not returning false in this predicate for number entry will result in
-     * the user not being able to enter numbers into the text field. As a result, we have to only
-     * pass the events that we're looking for
-     */
-    val keyEvents = editText.keys(Predicate { event ->
-        event.keyCode == KeyEvent.KEYCODE_BACK || event.keyCode == KeyEvent.KEYCODE_DEL
-    })
 
     init {
         val wrap = ViewGroup.LayoutParams.WRAP_CONTENT
