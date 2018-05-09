@@ -41,6 +41,16 @@ class Preferences @Inject constructor(private val rxPrefs: RxSharedPreferences) 
         const val NOTIFICATION_PREVIEWS_ALL = 0
         const val NOTIFICATION_PREVIEWS_NAME = 1
         const val NOTIFICATION_PREVIEWS_NONE = 2
+
+        const val SEND_DELAY_NONE = 0
+        const val SEND_DELAY_SHORT = 1
+        const val SEND_DELAY_MEDIUM = 2
+        const val SEND_DELAY_LONG = 3
+
+        const val TELEMETRY_NONE = 0
+        const val TELEMETRY_CRASHES = 1
+        const val TELEMETRY_USAGE = 2
+        const val TELEMETRY_DEBUG = 3
     }
 
     val defaultSms = rxPrefs.getBoolean("defaultSms", false)
@@ -58,6 +68,8 @@ class Preferences @Inject constructor(private val rxPrefs: RxSharedPreferences) 
     val qkreplyTapDismiss = rxPrefs.getBoolean("qkreplyTapDismiss", true)
     val unicode = rxPrefs.getBoolean("unicode", false)
     val mmsSize = rxPrefs.getInteger("mmsSize", 100)
+    val sendDelay = rxPrefs.getInteger("sendDelay", SEND_DELAY_NONE)
+    val telemetryLevel = rxPrefs.getInteger("telemetryLevel", TELEMETRY_USAGE)
 
     fun theme(threadId: Long = 0): Preference<Int> {
         val default = rxPrefs.getInteger("theme", 0xFF0097A7.toInt())

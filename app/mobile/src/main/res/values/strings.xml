@@ -195,6 +195,17 @@
     </plurals>
     <string name="notification_message_failed_title">Message not sent</string>
     <string name="notification_message_failed_text">The message to %s failed to send</string>
+    <string name="compose_send_cd">\???</string>
+    <string name="compose_attach_cd">compose_attach_cd</string>
+    <string name="compose_gallery_cd">compose_gallary_cd</string>
+    <string name="compose_camera_cd">compose_camera_cd</string>
+    <string name="compose_title_selected">compose_title_selected</string>
+    <string name="main_title_selected">main_title_selected</string>
+    <string name="main_fab_cd">main_fab_cd</string>
+    <string name="main_menu_unarchive">main_menu_unarchive</string>
+    <string name="main_menu_archive">main_menu_archive</string>
+    <string name="main_menu_block">main_menu_block</string>
+    <string name="main_menu_delete">main_menu_delete</string>
 
     <string-array name="night_modes">
         <item>Disabled</item>
@@ -213,6 +224,13 @@
         <item>Normal</item>
         <item>Large</item>
         <item>Larger</item>
+    </string-array>
+
+    <string-array name="telemetry_levels">
+        <item>None</item>
+        <item>Just Crashes</item>
+        <item>Crashes and some usage</item>
+        <item>Debugging</item>
     </string-array>
 
     <string-array name="mms_sizes">

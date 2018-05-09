@@ -1,29 +1,32 @@
 /*
  * Copyright (C) 2017 Moez Bhatti <moez.bhatti@gmail.com>
  *
- * This file is part of QKSMS.
+ * This file is part of MelaySMS.
  *
- * QKSMS is free software: you can redistribute it and/or modify
+ * MelaySMS is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * QKSMS is distributed in the hope that it will be useful,
+ * MelaySMS is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+ * along with MelaySMS.  If not, see <http://www.gnu.org/licenses/>.
  */
 package tech.mattico.melay.conversations
 
 import android.content.Context
 import android.graphics.Typeface
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.longClicks
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import tech.mattico.melay.utils.Colors
 import tech.mattico.melay.utils.DateFormatter
 import io.reactivex.subjects.PublishSubject
@@ -34,15 +37,16 @@ import tech.mattico.melay.model.Conversation
 import tech.mattico.melay.view.base.FlowableAdapter
 import tech.mattico.melay.view.base.MelayViewHolder
 import javax.inject.Inject
+import tech.mattico.melay.view.Navigator
 
 class ConversationsAdapter @Inject constructor(
         private val context: Context,
+        private val colors: Colors,
         private val dateFormatter: DateFormatter,
-        private val colors: Colors
+        private val navigator: Navigator
 ) : FlowableAdapter<Conversation>() {
 
-    val clicks: Subject<Long> = PublishSubject.create()
-    val longClicks: Subject<Long> = PublishSubject.create()
+    private val disposables = CompositeDisposable()
 
     init {
         setHasStableIds(true)
@@ -51,6 +55,9 @@ class ConversationsAdapter @Inject constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MelayViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val view = layoutInflater.inflate(R.layout.conversation_list_item, parent, false)
+
+        disposables += colors.ripple
+                .subscribe { res -> view.setBackgroundResource(res) }
 
         if (viewType == 1) {
             view.title.setTypeface(view.title.typeface, Typeface.BOLD)
@@ -70,16 +77,31 @@ class ConversationsAdapter @Inject constructor(
         val conversation = getItem(position)
         val view = viewHolder.itemView
 
-        view.clicks().subscribe { clicks.onNext(conversation.id) }
-        view.longClicks().subscribe { longClicks.onNext(conversation.id) }
+        view.clicks().subscribe {
+            when (toggleSelection(conversation.id, false)) {
+                true -> view.isSelected = isSelected(conversation.id)
+                false -> navigator.showConversation(conversation.id)
+            }
+        }
+        view.longClicks().subscribe {
+            toggleSelection(conversation.id)
+            view.isSelected = isSelected(conversation.id)
+        }
+
+        view.isSelected = isSelected(conversation.id)
 
         view.avatars.contacts = conversation.recipients
         view.title.text = conversation.getTitle()
         view.date.text = dateFormatter.getConversationTimestamp(conversation.date)
-        view.snippet.text = when(conversation.me) {
+        view.snippet.text = when (conversation.me) {
             true -> context.getString(R.string.main_sender_you, conversation.snippet)
             false -> conversation.snippet
         }
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        disposables.clear()
     }
 
     override fun getItemId(index: Int): Long {

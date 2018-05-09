@@ -45,10 +45,10 @@ class ReceiveMms @Inject constructor(
                     // turns out that it should be blocked, then delete it
                     // TODO Don't store blocked messages in the first place
                     !externalBlockingManager.shouldBlock(message.address).blockingGet().also { blocked ->
-                        if (blocked) messageRepo.deleteMessage(message.id)
+                        if (blocked) messageRepo.deleteMessages(message.id)
                     }
                 }
-                .doOnNext { message -> messageRepo.updateConversation(message.threadId) } // Update the conversation
+                .doOnNext { message -> messageRepo.updateConversations(message.threadId) } // Update the conversation
                 .mapNotNull { message -> messageRepo.getOrCreateConversation(message.threadId) } // Map message to conversation
                 .filter { conversation -> !conversation.blocked } // Don't notify for blocked conversations
                 .doOnNext { conversation -> if (conversation.archived) messageRepo.markUnarchived(conversation.id) } // Unarchive conversation if necessary

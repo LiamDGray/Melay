@@ -18,6 +18,7 @@ package tech.mattico.melay.view.main
  * along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
@@ -31,6 +32,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.jakewharton.rxbinding2.support.v4.widget.drawerOpen
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.textChanges
@@ -56,24 +58,23 @@ import javax.inject.Inject
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
+
 import tech.mattico.melay.conversations.ConversationsAdapter
 
 class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
-
     @Inject lateinit var navigator: Navigator
     @Inject lateinit var conversationsAdapter: ConversationsAdapter
-    @Inject lateinit var dialog: MelayDialog
     @Inject lateinit var itemTouchCallback: ConversationItemTouchCallback
 
     override val viewModelClass = MainViewModel::class
     override val queryChangedIntent by lazy { toolbarSearch.textChanges() }
-    override val queryCancelledIntent: PublishSubject<Unit> = PublishSubject.create()
     override val composeIntent by lazy { compose.clicks() }
     override val drawerOpenIntent: Observable<Boolean> by lazy {
         drawerLayout
                 .drawerOpen(Gravity.START)
                 .doOnNext { dismissKeyboard() }
     }
+    override val homeIntent: Subject<Unit> = PublishSubject.create()
     override val drawerItemIntent: Observable<DrawerItem> by lazy {
         Observable.merge(listOf(
                 inbox.clicks().map { DrawerItem.INBOX },
@@ -83,15 +84,16 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
                 plus.clicks().map { DrawerItem.PLUS },
                 help.clicks().map { DrawerItem.HELP }))
     }
+    override val optionsItemIntent: Subject<Int> = PublishSubject.create()
     override val dismissRatingIntent by lazy { rateDismiss.clicks() }
     override val rateIntent by lazy { rateOkay.clicks() }
-    override val conversationClickIntent by lazy { conversationsAdapter.clicks }
-    override val conversationLongClickIntent by lazy { conversationsAdapter.longClicks }
-    override val conversationMenuItemIntent by lazy { dialog.adapter.menuItemClicks }
+    override val conversationsSelectedIntent by lazy { conversationsAdapter.selectionChanges }
     override val confirmDeleteIntent: Subject<Unit> = PublishSubject.create()
     override val swipeConversationIntent by lazy { itemTouchCallback.swipes }
     override val undoSwipeConversationIntent: Subject<Unit> = PublishSubject.create()
+    override val backPressedIntent: Subject<Unit> = PublishSubject.create()
 
+    private val toggle by lazy { ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0) }
     private val itemTouchHelper by lazy { ItemTouchHelper(itemTouchCallback) }
     private val archiveSnackbar by lazy {
         Snackbar.make(drawerLayout, R.string.toast_archived, Snackbar.LENGTH_INDEFINITE).apply {
@@ -103,19 +105,16 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         appComponent.inject(this)
     }
 
-    override val backPressedIntent: Subject<Unit> = PublishSubject.create();
-
-    override fun onBackPressed() {
-        backPressedIntent.onNext(Unit)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         viewModel.bindView(this)
-        toolbarSearch.setHint(R.string.title_conversations)
 
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0).apply { syncState() }
+        toggle.syncState()
+        toolbar.setNavigationOnClickListener {
+            dismissKeyboard()
+            homeIntent.onNext(Unit)
+        }
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -123,12 +122,6 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         // Don't allow clicks to pass through the drawer layout
         drawer.clicks().subscribe()
 
-        //TODO check if user wants us to collect analytics
-        AppCenter.start(getApplication(), "c658bc27-e599-45f5-917f-aed309b79dac",
-                Crashes::class.java)
-
-        //TODO check if user wants us to collect analytics
-        AppCenter.start(Analytics::class.java);
         scheduled.isEnabled = false
 
         colors.background
@@ -198,20 +191,35 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
     }
 
     override fun render(state: MainState) {
-        toolbarSearch.isEnabled = state.page is Inbox
-        toolbarSearch.setTextSize(if (state.page is Inbox) MelayEditText.SIZE_PRIMARY else MelayEditText.SIZE_TOOLBAR)
-
-        toolbar.menu.findItem(R.id.clear)?.run {
-            isVisible = state.page is Inbox && state.page.showClearButton
+        if (state.hasError) {
+            finish()
+            return
         }
+
+        val selectedConversations = when (state.page) {
+            is Inbox -> state.page.selected
+            is Archived -> state.page.selected
+            else -> 0
+        }
+
+        toolbarSearch.setVisible(state.page is Inbox && state.page.selected == 0)
+        toolbarTitle.setVisible(toolbarSearch.visibility != View.VISIBLE)
+
+        toolbar.menu.findItem(R.id.archive)?.isVisible = state.page is Inbox && selectedConversations != 0
+        toolbar.menu.findItem(R.id.unarchive)?.isVisible = state.page is Archived && selectedConversations != 0
+        toolbar.menu.findItem(R.id.block)?.isVisible = selectedConversations != 0
+        toolbar.menu.findItem(R.id.delete)?.isVisible = selectedConversations != 0
 
         syncing.setVisible(state.syncing)
         synced.setVisible(!state.syncing)
         rateLayout.setVisible(state.showRating)
 
+        compose.setVisible(state.page is Inbox || state.page is Archived)
+
         when (state.page) {
             is Inbox -> {
-                if (!inbox.isSelected) toolbarSearch.text = null
+                showBackButton(state.page.showClearButton)
+                title = getString(R.string.main_title_selected, state.page.selected)
                 if (recyclerView.adapter !== conversationsAdapter) recyclerView.adapter = conversationsAdapter
                 conversationsAdapter.flowable = state.page.data
                 itemTouchHelper.attachToRecyclerView(recyclerView)
@@ -219,24 +227,25 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
                     true -> R.string.inbox_search_empty_text
                     false -> R.string.inbox_empty_text
                 })
-                compose.setVisible(true)
             }
 
             is Archived -> {
-                if (!archived.isSelected) toolbarSearch.setText(R.string.title_archived)
+                showBackButton(state.page.showClearButton)
+                title = when (state.page.selected != 0) {
+                    true -> getString(R.string.main_title_selected, state.page.selected)
+                    false -> getString(R.string.title_archived)
+                }
                 if (recyclerView.adapter !== conversationsAdapter) recyclerView.adapter = conversationsAdapter
                 conversationsAdapter.flowable = state.page.data
                 itemTouchHelper.attachToRecyclerView(null)
                 empty.setText(R.string.archived_empty_text)
-                compose.setVisible(true)
             }
 
             is Scheduled -> {
-                if (!scheduled.isSelected) toolbarSearch.setText(R.string.title_scheduled)
+                setTitle(R.string.title_scheduled)
                 recyclerView.adapter = null
                 itemTouchHelper.attachToRecyclerView(null)
                 empty.setText(R.string.scheduled_empty_text)
-                compose.setVisible(false)
             }
         }
 
@@ -246,14 +255,15 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         }
 
         inbox.isSelected = state.page is Inbox
-        inboxIcon.isSelected = state.page is Inbox
         archived.isSelected = state.page is Archived
-        archivedIcon.isSelected = state.page is Archived
         scheduled.isSelected = state.page is Scheduled
-        scheduledIcon.isSelected = state.page is Scheduled
 
         if (drawerLayout.isDrawerOpen(Gravity.START) && !state.drawerOpen) drawerLayout.closeDrawer(Gravity.START)
         else if (!drawerLayout.isDrawerVisible(Gravity.START) && state.drawerOpen) drawerLayout.openDrawer(Gravity.START)
+    }
+
+    override fun showBackButton(show: Boolean) {
+        toggle.onDrawerSlide(drawer, if (show) 1f else 0f)
     }
 
     override fun clearSearch() {
@@ -261,9 +271,8 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         toolbarSearch.text = null
     }
 
-    override fun showDialog(menuItems: List<tech.mattico.melay.view.MenuItem>) {
-        dialog.adapter.data = menuItems
-        dialog.show(this)
+    override fun clearSelection() {
+        conversationsAdapter.clearSelection()
     }
 
     override fun showDeleteDialog() {
@@ -281,12 +290,12 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.clear -> queryCancelledIntent.onNext(Unit)
-            else -> return super.onOptionsItemSelected(item)
-        }
-
+        optionsItemIntent.onNext(item.itemId)
         return true
+    }
+
+    override fun onBackPressed() {
+        backPressedIntent.onNext(Unit)
     }
 
 }

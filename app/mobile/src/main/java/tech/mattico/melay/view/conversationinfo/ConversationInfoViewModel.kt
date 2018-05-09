@@ -44,7 +44,7 @@ class ConversationInfoViewModel(intent: Intent) : MelayViewModel<ConversationInf
     @Inject lateinit var markBlocked: MarkBlocked
     @Inject lateinit var markUnblocked: MarkUnblocked
     @Inject lateinit var navigator: Navigator
-    @Inject lateinit var deleteConversation: DeleteConversation
+    @Inject lateinit var deleteConversations: DeleteConversations
 
     private val conversation: Observable<Conversation>
 
@@ -72,7 +72,7 @@ class ConversationInfoViewModel(intent: Intent) : MelayViewModel<ConversationInf
         disposables += markUnarchived
         disposables += markBlocked
         disposables += markUnblocked
-        disposables += deleteConversation
+        disposables += deleteConversations
 
         // Update the recipients whenever they change
         disposables += conversation
@@ -114,8 +114,8 @@ class ConversationInfoViewModel(intent: Intent) : MelayViewModel<ConversationInf
                 .autoDisposable(view.scope())
                 .subscribe { conversation ->
                     when (conversation.archived) {
-                        true -> markUnarchived.execute(conversation.id)
-                        false -> markArchived.execute(conversation.id)
+                        true -> markUnarchived.execute(listOf(conversation.id))
+                        false -> markArchived.execute(listOf(conversation.id))
                     }
                 }
 
@@ -125,8 +125,8 @@ class ConversationInfoViewModel(intent: Intent) : MelayViewModel<ConversationInf
                 .autoDisposable(view.scope())
                 .subscribe { conversation ->
                     when (conversation.blocked) {
-                        true -> markUnblocked.execute(conversation.id)
-                        false -> markBlocked.execute(conversation.id)
+                        true -> markUnblocked.execute(listOf(conversation.id))
+                        false -> markBlocked.execute(listOf(conversation.id))
                     }
                 }
 
@@ -139,7 +139,7 @@ class ConversationInfoViewModel(intent: Intent) : MelayViewModel<ConversationInf
         view.confirmDeleteIntent
                 .withLatestFrom(conversation, { _, conversation -> conversation })
                 .autoDisposable(view.scope())
-                .subscribe { conversation -> deleteConversation.execute(conversation.id) }
+                .subscribe { conversation -> deleteConversations.execute(listOf(conversation.id)) }
     }
 
 }

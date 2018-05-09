@@ -84,7 +84,6 @@ abstract class MelayThemedActivity<VM : MelayViewModel<*, *>> : MelayActivity<VM
                 .subscribe { color -> window.navigationBarColor = color }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
 
@@ -94,12 +93,10 @@ abstract class MelayThemedActivity<VM : MelayViewModel<*, *>> : MelayActivity<VM
                     .map { position -> menu.getItem(position) }
                     .forEach { menuItem ->
                         menuItem?.icon?.run {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                setTint(when (menuItem.itemId) {
-                                    R.id.info -> textTertiary
-                                    else -> theme
-                                })
-                            }
+                            setTint(when (menuItem.itemId) {
+                                R.id.info -> textTertiary
+                                else -> theme
+                            })
 
                             menuItem.icon = this
                         }
@@ -121,11 +118,7 @@ abstract class MelayThemedActivity<VM : MelayViewModel<*, *>> : MelayActivity<VM
                 .doOnNext { color ->
                     // Set the color for the recent apps title
                     val icon = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
-                    val taskDesc = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        ActivityManager.TaskDescription(getString(R.string.app_name), icon, color)
-                    } else {
-                        TODO("VERSION.SDK_INT < LOLLIPOP")
-                    }
+                    val taskDesc = ActivityManager.TaskDescription(getString(R.string.app_name), icon, color)
                     setTaskDescription(taskDesc)
                 }
                 .autoDisposable(scope(Lifecycle.Event.ON_DESTROY))
@@ -136,5 +129,6 @@ abstract class MelayThemedActivity<VM : MelayViewModel<*, *>> : MelayActivity<VM
      * This can be overridden in case an activity does not want to use the default themes
      */
     open fun getAppThemeResourcesObservable() = colors.appThemeResources
+
 
 }

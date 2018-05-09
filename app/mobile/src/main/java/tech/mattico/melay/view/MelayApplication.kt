@@ -57,6 +57,8 @@ class MelayApplication : Application() {
         AppComponentManager.init(this)
         appComponent.inject(this)
 
+        //TODO move the AppCenter init here?
+
         nightModeManager.updateCurrentTheme()
 
         //TODO: remove this?

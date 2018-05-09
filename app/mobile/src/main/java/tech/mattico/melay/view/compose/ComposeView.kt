@@ -31,6 +31,7 @@ import tech.mattico.melay.model.Message
 
 interface ComposeView : MelayView<ComposeState> {
 
+
     val activityVisibleIntent: Observable<Boolean>
     val queryChangedIntent: Observable<CharSequence>
     val queryBackspaceIntent: Observable<*>
@@ -38,20 +39,19 @@ interface ComposeView : MelayView<ComposeState> {
     val chipSelectedIntent: Subject<Contact>
     val chipDeletedIntent: Subject<Contact>
     val menuReadyIntent: Observable<Unit>
-    val callIntent: Subject<Unit>
-    val infoIntent: Subject<Unit>
+    val optionsItemIntent: Observable<Int>
     val messageClickIntent: Subject<Message>
-    val messageLongClickIntent: Subject<Message>
-    val menuItemIntent: Subject<Int>
+    val messagesSelectedIntent: Observable<List<Long>>
+    //TODO enable cancel sending? val cancelSendingIntent: Subject<Message>
     val attachmentDeletedIntent: Subject<Attachment>
     val textChangedIntent: Observable<CharSequence>
     val attachIntent: Observable<Unit>
     val cameraIntent: Observable<*>
-    val inputContentIntent: Observable<InputContentInfoCompat>
     val galleryIntent: Observable<*>
+    val inputContentIntent: Observable<InputContentInfoCompat>
     val sendIntent: Observable<Unit>
 
-    fun showMenu(menuItems: List<MenuItem>)
+    fun clearSelection()
     fun setDraft(draft: String)
     val backPressedIntent: Observable<Unit>
 

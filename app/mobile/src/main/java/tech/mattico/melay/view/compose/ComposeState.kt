@@ -32,9 +32,10 @@ data class ComposeState(
         val contactsVisible: Boolean = false,
         val selectedConversation: Long = 0,
         val selectedContacts: List<Contact> = ArrayList(),
-        val title: String = "",
+        val conversationtitle: String = "",
         val messages: Pair<Conversation, RealmResults<Message>>? = null,
         val attachments: List<Attachment> = ArrayList(),
+        val selectedMessages: Int = 0,
         val attaching: Boolean = false,
         val remaining: String = "",
         val canSend: Boolean = false

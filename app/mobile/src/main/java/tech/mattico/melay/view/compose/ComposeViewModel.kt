@@ -38,11 +38,6 @@ import tech.mattico.melay.utils.ClipboardUtils
 import tech.mattico.melay.utils.extensions.makeToast
 import tech.mattico.melay.utils.filter.ContactFilter
 import tech.mattico.melay.injection.appComponent
-import tech.mattico.melay.interactor.ContactSync
-import tech.mattico.melay.interactor.DeleteMessage
-import tech.mattico.melay.interactor.MarkRead
-import tech.mattico.melay.interactor.RetrySending
-import tech.mattico.melay.interactor.SendMessage
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.Observables
@@ -53,6 +48,7 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import io.realm.RealmList
+import tech.mattico.melay.interactor.*
 import tech.mattico.melay.model.Contact
 import tech.mattico.melay.model.Conversation
 import tech.mattico.melay.model.Message
@@ -70,7 +66,9 @@ import javax.inject.Inject
 
 class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeState>(ComposeState()) {
 
+
     @Inject lateinit var context: Context
+    //@Inject lateinit var cancelMessage: CancelDelayedMessage
     @Inject lateinit var contactFilter: ContactFilter
     @Inject lateinit var contactsRepo: ContactRepository
     @Inject lateinit var messageRepo: IMessageRepository
@@ -79,7 +77,7 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
     @Inject lateinit var sendMessage: SendMessage
     @Inject lateinit var retrySending: RetrySending
     @Inject lateinit var markRead: MarkRead
-    @Inject lateinit var deleteMessage: DeleteMessage
+    @Inject lateinit var deleteMessages: DeleteMessages
 
     private var sharedText: String = ""
     private val attachments: Subject<List<Attachment>> = BehaviorSubject.createDefault(ArrayList())
@@ -88,10 +86,6 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
     private val selectedContacts: Observable<List<Contact>>
     private val conversation: Observable<Conversation>
     private val messages: Observable<List<Message>>
-
-    private val menuCopy by lazy { MenuItem(context.getString(R.string.compose_menu_copy), 0) }
-    private val menuForward by lazy { MenuItem(context.getString(R.string.compose_menu_forward), 1) }
-    private val menuDelete by lazy { MenuItem(context.getString(R.string.compose_menu_delete), 2) }
 
     init {
         appComponent.inject(this)
@@ -103,7 +97,7 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
         val sharedImages = mutableListOf<Uri>()
         intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)?.run { sharedImages += this }
         intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)?.run { sharedImages += this }
-        attachments.onNext(sharedImages.map{ uri -> Attachment(uri)});
+        attachments.onNext(sharedImages.map { uri -> Attachment(uri) })
 
         val threadId = intent.extras?.getLong("threadId") ?: 0L
         var address = ""
@@ -178,7 +172,7 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
         disposables += conversation
                 .distinctUntilChanged { conversation -> conversation.getTitle() }
                 .subscribe { conversation ->
-                    newState { it.copy(title = conversation.getTitle()) }
+                    newState { it.copy(conversationtitle = conversation.getTitle()) }
                 }
 
         disposables += attachments
@@ -221,11 +215,7 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
 
                     // If the entry is a valid destination, allow it as a recipient
                     if (PhoneNumberUtils.isWellFormedSmsAddress(query.toString())) {
-                        val newAddress = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            PhoneNumberUtils.formatNumber(query.toString(), Locale.getDefault().country)
-                        } else {
-                            TODO("VERSION.SDK_INT < LOLLIPOP")
-                        }
+                        val newAddress = PhoneNumberUtils.formatNumber(query.toString(), Locale.getDefault().country)
                         val newContact = Contact(numbers = RealmList(PhoneNumber(address = newAddress
                                 ?: query.toString())))
                         filteredContacts = listOf(newContact) + filteredContacts
@@ -243,8 +233,8 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
         // Close the activity if user presses back
         view.queryBackspaceIntent
                 .withLatestFrom(selectedContacts, view.queryChangedIntent, { event, contacts, query ->
-                    if (contacts.isNotEmpty() && query.isEmpty()){
-                        contactsReducer.onNext{ it.dropLast((1))}
+                    if (contacts.isNotEmpty() && query.isEmpty()) {
+                        contactsReducer.onNext { it.dropLast(1) }
                     }
                 })
                 .autoDisposable(view.scope())
@@ -280,7 +270,8 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
                 .subscribe { newState { it.copy() } }
 
         // Open the phone dialer if the call button is clicked
-        view.callIntent
+        view.optionsItemIntent
+                .filter { it == R.id.call }
                 .withLatestFrom(conversation, { _, conversation -> conversation })
                 .map { conversation -> conversation.recipients.first() }
                 .map { recipient -> recipient.address }
@@ -288,10 +279,44 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
                 .subscribe { address -> navigator.makePhoneCall(address) }
 
         // Open the conversation settings if info button is clicked
-        view.infoIntent
+        view.optionsItemIntent
+                .filter { it == R.id.info }
                 .withLatestFrom(conversation, { _, conversation -> conversation })
                 .autoDisposable(view.scope())
                 .subscribe { conversation -> navigator.showConversationInfo(conversation.id) }
+
+        // Copy the message contents
+        view.optionsItemIntent
+                .filter { it == R.id.copy }
+                .withLatestFrom(view.messagesSelectedIntent, { _, messages ->
+                    messages?.firstOrNull()?.let { messageRepo.getMessage(it) }?.let { message ->
+                        ClipboardUtils.copy(context, message.getText())
+                        context.makeToast(R.string.toast_copied)
+                    }
+                })
+                .autoDisposable(view.scope())
+                .subscribe { view.clearSelection() }
+
+        // Delete the messages
+        view.optionsItemIntent
+                .filter { it == R.id.delete }
+                .withLatestFrom(view.messagesSelectedIntent, conversation, { _, messages, conversation ->
+                    deleteMessages.execute(DeleteMessages.Params(messages, conversation.id))
+                })
+                .autoDisposable(view.scope())
+                .subscribe { view.clearSelection() }
+
+        // Forward the message
+        view.optionsItemIntent
+                .filter { it == R.id.forward }
+                .withLatestFrom(view.messagesSelectedIntent, { _, messages ->
+                    messages?.firstOrNull()?.let { messageRepo.getMessage(it) }?.let { message ->
+                        val images = message.parts.filter { it.isImage() }.mapNotNull { it.getUri() }
+                        navigator.showCompose(message.body, images)
+                    }
+                })
+                .autoDisposable(view.scope())
+                .subscribe { view.clearSelection() }
 
         // Retry sending
         view.messageClickIntent
@@ -300,30 +325,17 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
                 .autoDisposable(view.scope())
                 .subscribe()
 
-        // Show menu
-        view.messageLongClickIntent
+        // Update the State when the message selected count changes
+        view.messagesSelectedIntent
+                .map { selection -> selection.size }
                 .autoDisposable(view.scope())
-                .subscribe { view.showMenu(listOf(menuCopy, menuForward, menuDelete)) }
+                .subscribe { messages -> newState { it.copy(selectedMessages = messages, editingMode = false) } }
 
-        // Handle long-press menu item click
-        view.menuItemIntent
-                .withLatestFrom(view.messageLongClickIntent, { actionId, message ->
-                    when (actionId) {
-                        menuCopy.actionId -> {
-                            ClipboardUtils.copy(context, message.getText())
-                            context.makeToast(R.string.toast_copied)
-                        }
-
-                        menuForward.actionId -> {
-                            val images = message.parts.filter { it.isImage() }.mapNotNull { it.getUri() }
-                            navigator.showCompose(message.body, images)
-                        }
-
-                        menuDelete.actionId -> deleteMessage.execute(message.id)
-                    }
-                })
+        // Cancel sending a message
+        /*view.cancelSendingIntent
+                .doOnNext { message -> view.setDraft(message.getText()) }
                 .autoDisposable(view.scope())
-                .subscribe()
+                .subscribe { message -> cancelMessage.execute(message.id) }*/
 
         // Save draft when the activity goes into the background
         view.activityVisibleIntent
@@ -353,7 +365,7 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
         // Attach a photo from camera
         view.cameraIntent
                 .flatMap { RxImagePicker.with(context).requestImage(Sources.CAMERA) }
-                .map {uri -> Attachment(uri)}
+                .map { uri -> Attachment(uri) }
                 .withLatestFrom(attachments, { attachment, attachments -> attachments + attachment })
                 .doOnNext { attachments.onNext(it) }
                 .autoDisposable(view.scope())
@@ -362,12 +374,13 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
         // Attach a photo from gallery
         view.galleryIntent
                 .flatMap { RxImagePicker.with(context).requestImage(Sources.GALLERY) }
-                .map { uri -> Attachment(uri)}
+                .map { uri -> Attachment(uri) }
                 .withLatestFrom(attachments, { attachment, attachments -> attachments + attachment })
                 .doOnNext { attachments.onNext(it) }
                 .autoDisposable(view.scope())
                 .subscribe { newState { it.copy(attaching = false) } }
-        //Attach Media from keyboard
+
+        // Attach media from the keyboard
         view.inputContentIntent
                 .map { inputContent -> Attachment(uri = null, inputContent = inputContent) }
                 .withLatestFrom(attachments, { attachment, attachments -> attachments + attachment })
@@ -443,6 +456,22 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
                 })
                 .autoDisposable(view.scope())
                 .subscribe()
+
+        // Navigate back
+        view.optionsItemIntent
+                .filter { it == android.R.id.home }
+                .map { Unit }
+                .mergeWith(view.backPressedIntent)
+                .withLatestFrom(state, { _, state ->
+                    when {
+                        state.selectedMessages > 0 -> view.clearSelection()
+                        else -> newState { it.copy(hasError = true) }
+                    }
+                })
+                .autoDisposable(view.scope())
+                .subscribe()
+
     }
+
 
 }

@@ -76,7 +76,7 @@ abstract class MelayActivity<VM : MelayViewModel<*, *>> : AppCompatActivity() {
         return result
     }
 
-    protected fun showBackButton(show: Boolean) {
+    protected open fun showBackButton(show: Boolean) {
         supportActionBar?.setDisplayHomeAsUpEnabled(show)
     }
 

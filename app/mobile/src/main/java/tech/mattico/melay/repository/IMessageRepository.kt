@@ -29,6 +29,8 @@ interface IMessageRepository {
 
     fun getConversations(archived: Boolean = false): Flowable<List<Conversation>>
 
+    fun getUnrespondedConversations(unread: Boolean = false): Flowable<List<Conversation>>
+
     fun getConversationsSnapshot(): List<Conversation>
 
     fun getBlockedConversations(): RealmResults<Conversation>
@@ -72,15 +74,15 @@ interface IMessageRepository {
     /**
      * Updates message-related fields in the conversation, like the date and snippet
      */
-    fun updateConversation(threadId: Long)
+    fun updateConversations(vararg threadIds: Long)
 
-    fun markArchived(threadId: Long)
+    fun markArchived(vararg threadIds: Long)
 
-    fun markUnarchived(threadId: Long)
+    fun markUnarchived(vararg threadIds: Long)
 
-    fun markBlocked(threadId: Long)
+    fun markBlocked(vararg threadIds: Long)
 
-    fun markUnblocked(threadId: Long)
+    fun markUnblocked(vararg threadIds: Long)
 
     fun markAllSeen()
 
@@ -98,7 +100,12 @@ interface IMessageRepository {
      */
     fun sendSms(message: Message)
 
-    fun insertSentSms(threadId: Long, address: String, body: String): Message
+    /**
+     * Attempts to cancel sending the message with the given id
+     */
+    fun cancelDelayedSms(id: Long)
+
+    fun insertSentSms(threadId: Long, address: String, body: String, date: Long): Message
 
     fun insertReceivedSms(address: String, body: String, sentTime: Long): Message
 
@@ -115,8 +122,9 @@ interface IMessageRepository {
 
     fun markDeliveryFailed(id: Long, resultCode: Int)
 
-    fun deleteMessage(messageId: Long)
+    fun deleteMessages(vararg messageIds: Long)
 
-    fun deleteConversation(threadId: Long)
+    fun deleteConversations(vararg threadIds: Long)
+
 
 }

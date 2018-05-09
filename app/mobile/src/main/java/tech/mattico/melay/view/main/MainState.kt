@@ -29,7 +29,9 @@ data class MainState(
         val showRating: Boolean = false
 )
 
-sealed class MainPage
+sealed class MainPage {
+
+}
 
 data class Inbox(
         val showClearButton: Boolean = false,
@@ -38,11 +40,12 @@ data class Inbox(
         val showArchivedSnackbar: Boolean = false) : MainPage()
 
 data class Archived(
+        val showClearButton: Boolean = false,
+        val selected: Int = 0,
         val data: Flowable<List<Conversation>>? = null) : MainPage()
 
 data class Unread(
         val data: Flowable<List<Conversation>>? = null) : MainPage()
-
 data class Unanswered(
         val data: Flowable<List<Conversation>>? = null) : MainPage()
 

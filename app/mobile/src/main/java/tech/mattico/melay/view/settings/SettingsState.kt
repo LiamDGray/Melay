@@ -34,6 +34,8 @@ data class SettingsState(
         val deliveryEnabled: Boolean = false,
         val textSizeSummary: String = "",
         val textSizeId: Int = Preferences.TEXT_SIZE_NORMAL,
+        val telemetryLevelSummary: String = "",
+        val telemetryLevelId: Int = Preferences.TELEMETRY_USAGE,
         val systemFontEnabled: Boolean = false,
         val splitSmsEnabled: Boolean = false,
         val stripUnicodeEnabled: Boolean = false,

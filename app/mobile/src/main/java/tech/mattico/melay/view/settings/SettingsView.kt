@@ -31,6 +31,7 @@ interface SettingsView : MelayView<SettingsState> {
     val startTimeSelectedIntent: Subject<Pair<Int, Int>>
     val endTimeSelectedIntent: Subject<Pair<Int, Int>>
     val textSizeSelectedIntent: Subject<Int>
+    val telemetryLevelSelectedIntent: Subject<Int>
     val mmsSizeSelectedIntent: Observable<Int>
 
     fun showNightModeDialog()
@@ -39,4 +40,5 @@ interface SettingsView : MelayView<SettingsState> {
     fun showEndTimePicker(hour: Int, minute: Int)
     fun showTextSizePicker()
     fun showMmsSizePicker()
+    fun showTelemetryLevelPicker()
 }

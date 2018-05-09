@@ -48,6 +48,7 @@ class SettingsActivity : MelayThemedActivity<SettingsViewModel>(), SettingsView 
     @Inject lateinit var nightModeDialog: MelayDialog
     @Inject lateinit var textSizeDialog: MelayDialog
     @Inject lateinit var mmsSizeDialog: MelayDialog
+    @Inject lateinit var telemetryLevelDialog: MelayDialog
 
     override val viewModelClass = SettingsViewModel::class
     override val preferenceClickIntent: Subject<PreferenceView> = PublishSubject.create()
@@ -56,6 +57,7 @@ class SettingsActivity : MelayThemedActivity<SettingsViewModel>(), SettingsView 
     override val startTimeSelectedIntent: Subject<Pair<Int, Int>> = PublishSubject.create()
     override val endTimeSelectedIntent: Subject<Pair<Int, Int>> = PublishSubject.create()
     override val textSizeSelectedIntent by lazy { textSizeDialog.adapter.menuItemClicks }
+    override val telemetryLevelSelectedIntent by lazy { telemetryLevelDialog.adapter.menuItemClicks }
     override val mmsSizeSelectedIntent: Subject<Int> by lazy { mmsSizeDialog.adapter.menuItemClicks }
 
     // TODO remove this
@@ -126,6 +128,8 @@ class SettingsActivity : MelayThemedActivity<SettingsViewModel>(), SettingsView 
         textSizeDialog.adapter.selectedItem = state.textSizeId
         systemFont.checkbox.isChecked = state.systemFontEnabled
 
+
+
         unicode.checkbox.isChecked = state.stripUnicodeEnabled
 
         mmsSize.summary = state.maxMmsSizeSummary
@@ -158,5 +162,7 @@ class SettingsActivity : MelayThemedActivity<SettingsViewModel>(), SettingsView 
     override fun showTextSizePicker() = textSizeDialog.show(this)
 
     override fun showMmsSizePicker() = mmsSizeDialog.show(this)
+
+    override fun showTelemetryLevelPicker() = telemetryLevelDialog.show(this)
 
 }

@@ -90,6 +90,12 @@ class SettingsViewModel : MelayViewModel<SettingsView, SettingsState>(SettingsSt
                     newState { it.copy(textSizeSummary = textSizeLabels[textSize], textSizeId = textSize) }
                 }
 
+        val telemetryLevelLabels = context.resources.getStringArray(R.array.telemetry_levels)
+        disposables += prefs.telemetryLevel.asObservable()
+                .subscribe { level ->
+                    newState { it.copy(telemetryLevelSummary = textSizeLabels[level], telemetryLevelId = level) }
+                }
+
         disposables += prefs.systemFont.asObservable()
                 .subscribe { enabled -> newState { it.copy(systemFontEnabled = enabled) } }
 
@@ -144,6 +150,8 @@ class SettingsViewModel : MelayViewModel<SettingsView, SettingsState>(SettingsSt
 
                         R.id.textSize -> view.showTextSizePicker()
 
+                        //TODO set watcher for telemetry level picker
+
                         R.id.systemFont -> prefs.systemFont.set(!prefs.systemFont.get())
 
                         R.id.unicode -> prefs.unicode.set(!prefs.unicode.get())
@@ -191,6 +199,10 @@ class SettingsViewModel : MelayViewModel<SettingsView, SettingsState>(SettingsSt
         view.textSizeSelectedIntent
                 .autoDisposable(view.scope())
                 .subscribe { prefs.textSize.set(it) }
+
+        view.telemetryLevelSelectedIntent
+                .autoDisposable(view.scope())
+                .subscribe { prefs.telemetryLevel.set(it) }
 
         view.mmsSizeSelectedIntent
                 .autoDisposable(view.scope())

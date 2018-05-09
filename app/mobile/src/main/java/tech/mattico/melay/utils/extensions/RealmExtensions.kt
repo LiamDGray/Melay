@@ -19,10 +19,8 @@
 package tech.mattico.melay.utils.extensions
 
 import io.reactivex.Observable
-import io.realm.Realm
-import io.realm.RealmModel
-import io.realm.RealmObject
-import io.realm.RealmResults
+import io.realm.*
+import timber.log.Timber
 
 fun RealmModel.insertOrUpdate() {
     val realm = Realm.getDefaultInstance()
@@ -42,4 +40,11 @@ fun <T : RealmObject> RealmObject.asObservable(): Observable<T> {
 
 fun <T : RealmObject> RealmResults<T>.asObservable(): Observable<RealmResults<T>> {
     return asFlowable().toObservable()
+}
+fun <T : RealmObject> RealmQuery<T>.anyOf(fieldName: String, values: LongArray): RealmQuery<T> {
+    values.forEach { Timber.v("vararg: $it") }
+    return when (values.isEmpty()) {
+        true -> equalTo(fieldName, -1L)
+        false -> `in`(fieldName, values.toTypedArray())
+    }
 }
