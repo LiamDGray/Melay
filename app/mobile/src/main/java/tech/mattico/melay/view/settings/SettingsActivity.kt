@@ -82,7 +82,7 @@ class SettingsActivity : MelayThemedActivity<SettingsViewModel>(), SettingsView 
 
         nightModeDialog.adapter.setData(R.array.night_modes)
         textSizeDialog.adapter.setData(R.array.text_sizes)
-        telemetryLevelDialog.adapter.setData(R.array.text_sizes)
+        telemetryLevelDialog.adapter.setData(R.array.telemetry_levels)
         mmsSizeDialog.adapter.setData(R.array.mms_sizes, R.array.mms_sizes_ids)
 
         about.summary = getString(R.string.settings_version, BuildConfig.VERSION_NAME)

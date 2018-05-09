@@ -93,7 +93,7 @@ class SettingsViewModel : MelayViewModel<SettingsView, SettingsState>(SettingsSt
         val telemetryLevelLabels = context.resources.getStringArray(R.array.telemetry_levels)
         disposables += prefs.telemetryLevel.asObservable()
                 .subscribe { level ->
-                    newState { it.copy(telemetryLevelSummary = textSizeLabels[level], telemetryLevelId = level) }
+                    newState { it.copy(telemetryLevelSummary = telemetryLevelLabels[level], telemetryLevelId = level) }
                 }
 
         disposables += prefs.systemFont.asObservable()
