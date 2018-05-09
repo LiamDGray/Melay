@@ -22,6 +22,7 @@ import android.app.Application
 import android.support.text.emoji.EmojiCompat
 import android.support.text.emoji.FontRequestEmojiCompatConfig
 import android.support.v4.provider.FontRequest
+import com.microsoft.appcenter.AppCenter
 import tech.mattico.melay.BuildConfig
 
 import tech.mattico.melay.utils.NightModeManager
@@ -56,8 +57,6 @@ class MelayApplication : Application() {
 
         AppComponentManager.init(this)
         appComponent.inject(this)
-
-        //TODO move the AppCenter init here?
 
         nightModeManager.updateCurrentTheme()
 

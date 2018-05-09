@@ -34,7 +34,9 @@ class MmsSentReceiver : MmsSentReceiver() {
         appComponent.inject(this)
 
         //what is p2?
-        Analytics.trackEvent("Recieved MMS "+p2);
+        //TODO analytic center
+        //TODO timber wrapper?
+        //Analytics.trackEvent("Recieved MMS "+p2);
 
         Uri.parse(intent?.getStringExtra("content_uri"))?.let { uri ->
             val pendingResult = goAsync()

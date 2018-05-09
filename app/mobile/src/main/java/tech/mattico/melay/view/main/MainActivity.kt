@@ -36,6 +36,8 @@ import android.view.View
 import com.jakewharton.rxbinding2.support.v4.widget.drawerOpen
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.textChanges
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.crashes.Crashes
 
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.kotlin.autoDisposable
@@ -55,11 +57,10 @@ import tech.mattico.melay.view.conversations.ConversationItemTouchCallback
 import tech.mattico.melay.view.widget.MelayEditText
 import javax.inject.Inject
 
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
-import com.microsoft.appcenter.crashes.Crashes;
-
 import tech.mattico.melay.conversations.ConversationsAdapter
+import com.microsoft.appcenter.analytics.Analytics
+
+
 
 class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
     @Inject lateinit var navigator: Navigator
@@ -141,6 +142,13 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
                 mutate()
             }
         }
+
+        //TODO move the AppCenter init into a manager
+        //TODO figure out how to get the preferences
+
+        AppCenter.start(application, "c658bc27-e599-45f5-917f-aed309b79dac",
+                Analytics::class.java, Crashes::class.java)
+
 
         // Set the theme color tint to the progressbar and FAB
         colors.theme
