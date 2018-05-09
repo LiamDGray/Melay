@@ -130,7 +130,7 @@ class SettingsActivity : MelayThemedActivity<SettingsViewModel>(), SettingsView 
         systemFont.checkbox.isChecked = state.systemFontEnabled
 
         textSizeDialog.adapter.selectedItem = state.telemetryLevelId
-        //telemtryLevel.summary = state.telemetryLevelSummary
+        telemetryLevel.summary = state.telemetryLevelSummary
 
 
 

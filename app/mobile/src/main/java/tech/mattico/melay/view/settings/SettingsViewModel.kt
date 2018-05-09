@@ -150,7 +150,7 @@ class SettingsViewModel : MelayViewModel<SettingsView, SettingsState>(SettingsSt
 
                         R.id.textSize -> view.showTextSizePicker()
 
-                        //TODO set watcher for telemetry level picker
+                        R.id.telemetryLevel -> view.showTelemetryLevelPicker()
 
                         R.id.systemFont -> prefs.systemFont.set(!prefs.systemFont.get())
 
