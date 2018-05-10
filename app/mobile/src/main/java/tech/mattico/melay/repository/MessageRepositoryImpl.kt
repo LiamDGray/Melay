@@ -438,14 +438,14 @@ class MessageRepositoryImpl @Inject constructor(
                 ?: arrayListOf()
 
         val sentIntents = parts.map {
-            val action = "com.moez.QKSMS.SMS_SENT"
+            val action = "tech.mattico.melay.SMS_SENT"
             val intent = Intent(action).putExtra("id", message.id)
             BroadcastUtils.addClassName(context, intent, action)
             PendingIntent.getBroadcast(context, message.id.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
         val deliveredIntents = parts.map {
-            val action = "com.moez.QKSMS.SMS_DELIVERED"
+            val action = "tech.mattico.melay.SMS_DELIVERED"
             val intent = Intent(action).putExtra("id", message.id)
             BroadcastUtils.addClassName(context, intent, action)
             val pendingIntent = PendingIntent.getBroadcast(context, message.id.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -461,7 +461,7 @@ class MessageRepositoryImpl @Inject constructor(
     }
 
     private fun getIntentForDelayedSms(id: Long): PendingIntent {
-        val action = "com.moez.QKSMS.SEND_SMS"
+        val action = "tech.mattico.melay.SEND_SMS"
         val intent = Intent(action).putExtra("id", id)
         BroadcastUtils.addClassName(context, intent, action)
         return PendingIntent.getBroadcast(context, id.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
