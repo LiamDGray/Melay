@@ -17,10 +17,34 @@
  * along with Melay SMS.  If not, see <http://www.gnu.org/licenses/>.
  */
 package tech.mattico.melay.utils
+
+import android.content.Context
+import android.net.NetworkInfo
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
+
+
 fun <T> tryOrNull(body: () -> T?): T? {
     return try {
         body()
     } catch (e: Exception) {
         null
     }
+}
+
+/**
+ * Checks if there is Internet connection or data connection on the device.
+ *
+ * @param context - The activity calling this method.
+ * @return boolean
+ */
+fun isConnected(context: Context): Boolean {
+
+    val connectivity = context
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    val networkInfo = connectivity.activeNetworkInfo
+
+    return networkInfo != null && networkInfo.isConnectedOrConnecting
+
 }

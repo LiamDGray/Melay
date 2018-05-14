@@ -21,6 +21,7 @@ package tech.mattico.melay.injection
 
 import dagger.Component
 import tech.mattico.melay.MelayApplication
+import tech.mattico.melay.receiver.*
 import tech.mattico.melay.view.conversationinfo.ConversationInfoActivity
 import tech.mattico.melay.view.conversationinfo.ConversationInfoViewModel
 
@@ -41,18 +42,8 @@ import tech.mattico.melay.view.compose.ComposeActivity
 import tech.mattico.melay.view.widget.WidgetAdapter
 import tech.mattico.melay.view.widget.WidgetProvider
 //receivers
-import tech.mattico.melay.receiver.DefaultSmsChangedReceiver
-import tech.mattico.melay.receiver.MarkReadReceiver
-import tech.mattico.melay.receiver.MarkSeenReceiver
-import tech.mattico.melay.receiver.MmsReceivedReceiver
-import tech.mattico.melay.receiver.MmsSentReceiver
-import tech.mattico.melay.receiver.MmsUpdatedReceiver
-import tech.mattico.melay.receiver.NightModeReceiver
-import tech.mattico.melay.receiver.RemoteMessagingReceiver
-import tech.mattico.melay.receiver.SmsDeliveredReceiver
-import tech.mattico.melay.receiver.SmsProviderChangedReceiver
-import tech.mattico.melay.receiver.SmsReceiver
-import tech.mattico.melay.receiver.SmsSentReceiver
+import tech.mattico.melay.services.AutoSyncScheduledService
+import tech.mattico.melay.services.BaseWakefulIntentService
 import tech.mattico.melay.view.compose.DetailedChipView
 import tech.mattico.melay.view.main.MainActivity
 import tech.mattico.melay.view.about.AboutActivity
@@ -101,6 +92,7 @@ interface AppComponent {
     fun inject(receiver: MmsSentReceiver)
     fun inject(receiver: MmsUpdatedReceiver)
     fun inject(receiver: NightModeReceiver)
+    fun inject(receiver: AutoSyncScheduledReceiver)
     fun inject(receiver: RemoteMessagingReceiver)
     fun inject(receiver: SmsProviderChangedReceiver)
     fun inject(receiver: SmsReceiver)
@@ -134,5 +126,10 @@ interface AppComponent {
 
     fun inject(viewModel: SettingsViewModel)
     //fun inject(viewModel: ThemePickerViewModel)
+
+
+    //SERVICES
+    fun inject(service : AutoSyncScheduledService)
+    fun inject(service : BaseWakefulIntentService)
 
 }

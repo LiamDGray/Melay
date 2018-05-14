@@ -213,7 +213,8 @@ class MelayEditText @JvmOverloads constructor(context: Context, attrs: Attribute
                 return super.sendKeyEvent(event)
             }
 
-
+            // I'm going to try watching this because I'm not sure what's useful for
+            /*
             override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
                 if (beforeLength == 1 && afterLength == 0) {
                     sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
@@ -222,6 +223,7 @@ class MelayEditText @JvmOverloads constructor(context: Context, attrs: Attribute
                 return super.deleteSurroundingText(beforeLength, afterLength)
 
             }
+            */
         }
 
         if (supportsInputContent) {
