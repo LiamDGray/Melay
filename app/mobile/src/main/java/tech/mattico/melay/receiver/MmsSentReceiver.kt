@@ -30,7 +30,7 @@ import javax.inject.Inject
 class MmsSentReceiver : MmsSentReceiver() {
     @Inject lateinit var syncMessage: SyncMessage
     override fun onMessageStatusUpdated(context: Context?, intent: Intent?, p2: Int) {
-        //super.onReceive(context, intent)
+        super.onReceive(context, intent)
         appComponent.inject(this)
 
         //what is p2?
