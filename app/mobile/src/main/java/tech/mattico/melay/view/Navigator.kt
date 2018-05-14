@@ -61,6 +61,8 @@ import tech.mattico.melay.view.about.AboutActivity
 import tech.mattico.melay.view.about.AboutViewModel
 import tech.mattico.melay.view.conversationinfo.ConversationInfoActivity
 import tech.mattico.melay.view.conversationinfo.ConversationInfoViewModel
+import tech.mattico.melay.view.gallery.GalleryActivity
+import tech.mattico.melay.view.gallery.GalleryViewModel
 import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyViewModel
 import tech.mattico.melay.view.settings.SettingsActivity
@@ -129,9 +131,9 @@ class Navigator @Inject constructor(private val context: Context, private val no
     }
 
     fun showImage(partId: Long) {
-        //TODO val intent = Intent(context, GalleryActivity::class.java)
-        //intent.putExtra("partId", partId)
-        //startActivity(intent)
+        val intent = Intent(context, GalleryActivity::class.java)
+        intent.putExtra("partId", partId)
+        startActivity(intent)
     }
 
     fun showVideo(uri: Uri, type: String) {
@@ -146,11 +148,11 @@ class Navigator @Inject constructor(private val context: Context, private val no
      * The transitionName for the view should be the id of the image being displayed
      */
     fun showImageAnimated(from: Activity, view: View) {
-        //TODO val intent = Intent(context, GalleryActivity::class.java)
-        /*intent.putExtra("partId", view.transitionName.toLong())
+        val intent = Intent(context, GalleryActivity::class.java)
+        intent.putExtra("partId", view.transitionName.toLong())
 
         val options = ActivityOptions.makeSceneTransitionAnimation(from, view, view.transitionName)
-        from.startActivity(intent, options.toBundle())*/
+        from.startActivity(intent, options.toBundle())
     }
 
     fun showSettings() {
@@ -278,8 +280,8 @@ class Navigator @Inject constructor(private val context: Context, private val no
                 AboutViewModel::class.java -> AboutViewModel()
                 ComposeViewModel::class.java -> ComposeViewModel(intent)
                 ConversationInfoViewModel::class.java -> ConversationInfoViewModel(intent)
-                /*GalleryViewModel::class.java -> GalleryViewModel(intent)
-                NotificationPrefsViewModel::class.java -> NotificationPrefsViewModel(intent)
+                GalleryViewModel::class.java -> GalleryViewModel(intent)
+                /*NotificationPrefsViewModel::class.java -> NotificationPrefsViewModel(intent)
                 */
                 MelayReplyViewModel::class.java -> MelayReplyViewModel(intent)
                 SettingsViewModel::class.java -> SettingsViewModel()

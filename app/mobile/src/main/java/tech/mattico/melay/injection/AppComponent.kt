@@ -48,6 +48,8 @@ import tech.mattico.melay.view.compose.DetailedChipView
 import tech.mattico.melay.view.main.MainActivity
 import tech.mattico.melay.view.about.AboutActivity
 import tech.mattico.melay.view.about.AboutViewModel
+import tech.mattico.melay.view.gallery.GalleryActivity
+import tech.mattico.melay.view.gallery.GalleryViewModel
 import tech.mattico.melay.view.main.MainViewModel
 import tech.mattico.melay.view.reply.MelayReplyActivity
 import tech.mattico.melay.view.reply.MelayReplyViewModel
@@ -70,8 +72,8 @@ interface AppComponent {
     //fun inject(activity: BlockedActivity)
 
     fun inject(activity: ConversationInfoActivity)
-    /*fun inject(activity: GalleryActivity)
-    fun inject(activity: NotificationPrefsActivity)
+    fun inject(activity: GalleryActivity)
+    /*fun inject(activity: NotificationPrefsActivity)
     fun inject(activity: PlusActivity)
     */
     fun inject(activity: MelayReplyActivity)
@@ -119,8 +121,8 @@ interface AppComponent {
     //fun inject(viewModel: BlockedViewModel)
 
     fun inject(viewModel: ConversationInfoViewModel)
-    /*fun inject(viewModel: GalleryViewModel)
-    fun inject(viewModel: NotificationPrefsViewModel)
+    fun inject(viewModel: GalleryViewModel)
+    /*fun inject(viewModel: NotificationPrefsViewModel)
     fun inject(viewModel: PlusViewModel)
     */
     fun inject(viewModel: MelayReplyViewModel)
