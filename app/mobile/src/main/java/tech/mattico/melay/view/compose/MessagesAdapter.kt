@@ -18,6 +18,7 @@ package tech.mattico.melay.view.compose
  * along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
@@ -52,6 +53,7 @@ import kotlinx.android.synthetic.main.mms_preview_list_item.view.*
 import tech.mattico.melay.model.Conversation
 import tech.mattico.melay.model.Message
 import tech.mattico.melay.model.Recipient
+import tech.mattico.melay.utils.Preferences
 import tech.mattico.melay.utils.extensions.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -60,7 +62,8 @@ class MessagesAdapter @Inject constructor(
         private val context: Context,
         private val colors: Colors,
         private val dateFormatter: DateFormatter,
-        private val navigator: Navigator
+        private val navigator: Navigator,
+        private val prefs: Preferences
 ) : MelayRealmAdapter<Message>() {
 
     companion object {
@@ -70,6 +73,7 @@ class MessagesAdapter @Inject constructor(
     }
 
     val clicks: Subject<Message> = PublishSubject.create<Message>()
+    val cancelSending: Subject<Message> = PublishSubject.create<Message>()
 
     var data: Pair<Conversation, RealmResults<Message>>? = null
         set(value) {
@@ -171,7 +175,7 @@ class MessagesAdapter @Inject constructor(
 
 
         //TODO figure out if we want to implement the cancel view
-        /*
+
         // Bind the cancel view
                 view.findViewById<ProgressBar>(R.id.cancel)?.let { cancel ->
                     val isCancellable = message.isSending() && message.date > System.currentTimeMillis()
@@ -193,7 +197,7 @@ class MessagesAdapter @Inject constructor(
                                 .start()
                     }
                 }
-        */
+
 
         // Bind the message status
         bindStatus(viewHolder, message, next)
