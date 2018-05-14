@@ -39,6 +39,7 @@ class SendMessage @Inject constructor(
         private val messageRepo: IMessageRepository
 ) : Interactor<SendMessage.Params>() {
 
+
     data class Params(val threadId: Long, val addresses: List<String>, val body: String, val attachments: List<Attachment> = listOf())
 
     override fun buildObservable(params: Params): Flowable<Unit> {
@@ -72,7 +73,7 @@ class SendMessage @Inject constructor(
         // Compress the images and add them as attachments
         var totalImageBytes = 0
         attachments
-                .filter { attachment -> attachment.isGif(context) }
+                .filter { attachment -> !attachment.isGif(context) }
                 .map { attachment -> attachment.getUri() }
                 .map { uri -> RxImageConverters.uriToBitmap(context, uri).blockingFirst() }
                 .also { totalImageBytes = it.sumBy { it.allocationByteCount } }
