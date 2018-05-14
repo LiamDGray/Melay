@@ -60,7 +60,6 @@ class MelayApplication : Application() {
 
         nightModeManager.updateCurrentTheme()
 
-        //TODO: remove this?
         val fontRequest = FontRequest(
                 "com.google.android.gms.fonts",
                 "com.google.android.gms",

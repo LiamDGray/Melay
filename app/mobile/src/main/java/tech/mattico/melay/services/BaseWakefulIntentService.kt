@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import com.commonsware.cwac.wakeful.WakefulIntentService
 import tech.mattico.melay.injection.appComponent
+import tech.mattico.melay.utils.isConnected
 import timber.log.Timber
 
 import java.util.logging.Logger
@@ -43,7 +44,7 @@ abstract class BaseWakefulIntentService(name: String) : WakefulIntentService(nam
         log("onHandleIntent(): running service")
 
         //TODO implement is connected utility
-        val isConnected = false //Utility.isConnected(this);
+        val isConnected = isConnected(this);
 
         // check if we have internet
         if (!isConnected) {

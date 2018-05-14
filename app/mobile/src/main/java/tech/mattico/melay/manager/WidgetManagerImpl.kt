@@ -21,14 +21,14 @@ package tech.mattico.melay.manager
 import android.content.Context
 import android.content.Intent
 import com.klinker.android.send_message.BroadcastUtils
+import me.leolin.shortcutbadger.ShortcutBadger
 //import me.leolin.shortcutbadger.ShortcutBadger
 import javax.inject.Inject
 
 class WidgetManagerImpl @Inject constructor(private val context: Context) : WidgetManager {
 
     override fun updateUnreadCount(count: Int) {
-        //TODO re-enable shortbut badger
-        //ShortcutBadger.applyCount(context, count)
+        ShortcutBadger.applyCount(context, count)
 
         BroadcastUtils.sendExplicitBroadcast(context, Intent(), WidgetManager.ACTION_NOTIFY_DATASET_CHANGED)
     }
