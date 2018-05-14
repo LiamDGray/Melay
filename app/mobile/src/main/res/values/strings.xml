@@ -209,6 +209,7 @@
     <string name="settings_text_telemetry_title">App Usage Upload</string>
     <string name="stopping_scheduler">Stopping Scheduler</string>
     <string name="scheduler_updated_to">scheduler updated to</string>
+    <string name="settings_cloud_sync_title">Cloud Sync</string>
 
     <string-array name="night_modes">
         <item>Disabled</item>
