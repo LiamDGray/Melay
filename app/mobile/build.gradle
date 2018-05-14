@@ -62,6 +62,9 @@ dependencies {
     wearApp project(':wear')
     implementation 'com.google.android.gms:play-services-wearable:+'
 
+    //WAKEFUL
+    implementation "com.commonsware.cwac:wakeful:$wakefulVersion"
+
     // autodispose
     implementation "com.uber.autodispose:autodispose-android-archcomponents-kotlin:$autodispose_version"
     implementation "com.uber.autodispose:autodispose-android-archcomponents-test-kotlin:$autodispose_version"

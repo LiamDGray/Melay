@@ -207,6 +207,8 @@
     <string name="main_menu_block">main_menu_block</string>
     <string name="main_menu_delete">main_menu_delete</string>
     <string name="settings_text_telemetry_title">App Usage Upload</string>
+    <string name="stopping_scheduler">Stopping Scheduler</string>
+    <string name="scheduler_updated_to">scheduler updated to</string>
 
     <string-array name="night_modes">
         <item>Disabled</item>
