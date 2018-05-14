@@ -18,7 +18,6 @@
  */
 package feature.compose
 
-import android.net.Uri
 import io.realm.RealmResults
 import model.Contact
 import model.Conversation
@@ -31,9 +30,10 @@ data class ComposeState(
         val contactsVisible: Boolean = false,
         val selectedConversation: Long = 0,
         val selectedContacts: List<Contact> = ArrayList(),
-        val title: String = "",
+        val conversationtitle: String = "",
         val messages: Pair<Conversation, RealmResults<Message>>? = null,
-        val attachments: List<Uri> = ArrayList(),
+        val selectedMessages: Int = 0,
+        val attachments: List<Attachment> = ArrayList(),
         val attaching: Boolean = false,
         val remaining: String = "",
         val canSend: Boolean = false

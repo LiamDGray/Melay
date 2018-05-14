@@ -110,6 +110,9 @@
             android:name="tech.mattico.melay.receiver.MmsReceivedReceiver"
             android:taskAffinity="com.klinker.android.messaging.MMS_RECEIVED" />
         <receiver
+            android:name="tech.mattico.melay.receiver.SendSmsReceiver"
+            android:taskAffinity="tech.mattico.melay.SEND_SMS" />
+        <receiver
             android:name="tech.mattico.melay.receiver.SmsSentReceiver"
             android:taskAffinity="tech.mattico.melay.SMS_SENT" />
         <receiver

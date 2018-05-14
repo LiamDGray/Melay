@@ -160,6 +160,14 @@
                 app:title="@string/settings_blocking_title" />
 
             <common.widget.PreferenceView
+                android:id="@+id/delayed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_av_timer_black_24dp"
+                tools:summary="No delay"
+                app:title="@string/settings_delayed_title" />
+
+            <common.widget.PreferenceView
                 android:id="@+id/delivery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -185,6 +193,12 @@
                 app:icon="@drawable/ic_photo_size_select_actual_black_24dp"
                 app:title="@string/settings_mms_size_title"
                 tools:summary="100KB" />
+
+            <common.widget.Separator
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp" />
 
             <common.widget.PreferenceView
                 android:id="@+id/sync"

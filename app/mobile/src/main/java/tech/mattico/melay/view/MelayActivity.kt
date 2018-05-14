@@ -63,6 +63,10 @@ abstract class MelayActivity<VM : MelayViewModel<*, *>> : AppCompatActivity() {
         title = title // The title may have been set before layout inflation
     }
 
+    override fun setTitle(titleId: Int) {
+        title = getString(titleId)
+    }
+
     override fun setTitle(title: CharSequence?) {
         super.setTitle(title)
         toolbarTitle?.text = title

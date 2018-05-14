@@ -18,9 +18,7 @@
  */
 package feature.compose
 
-import android.net.Uri
-import android.view.KeyEvent
-import common.MenuItem
+import android.support.v13.view.inputmethod.InputContentInfoCompat
 import common.base.QkView
 import io.reactivex.Observable
 import io.reactivex.subjects.Subject
@@ -31,24 +29,25 @@ interface ComposeView : QkView<ComposeState> {
 
     val activityVisibleIntent: Observable<Boolean>
     val queryChangedIntent: Observable<CharSequence>
-    val queryKeyEventIntent: Observable<KeyEvent>
+    val queryBackspaceIntent: Observable<*>
     val queryEditorActionIntent: Observable<Int>
     val chipSelectedIntent: Subject<Contact>
     val chipDeletedIntent: Subject<Contact>
     val menuReadyIntent: Observable<Unit>
-    val callIntent: Subject<Unit>
-    val infoIntent: Subject<Unit>
+    val optionsItemIntent: Observable<Int>
     val messageClickIntent: Subject<Message>
-    val messageLongClickIntent: Subject<Message>
-    val menuItemIntent: Subject<Int>
-    val attachmentDeletedIntent: Subject<Uri>
+    val messagesSelectedIntent: Observable<List<Long>>
+    val cancelSendingIntent: Subject<Message>
+    val attachmentDeletedIntent: Subject<Attachment>
     val textChangedIntent: Observable<CharSequence>
     val attachIntent: Observable<Unit>
     val cameraIntent: Observable<*>
     val galleryIntent: Observable<*>
+    val inputContentIntent: Observable<InputContentInfoCompat>
     val sendIntent: Observable<Unit>
 
-    fun showMenu(menuItems: List<MenuItem>)
+    fun clearSelection()
     fun setDraft(draft: String)
+    val backPressedIntent: Observable<Unit>
 
 }

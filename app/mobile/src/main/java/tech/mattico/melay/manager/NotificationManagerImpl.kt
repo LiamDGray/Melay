@@ -117,7 +117,7 @@ class NotificationManagerImpl @Inject constructor(
         val notification = NotificationCompat.Builder(context, getChannelIdForNotification(threadId))
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(colors.themeForConversation(threadId).blockingFirst())
-                .setPriority(NotificationManagerCompat.IMPORTANCE_MAX)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setNumber(messages.size)
                 .setAutoCancel(true)
@@ -182,16 +182,8 @@ class NotificationManagerImpl @Inject constructor(
         }
 
         if (prefs.qkreply.get()) {
-            // If the screen is on, disable the sound and vibration so that a heads-up notification
-            // doesn't appear
-            val displayManager = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-            if (displayManager.displays.any { display -> display.state != Display.STATE_OFF }) {
-                notification.priority = NotificationManagerCompat.IMPORTANCE_MIN
-                notification.setCategory(null)
-                notification.setSound(null)
-                notification.setVibrate(null)
-            }
 
+            notification.priority = NotificationCompat.PRIORITY_DEFAULT
             val intent = Intent(context, MelayReplyActivity::class.java)
                     .putExtra("threadId", threadId)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -230,6 +230,13 @@ class Navigator @Inject constructor(private val context: Context, private val no
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:")
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("matthewfcarlson@gmail.com"))
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Melay Support")
+        intent.putExtra(Intent.EXTRA_TEXT, StringBuilder("\n\n")
+                .append("--- Please write your message above this line ---\n\n")
+                .append("Version: ${BuildConfig.VERSION_NAME}\n")
+                .append("Device: ${Build.BRAND} ${Build.MODEL}\n")
+                .append("SDK: ${Build.VERSION.SDK_INT}")
+                .toString())
         startActivityExternal(intent)
     }
 

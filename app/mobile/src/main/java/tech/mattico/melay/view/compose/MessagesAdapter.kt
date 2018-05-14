@@ -29,6 +29,8 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.longClicks
@@ -39,10 +41,6 @@ import tech.mattico.melay.view.base.MelayViewHolder
 import tech.mattico.melay.utils.Colors
 import tech.mattico.melay.utils.DateFormatter
 import tech.mattico.melay.utils.GlideApp
-import tech.mattico.melay.utils.extensions.dpToPx
-import tech.mattico.melay.utils.extensions.setBackgroundTint
-import tech.mattico.melay.utils.extensions.setPadding
-import tech.mattico.melay.utils.extensions.setVisible
 import tech.mattico.melay.view.widget.BubbleImageView.Style.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -54,9 +52,7 @@ import kotlinx.android.synthetic.main.mms_preview_list_item.view.*
 import tech.mattico.melay.model.Conversation
 import tech.mattico.melay.model.Message
 import tech.mattico.melay.model.Recipient
-import tech.mattico.melay.utils.extensions.hasThumbnails
-import tech.mattico.melay.utils.extensions.isImage
-import tech.mattico.melay.utils.extensions.isVideo
+import tech.mattico.melay.utils.extensions.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -74,7 +70,6 @@ class MessagesAdapter @Inject constructor(
     }
 
     val clicks: Subject<Message> = PublishSubject.create<Message>()
-    val longClicks: Subject<Message> = PublishSubject.create<Message>()
 
     var data: Pair<Conversation, RealmResults<Message>>? = null
         set(value) {
@@ -99,7 +94,7 @@ class MessagesAdapter @Inject constructor(
 
     private val layoutInflater = LayoutInflater.from(context)
     private val contactCache = ContactCache()
-    private val selected = HashMap<Long, Boolean>()
+    private val expanded = HashMap<Long, Boolean>()
     private val disposables = CompositeDisposable()
 
     private var theme = colors.theme
@@ -119,7 +114,15 @@ class MessagesAdapter @Inject constructor(
         if (viewType == VIEW_TYPE_MESSAGE_OUT) {
             view = layoutInflater.inflate(R.layout.message_list_item_out, parent, false)
             disposables += colors.bubble
-                    .subscribe { color -> view.body.setBackgroundTint(color) }
+                    .subscribe { color ->
+                        view.body.setBackgroundTint(color)
+                        view.findViewById<ProgressBar>(R.id.cancel).setBackgroundTint(color)
+                    }
+            disposables += theme
+                    .subscribe { color ->
+                        view.findViewById<ImageView>(R.id.cancelIcon).setTint(color)
+                        view.findViewById<ProgressBar>(R.id.cancel).setTint(color)
+                    }
         } else {
             view = layoutInflater.inflate(R.layout.message_list_item_in, parent, false)
             view.avatar.threadId = conversation?.id ?: 0
@@ -127,6 +130,11 @@ class MessagesAdapter @Inject constructor(
             disposables += theme
                     .subscribe { color -> view.body.setBackgroundTint(color) }
         }
+
+        disposables += colors.ripple
+                .subscribe { res -> view.setBackgroundResource(res) }
+
+        view.body.forwardTouches(view)
 
         return MelayViewHolder(view)
     }
@@ -142,14 +150,53 @@ class MessagesAdapter @Inject constructor(
         val next = if (position == itemCount - 1) null else getItem(position + 1)
         val view = viewHolder.itemView
 
-        RxView.clicks(view).subscribe {
-            clicks.onNext(message)
-            selected[message.id] = view.status.visibility != View.VISIBLE
-            bindStatus(viewHolder, position)
+        view.clicks().subscribe {
+            when (toggleSelection(message.id, false)) {
+                true -> view.isSelected = isSelected(message.id)
+                false -> {
+                    clicks.onNext(message)
+                    expanded[message.id] = view.status.visibility != View.VISIBLE
+                    bindStatus(viewHolder, message, next)
+                }
+            }
         }
-        RxView.longClicks(view).subscribe { longClicks.onNext(message) }
+        view.longClicks().subscribe {
+            toggleSelection(message.id)
+            view.isSelected = isSelected(message.id)
 
-        bindStatus(viewHolder, position)
+        }
+
+        // Update the selected state
+        view.isSelected = isSelected(message.id)
+
+
+        //TODO figure out if we want to implement the cancel view
+        /*
+        // Bind the cancel view
+                view.findViewById<ProgressBar>(R.id.cancel)?.let { cancel ->
+                    val isCancellable = message.isSending() && message.date > System.currentTimeMillis()
+                    cancel.setVisible(isCancellable)
+                    cancel.clicks().subscribe { cancelSending.onNext(message) }
+                    cancel.progress = 2
+
+                    if (isCancellable) {
+                        val delay = when (prefs.sendDelay.get()) {
+                            Preferences.SEND_DELAY_SHORT -> 3000
+                            Preferences.SEND_DELAY_MEDIUM -> 5000
+                            Preferences.SEND_DELAY_LONG -> 10000
+                            else -> 0
+                        }
+                        val progress = (1 - (message.date - System.currentTimeMillis()) / delay.toFloat()) * 100
+
+                        ObjectAnimator.ofInt(cancel, "progress", progress.toInt(), 100)
+                                .setDuration(message.date - System.currentTimeMillis())
+                                .start()
+                    }
+                }
+        */
+
+        // Bind the message status
+        bindStatus(viewHolder, message, next)
 
 
         // Bind the timestamp
@@ -211,7 +258,7 @@ class MessagesAdapter @Inject constructor(
         media.forEachIndexed { index, part ->
             val mediaView = layoutInflater.inflate(R.layout.mms_preview_list_item, view.attachments, false)
             mediaView.video.setVisible(part.isVideo())
-            mediaView.longClicks().subscribe { longClicks.onNext(message) }
+            mediaView.forwardTouches(view)
             mediaView.clicks().subscribe {
                 when {
                     part.isImage() -> navigator.showImage(part.id)
@@ -242,9 +289,8 @@ class MessagesAdapter @Inject constructor(
         }
     }
 
-    private fun bindStatus(viewHolder: MelayViewHolder, position: Int) {
-        val message = getItem(position)!!
-        val next = if (position == itemCount - 1) null else getItem(position + 1)
+    private fun bindStatus(viewHolder: MelayViewHolder, message: Message, next: Message?) {
+
         val view = viewHolder.itemView
 
         val age = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - message.date)
@@ -259,10 +305,10 @@ class MessagesAdapter @Inject constructor(
         }
 
         view.status.setVisible(when {
-            selected[message.id] == true -> true
+            expanded[message.id] == true -> true
             message.isSending() -> true
             message.isFailedMessage() -> true
-            selected[message.id] == false -> false
+            expanded[message.id] == false -> false
             conversation?.recipients?.size ?: 0 > 1 && !message.isMe() && next?.compareSender(message) != true -> true
             message.isDelivered() && next?.isDelivered() != true && age <= TIMESTAMP_THRESHOLD -> true
             else -> false

@@ -86,6 +86,7 @@ interface AppComponent {
     fun inject(receiver: DefaultSmsChangedReceiver)
     fun inject(receiver: SmsDeliveredReceiver)
     fun inject(receiver: SmsSentReceiver)
+    fun inject(receiver: SendSmsReceiver)
     fun inject(receiver: MarkSeenReceiver)
     fun inject(receiver: MarkReadReceiver)
     fun inject(receiver: MmsReceivedReceiver)
