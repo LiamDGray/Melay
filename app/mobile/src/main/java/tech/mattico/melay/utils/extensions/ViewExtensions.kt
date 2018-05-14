@@ -23,10 +23,12 @@ import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 
 fun EditText.showKeyboard() {
     requestFocus()

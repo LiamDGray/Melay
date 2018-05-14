@@ -32,6 +32,7 @@ import android.provider.ContactsContract
 import android.provider.Settings
 import android.provider.Telephony
 import android.view.View
+import tech.mattico.melay.BuildConfig
 /*import tech.mattico.melay.view.blocked.BlockedActivity
 import tech.mattico.melay.view.blocked.BlockedViewModel*/
 import tech.mattico.melay.view.compose.ComposeActivity
