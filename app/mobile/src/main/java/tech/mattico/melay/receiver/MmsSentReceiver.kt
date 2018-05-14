@@ -25,20 +25,22 @@ import com.klinker.android.send_message.MmsSentReceiver
 import com.microsoft.appcenter.analytics.Analytics
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.interactor.SyncMessage
+import timber.log.Timber
 import javax.inject.Inject
 
 class MmsSentReceiver : MmsSentReceiver() {
     @Inject lateinit var syncMessage: SyncMessage
-    override fun onMessageStatusUpdated(context: Context?, intent: Intent?, p2: Int) {
+    override fun onMessageStatusUpdated(context: Context, intent: Intent, p2: Int) {
         super.onReceive(context, intent)
         appComponent.inject(this)
 
         //what is p2?
         //TODO analytic center
         //TODO timber wrapper?
+        Timber.d("Receieved MMS$p2")
         //Analytics.trackEvent("Recieved MMS "+p2);
 
-        Uri.parse(intent?.getStringExtra("content_uri"))?.let { uri ->
+        Uri.parse(intent.getStringExtra("content_uri"))?.let { uri ->
             val pendingResult = goAsync()
             syncMessage.execute(uri) { pendingResult.finish() }
         }
