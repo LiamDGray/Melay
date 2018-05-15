@@ -22,6 +22,9 @@ package tech.mattico.melay.services
 import android.app.IntentService
 import android.content.Intent
 import timber.log.Timber
+import android.os.IBinder
+
+
 
 class HeadlessSmsSendService : IntentService("HeadlessSmsSendService") {
 
@@ -29,4 +32,7 @@ class HeadlessSmsSendService : IntentService("HeadlessSmsSendService") {
         Timber.e("The headless SMS service has not been implemenented");
     }
 
+    override fun onBind(intent: Intent): IBinder? {
+        return null
+    }
 }
