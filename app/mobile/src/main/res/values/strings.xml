@@ -210,6 +210,9 @@
     <string name="stopping_scheduler">Stopping Scheduler</string>
     <string name="scheduler_updated_to">scheduler updated to</string>
     <string name="settings_cloud_sync_title">Cloud Sync</string>
+    <string name="drawer_unread">Unread</string>
+    <string name="title_unread">Unread</string>
+    <string name="unread_empty_text">Your unread messages will appear here</string>
 
     <string-array name="night_modes">
         <item>Disabled</item>

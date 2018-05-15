@@ -43,6 +43,22 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/unread"
+        style="@style/DrawerRow">
+
+        <ImageView
+            android:id="@+id/unreadIcon"
+            style="@style/DrawerIcon"
+            android:src="@drawable/ic_info_outline_black_24dp"
+            tools:tint="@color/textSecondary" />
+
+        <tech.mattico.melay.view.widget.MelayTextView
+            style="@style/DrawerText"
+            android:text="@string/drawer_unread" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/archived"
         style="@style/DrawerRow">
 
@@ -105,6 +121,7 @@
 
     <LinearLayout
         android:id="@+id/plus"
+        android:visibility="gone"
         style="@style/DrawerRow">
 
         <ImageView

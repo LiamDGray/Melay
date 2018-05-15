@@ -115,5 +115,5 @@ dependencies {
     implementation "com.f2prateek.rx.preferences2:rx-preferences:$rx_preferences_version"
 
     //SMS
-    implementation 'com.klinkerapps:android-smsmms:5.0.0'
+    implementation 'com.klinkerapps:android-smsmms:5.0.1'
 }

@@ -81,15 +81,36 @@ class MessageRepositoryImpl @Inject constructor(
         private val cursorToRecipient: CursorToRecipient,
         private val prefs: Preferences) : IMessageRepository {
 
+    /**
+     * Gets the unread conversations
+     */
+    override fun getUnreadConversations(): Flowable<List<Conversation>> {
+        val realm = Realm.getDefaultInstance()
+        return realm
+                .where(Conversation::class.java)
+                .notEqualTo("id", 0L)
+                .greaterThan("count", 0)
+                .equalTo("archived", false)
+                .equalTo("read",true)
+                .equalTo("blocked", false)
+                .isNotEmpty("recipients")
+                .sort("date", Sort.DESCENDING)
+                .findAllAsync()
+                .asFlowable()
+                .filter { it.isLoaded }
+                .filter { it.isValid }
+                .map { conversations -> realm.copyFromRealm(conversations) }
+    }
+
 
     override fun getUnrespondedConversations(unread: Boolean): Flowable<List<Conversation>> {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         val realm = Realm.getDefaultInstance()
         return realm
                 .where(Conversation::class.java)
                 .notEqualTo("id", 0L)
                 .greaterThan("count", 0)
                 .equalTo("read", !unread)
+                .equalTo("me", true)
                 .equalTo("blocked", false)
                 .isNotEmpty("recipients")
                 .sort("date", Sort.DESCENDING)

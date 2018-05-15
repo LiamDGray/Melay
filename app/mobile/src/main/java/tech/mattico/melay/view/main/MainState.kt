@@ -45,7 +45,10 @@ data class Archived(
         val data: Flowable<List<Conversation>>? = null) : MainPage()
 
 data class Unread(
+        val showClearButton: Boolean = false,
+        val selected: Int = 0,
         val data: Flowable<List<Conversation>>? = null) : MainPage()
+
 data class Unanswered(
         val data: Flowable<List<Conversation>>? = null) : MainPage()
 

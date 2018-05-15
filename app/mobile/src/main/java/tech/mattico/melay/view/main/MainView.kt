@@ -44,4 +44,4 @@ interface MainView : MelayView<MainState> {
 
 }
 
-enum class DrawerItem { INBOX, ARCHIVED, SCHEDULED, BLOCKED, SETTINGS, PLUS, HELP }
+enum class DrawerItem { INBOX, UNREAD, ARCHIVED, SCHEDULED, BLOCKED, SETTINGS, PLUS, HELP }

@@ -29,6 +29,8 @@ interface IMessageRepository {
 
     fun getConversations(archived: Boolean = false): Flowable<List<Conversation>>
 
+    fun getUnreadConversations(): Flowable<List<Conversation>>
+
     fun getUnrespondedConversations(unread: Boolean = false): Flowable<List<Conversation>>
 
     fun getConversationsSnapshot(): List<Conversation>
@@ -125,6 +127,8 @@ interface IMessageRepository {
     fun deleteMessages(vararg messageIds: Long)
 
     fun deleteConversations(vararg threadIds: Long)
+
+
 
 
 }

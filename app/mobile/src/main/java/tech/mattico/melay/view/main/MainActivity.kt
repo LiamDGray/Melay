@@ -80,6 +80,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         Observable.merge(listOf(
                 inbox.clicks().map { DrawerItem.INBOX },
                 archived.clicks().map { DrawerItem.ARCHIVED },
+                unread.clicks().map { DrawerItem.UNREAD },
                 scheduled.clicks().map { DrawerItem.SCHEDULED },
                 settings.clicks().map { DrawerItem.SETTINGS },
                 plus.clicks().map { DrawerItem.PLUS },
@@ -214,6 +215,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         toolbarTitle.setVisible(toolbarSearch.visibility != View.VISIBLE)
 
         toolbar.menu.findItem(R.id.archive)?.isVisible = state.page is Inbox && selectedConversations != 0
+        toolbar.menu.findItem(R.id.unread)?.isVisible = state.page is Unread && selectedConversations != 0
         toolbar.menu.findItem(R.id.unarchive)?.isVisible = state.page is Archived && selectedConversations != 0
         toolbar.menu.findItem(R.id.block)?.isVisible = selectedConversations != 0
         toolbar.menu.findItem(R.id.delete)?.isVisible = selectedConversations != 0
@@ -235,6 +237,13 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
                     true -> R.string.inbox_search_empty_text
                     false -> R.string.inbox_empty_text
                 })
+            }
+
+            is Unread -> {
+                setTitle(R.string.title_unread)
+                recyclerView.adapter = null
+                itemTouchHelper.attachToRecyclerView(null)
+                empty.setText(R.string.unread_empty_text)
             }
 
             is Archived -> {

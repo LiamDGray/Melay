@@ -159,6 +159,7 @@ class MainViewModel : MelayViewModel<MainView, MainState>(MainState()) {
                     when (it) {
                         DrawerItem.INBOX -> newState { it.copy(page = Inbox(data = conversations)) }
                         DrawerItem.ARCHIVED -> newState { it.copy(page = Archived(data = messageRepo.getConversations(true))) }
+                        DrawerItem.UNREAD -> newState { it.copy(page = Unread(data = messageRepo.getUnreadConversations())) }
                         DrawerItem.SCHEDULED -> newState { it.copy(page = Scheduled()) }
                         else -> {
                         } // Do nothing
@@ -207,6 +208,11 @@ class MainViewModel : MelayViewModel<MainView, MainState>(MainState()) {
                 .withLatestFrom(state, { selected, state ->
                     when (state.page) {
                         is Inbox -> {
+                            val page = state.page.copy(selected = selected, showClearButton = selected > 0)
+                            newState { it.copy(page = page) }
+                        }
+
+                        is Unread -> {
                             val page = state.page.copy(selected = selected, showClearButton = selected > 0)
                             newState { it.copy(page = page) }
                         }
@@ -264,6 +270,8 @@ class MainViewModel : MelayViewModel<MainView, MainState>(MainState()) {
                         state.page is Inbox && state.page.showClearButton -> view.clearSearch()
 
                         state.page is Archived && state.page.selected > 0 -> view.clearSelection()
+
+                        state.page is Unread && state.page.selected > 0 -> view.clearSelection()
 
                         state.page !is Inbox -> newState { it.copy(page = Inbox(data = conversations)) }
 
