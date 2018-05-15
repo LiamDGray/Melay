@@ -57,6 +57,7 @@ class SendMessage @Inject constructor(
     }
 
     private fun sendMms(threadId: Long, addresses: List<String>, body: String, attachments: List<Attachment>) {
+        com.klinker.android.logger.Log.setDebug(true)
         val settings = Settings()
         settings.setUseSystemSending(true)
 
@@ -86,7 +87,10 @@ class SendMessage @Inject constructor(
                 .forEach { bitmap -> message.addMedia(bitmap, ContentType.IMAGE_JPEG) }
 
         val transaction = Transaction(context, settings)
+
         transaction.sendNewMessage(message, threadId)
+        //TODO notify the system that we need to create a MMS message with the message that we've created
+        //TODO create an entry in the MMS
     }
 
     private fun shrink(src: Bitmap, maxBytes: Int): ByteArray {

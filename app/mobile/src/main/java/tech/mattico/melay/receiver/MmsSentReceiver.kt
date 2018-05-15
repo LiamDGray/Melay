@@ -19,9 +19,14 @@
 package tech.mattico.melay.receiver
 
 import android.app.Activity
+import android.content.ContentUris
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.provider.Telephony
+import com.google.android.mms.MmsException
+import com.google.android.mms.util_alt.SqliteWrapper
 import com.klinker.android.send_message.MmsSentReceiver
 import com.microsoft.appcenter.analytics.Analytics
 import tech.mattico.melay.injection.appComponent
@@ -37,23 +42,23 @@ class MmsSentReceiver : MmsSentReceiver() {
         appComponent.inject(this)
 
         if (resultCode == Activity.RESULT_OK) {
-            //what is p2?
-            //TODO analytic center
-            //TODO timber wrapper?
             Timber.d("SENT MMS$resultCode")
-            //Analytics.trackEvent("Recieved MMS "+p2);
+            Timber.d("SENT MMS "+intent.dataString)
+            Timber.d("SENT MMS "+intent.toString())
+            Analytics.trackEvent("SENT MMS "+resultCode);
 
-            //we've already gone async
-            Uri.parse(intent.getStringExtra("content_uri"))?.let { uri ->
+            Uri.parse(intent.getStringExtra("content_uri")).let { uri ->
                 syncMessage.execute(uri)
             }
         }
         else {
             Timber.d("MMS SENT Failure")
-            Analytics.trackEvent("SENT MMS FAILURE "+resultCode);
+            Analytics.trackEvent("SENT MMS FAILURE $resultCode");
+            Uri.parse(intent.getStringExtra("content_uri")).let { uri ->
+                syncMessage.execute(uri)
+            }
         }
     }
-
 
 
 }

@@ -34,5 +34,8 @@ open class MmsPart : RealmObject() {
     val messages: RealmResults<Message>? = null
 
     fun getUri() = "content://mms/part/$id".toUri()
+    override fun toString(): String {
+        return "MmsPart(id=$id, type='$type', text=$text, messages=$messages)"
+    }
 
 }

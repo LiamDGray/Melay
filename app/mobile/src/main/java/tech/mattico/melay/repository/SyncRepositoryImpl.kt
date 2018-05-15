@@ -39,6 +39,7 @@ import tech.mattico.melay.utils.extensions.insertOrUpdate
 import tech.mattico.melay.utils.extensions.map
 import tech.mattico.melay.utils.extensions.mapWhile
 import tech.mattico.melay.utils.tryOrNull
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -153,7 +154,10 @@ class SyncRepositoryImpl @Inject constructor(
         val type = when {
             uri.toString().contains("mms") -> "mms"
             uri.toString().contains("sms") -> "sms"
-            else -> return null
+            else -> {
+                Timber.e("Unknown type "+uri.toString())
+                return null
+            }
         }
 
         // If we don't have a valid id, return null

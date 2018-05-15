@@ -21,24 +21,36 @@ package tech.mattico.melay.receiver
 import android.content.Context
 import android.net.Uri
 import com.klinker.android.send_message.MmsReceivedReceiver
+import com.microsoft.appcenter.analytics.Analytics
 import tech.mattico.melay.injection.appComponent
 import tech.mattico.melay.interactor.ReceiveMms
+import timber.log.Timber
 import javax.inject.Inject
 
 class MmsReceivedReceiver : com.klinker.android.send_message.MmsReceivedReceiver() {
-    override fun onMessageReceived(p0: Context?, messageUri: Uri?) {
+    /*override fun onMessageReceived(p0: Context?, messageUri: Uri?) {
         appComponent.inject(this)
 
         messageUri?.let { uri ->
             val pendingResult = goAsync()
             receiveMms.execute(uri) { pendingResult.finish() }
         }
+    }*/
+    @Inject lateinit var receiveMms: ReceiveMms
+    override fun onMessageReceived(p0: Context?, messageUri: Uri?){
+        appComponent.inject(this)
+        Timber.d("Recieved MMS")
+        Analytics.trackEvent("Recieved MMS ");
+
+        messageUri?.let { uri -> receiveMms.execute(uri) }
     }
 
     override fun onError(p0: Context?, p1: String?) {
         TODO("Not implemented");
+        Timber.d("MMS RECEIVE Failure $p1")
+        Analytics.trackEvent("RECEIVE MMS FAILURE $p1");
     }
 
-    @Inject lateinit var receiveMms: ReceiveMms
+
 
 }

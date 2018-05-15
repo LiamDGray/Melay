@@ -214,6 +214,7 @@
     <string name="title_unread">Unread</string>
     <string name="unread_empty_text">Your unread messages will appear here</string>
     <string name="drawer_unresponded">Unanswered</string>
+    <string name="title_unresponded">Unanswered</string>
 
     <string-array name="night_modes">
         <item>Disabled</item>

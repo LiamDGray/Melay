@@ -24,6 +24,7 @@ import tech.mattico.melay.model.Message
 import tech.mattico.melay.repository.IMessageRepository
 import tech.mattico.melay.repository.ISyncRepository
 import tech.mattico.melay.utils.extensions.mapNotNull
+import timber.log.Timber
 import javax.inject.Inject
 
 class SyncMessage @Inject constructor(
@@ -34,6 +35,7 @@ class SyncMessage @Inject constructor(
     override fun buildObservable(params: Uri): Flowable<Message> {
         return Flowable.just(params)
                 .mapNotNull { uri -> syncManager.syncMessage(uri) }
+                .doOnNext { message -> Timber.v(message.toString()) }
                 .doOnNext { message -> messageRepo.updateConversations(message.threadId) }
     }
 

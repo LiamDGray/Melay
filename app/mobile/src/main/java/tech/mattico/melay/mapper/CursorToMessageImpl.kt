@@ -59,7 +59,7 @@ class CursorToMessageImpl @Inject constructor(
                 Mms.MESSAGE_BOX,
                 Mms.DELIVERY_REPORT,
                 Mms.READ_REPORT,
-                MmsSms.PendingMessages.ERROR_TYPE,
+                MmsSms.PendingMessages.ERROR_CODE,
                 Mms.STATUS)
     }
 

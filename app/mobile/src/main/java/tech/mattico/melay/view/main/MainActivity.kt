@@ -20,15 +20,20 @@ package tech.mattico.melay.view.main
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.StateListDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.support.design.widget.Snackbar
 import android.support.v4.view.accessibility.AccessibilityEventCompat.setAction
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -149,6 +154,8 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         AppCenter.start(application, "c658bc27-e599-45f5-917f-aed309b79dac",
                 Analytics::class.java, Crashes::class.java)
 
+        checkSystemWritePermission()
+
 
         // Set the theme color tint to the progressbar and FAB
         colors.theme
@@ -255,7 +262,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
             }
 
             is Unresponded -> {
-                setTitle(R.string.title_unread)
+                setTitle(R.string.title_unresponded)
                 recyclerView.adapter = null
                 conversationsAdapter.flowable = state.page.data
                 if (recyclerView.adapter !== conversationsAdapter) recyclerView.adapter = conversationsAdapter
@@ -291,11 +298,33 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         inbox.isSelected = state.page is Inbox
         archived.isSelected = state.page is Archived
         unread.isSelected = state.page is Unread
-        unresponded.isSelected = state.page is Unread
+        unresponded.isSelected = state.page is Unresponded
         scheduled.isSelected = state.page is Scheduled
 
         if (drawerLayout.isDrawerOpen(Gravity.START) && !state.drawerOpen) drawerLayout.closeDrawer(Gravity.START)
         else if (!drawerLayout.isDrawerVisible(Gravity.START) && state.drawerOpen) drawerLayout.openDrawer(Gravity.START)
+    }
+
+    fun checkSystemWritePermission(){
+        Log.d("MainActivity","Checking system Write Permission")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.System.canWrite(this)) {
+            AlertDialog.Builder(this)
+                    .setMessage(com.klinker.android.send_message.R.string.write_settings_permission)
+                    .setPositiveButton(com.klinker.android.send_message.R.string.ok) { dialog, which ->
+                        val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                        intent.data = Uri.parse("package:$packageName")
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+                        try {
+                            startActivity(intent)
+                        } catch (e: Exception) {
+                            Log.e("MainActivity", "error starting permission intent", e)
+                        }
+                    }
+                    .show()
+            return
+        }
+
     }
 
     override fun showBackButton(show: Boolean) {

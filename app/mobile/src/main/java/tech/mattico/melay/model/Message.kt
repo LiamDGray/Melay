@@ -156,4 +156,9 @@ open class Message : RealmObject() {
     fun compareSender(other: Message): Boolean {
         return isMe() && other.isMe() || (!isMe() && !other.isMe() && address == other.address)
     }
+
+    override fun toString(): String {
+        return "Message(id=$id, threadId=$threadId, contentId=$contentId, address='$address', boxId=$boxId, type='$type', date=$date, dateSent=$dateSent, seen=$seen, read=$read, locked=$locked, body='$body', errorCode=$errorCode, deliveryStatus=$deliveryStatus, attachmentTypeString='$attachmentTypeString', mmsDeliveryStatusString='$mmsDeliveryStatusString', readReportString='$readReportString', errorType=$errorType, messageSize=$messageSize, messageType=$messageType, mmsStatus=$mmsStatus, subject='$subject', textContentType='$textContentType', parts='$parts' text:)"+getText()
+    }
+
 }
