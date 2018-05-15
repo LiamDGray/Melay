@@ -102,7 +102,7 @@ class MessageRepositoryImpl @Inject constructor(
                 .map { conversations -> realm.copyFromRealm(conversations) }
     }
 
-
+    //TODO check to make sure the conversation has at least one contact in it
     override fun getUnrespondedConversations(): Flowable<List<Conversation>> {
         val realm = Realm.getDefaultInstance()
         return realm
