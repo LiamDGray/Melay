@@ -91,7 +91,7 @@ class MessageRepositoryImpl @Inject constructor(
                 .notEqualTo("id", 0L)
                 .greaterThan("count", 0)
                 .equalTo("archived", false)
-                .equalTo("read",true)
+                .equalTo("read",false)
                 .equalTo("blocked", false)
                 .isNotEmpty("recipients")
                 .sort("date", Sort.DESCENDING)
