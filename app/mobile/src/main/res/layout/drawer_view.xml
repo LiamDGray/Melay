@@ -56,7 +56,13 @@
             style="@style/DrawerText"
             android:text="@string/drawer_unread" />
 
+        <tech.mattico.melay.view.widget.MelayTextView
+            android:id="@+id/unreadCount"
+            style="@style/DrawerBadge"
+            android:text="0" />
+
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/unresponded"
         style="@style/DrawerRow">
@@ -92,8 +98,8 @@
     <LinearLayout
         android:id="@+id/scheduled"
         style="@style/DrawerRow"
-        android:visibility="gone"
-        android:alpha="0.5">
+        android:alpha="0.5"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/scheduledIcon"
@@ -137,8 +143,8 @@
 
     <LinearLayout
         android:id="@+id/plus"
-        android:visibility="gone"
-        style="@style/DrawerRow">
+        style="@style/DrawerRow"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/plusIcon"
@@ -239,10 +245,10 @@
             android:id="@+id/rateOkay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/ripple"
             android:padding="16dp"
-            android:layout_marginEnd="8dp"
             android:text="@string/rate_okay"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
