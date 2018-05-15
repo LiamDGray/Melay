@@ -24,14 +24,13 @@ import io.realm.RealmResults
 import tech.mattico.melay.model.Conversation
 import tech.mattico.melay.model.Message
 import tech.mattico.melay.model.MmsPart
-
 interface IMessageRepository {
 
     fun getConversations(archived: Boolean = false): Flowable<List<Conversation>>
 
     fun getUnreadConversations(): Flowable<List<Conversation>>
 
-    fun getUnrespondedConversations(unread: Boolean = false): Flowable<List<Conversation>>
+    fun getUnrespondedConversations(): Flowable<List<Conversation>>
 
     fun getConversationsSnapshot(): List<Conversation>
 

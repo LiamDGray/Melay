@@ -49,7 +49,9 @@ data class Unread(
         val selected: Int = 0,
         val data: Flowable<List<Conversation>>? = null) : MainPage()
 
-data class Unanswered(
+data class Unresponded(
+        val showClearButton: Boolean = false,
+        val selected: Int = 0,
         val data: Flowable<List<Conversation>>? = null) : MainPage()
 
 

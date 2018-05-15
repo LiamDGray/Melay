@@ -57,6 +57,21 @@
             android:text="@string/drawer_unread" />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/unresponded"
+        style="@style/DrawerRow">
+
+        <ImageView
+            android:id="@+id/unrespondedIcon"
+            style="@style/DrawerIcon"
+            android:src="@drawable/ic_event_black_24dp"
+            tools:tint="@color/textSecondary" />
+
+        <tech.mattico.melay.view.widget.MelayTextView
+            style="@style/DrawerText"
+            android:text="@string/drawer_unresponded" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/archived"
@@ -77,6 +92,7 @@
     <LinearLayout
         android:id="@+id/scheduled"
         style="@style/DrawerRow"
+        android:visibility="gone"
         android:alpha="0.5">
 
         <ImageView

@@ -103,13 +103,13 @@ class MessageRepositoryImpl @Inject constructor(
     }
 
 
-    override fun getUnrespondedConversations(unread: Boolean): Flowable<List<Conversation>> {
+    override fun getUnrespondedConversations(): Flowable<List<Conversation>> {
         val realm = Realm.getDefaultInstance()
         return realm
                 .where(Conversation::class.java)
                 .notEqualTo("id", 0L)
                 .greaterThan("count", 0)
-                .equalTo("read", !unread)
+                //.equalTo("read", !unread)
                 .equalTo("me", true)
                 .equalTo("blocked", false)
                 .isNotEmpty("recipients")

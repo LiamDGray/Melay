@@ -60,8 +60,6 @@ import javax.inject.Inject
 import tech.mattico.melay.conversations.ConversationsAdapter
 import com.microsoft.appcenter.analytics.Analytics
 
-
-
 class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
     @Inject lateinit var navigator: Navigator
     @Inject lateinit var conversationsAdapter: ConversationsAdapter
@@ -81,6 +79,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
                 inbox.clicks().map { DrawerItem.INBOX },
                 archived.clicks().map { DrawerItem.ARCHIVED },
                 unread.clicks().map { DrawerItem.UNREAD },
+                unresponded.clicks().map { DrawerItem.UNRESPONDED },
                 scheduled.clicks().map { DrawerItem.SCHEDULED },
                 settings.clicks().map { DrawerItem.SETTINGS },
                 plus.clicks().map { DrawerItem.PLUS },
@@ -183,6 +182,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
                 .doOnNext { tintList -> scheduledIcon.imageTintList = tintList }
                 .doOnNext { tintList -> settingsIcon.imageTintList = tintList }
                 .doOnNext { tintList -> plusIcon.imageTintList = tintList }
+                .doOnNext { tintList -> unrespondedIcon.imageTintList = tintList }
                 .doOnNext { tintList -> helpIcon.imageTintList = tintList }
                 .autoDisposable(scope())
                 .subscribe()
@@ -193,6 +193,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
                 .doOnNext { color -> archived.background = rowBackground(color) }
                 .doOnNext { color -> unread.background = rowBackground(color) }
                 .doOnNext { color -> scheduled.background = rowBackground(color) }
+                .doOnNext { color -> unresponded.background = rowBackground(color) }
                 .doOnNext { color -> rateLayout.setBackgroundTint(color) }
                 .autoDisposable(scope())
                 .subscribe()
@@ -211,6 +212,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
             is Inbox -> state.page.selected
             is Archived -> state.page.selected
             is Unread -> state.page.selected
+            is Unresponded -> state.page.selected
             else -> 0
         }
 
@@ -219,6 +221,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
 
         toolbar.menu.findItem(R.id.archive)?.isVisible = state.page is Inbox && selectedConversations != 0
         toolbar.menu.findItem(R.id.unread)?.isVisible = state.page is Unread && selectedConversations != 0
+        toolbar.menu.findItem(R.id.unresponded)?.isVisible = state.page is Unresponded && selectedConversations != 0
         toolbar.menu.findItem(R.id.unarchive)?.isVisible = state.page is Archived && selectedConversations != 0
         toolbar.menu.findItem(R.id.block)?.isVisible = selectedConversations != 0
         toolbar.menu.findItem(R.id.delete)?.isVisible = selectedConversations != 0
@@ -243,6 +246,15 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
             }
 
             is Unread -> {
+                setTitle(R.string.title_unread)
+                recyclerView.adapter = null
+                conversationsAdapter.flowable = state.page.data
+                if (recyclerView.adapter !== conversationsAdapter) recyclerView.adapter = conversationsAdapter
+                itemTouchHelper.attachToRecyclerView(null)
+                empty.setText(R.string.unread_empty_text)
+            }
+
+            is Unresponded -> {
                 setTitle(R.string.title_unread)
                 recyclerView.adapter = null
                 conversationsAdapter.flowable = state.page.data
@@ -279,6 +291,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         inbox.isSelected = state.page is Inbox
         archived.isSelected = state.page is Archived
         unread.isSelected = state.page is Unread
+        unresponded.isSelected = state.page is Unread
         scheduled.isSelected = state.page is Scheduled
 
         if (drawerLayout.isDrawerOpen(Gravity.START) && !state.drawerOpen) drawerLayout.closeDrawer(Gravity.START)
