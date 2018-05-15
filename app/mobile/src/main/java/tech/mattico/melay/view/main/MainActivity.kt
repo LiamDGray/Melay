@@ -179,6 +179,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
                 })
                 .doOnNext { tintList -> inboxIcon.imageTintList = tintList }
                 .doOnNext { tintList -> archivedIcon.imageTintList = tintList }
+                .doOnNext { tintList -> unreadIcon.imageTintList = tintList }
                 .doOnNext { tintList -> scheduledIcon.imageTintList = tintList }
                 .doOnNext { tintList -> settingsIcon.imageTintList = tintList }
                 .doOnNext { tintList -> plusIcon.imageTintList = tintList }
@@ -190,6 +191,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         colors.separator
                 .doOnNext { color -> inbox.background = rowBackground(color) }
                 .doOnNext { color -> archived.background = rowBackground(color) }
+                .doOnNext { color -> unread.background = rowBackground(color) }
                 .doOnNext { color -> scheduled.background = rowBackground(color) }
                 .doOnNext { color -> rateLayout.setBackgroundTint(color) }
                 .autoDisposable(scope())
@@ -208,6 +210,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
         val selectedConversations = when (state.page) {
             is Inbox -> state.page.selected
             is Archived -> state.page.selected
+            is Unread -> state.page.selected
             else -> 0
         }
 
@@ -242,6 +245,8 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
             is Unread -> {
                 setTitle(R.string.title_unread)
                 recyclerView.adapter = null
+                conversationsAdapter.flowable = state.page.data
+                if (recyclerView.adapter !== conversationsAdapter) recyclerView.adapter = conversationsAdapter
                 itemTouchHelper.attachToRecyclerView(null)
                 empty.setText(R.string.unread_empty_text)
             }
@@ -273,6 +278,7 @@ class MainActivity : MelayThemedActivity<MainViewModel>(), MainView {
 
         inbox.isSelected = state.page is Inbox
         archived.isSelected = state.page is Archived
+        unread.isSelected = state.page is Unread
         scheduled.isSelected = state.page is Scheduled
 
         if (drawerLayout.isDrawerOpen(Gravity.START) && !state.drawerOpen) drawerLayout.closeDrawer(Gravity.START)

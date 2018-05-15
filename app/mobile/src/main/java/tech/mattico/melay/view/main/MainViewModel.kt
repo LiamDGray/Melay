@@ -137,6 +137,8 @@ class MainViewModel : MelayViewModel<MainView, MainState>(MainState()) {
                         state.page is Inbox && state.page.selected > 0 -> view.clearSelection()
                         state.page is Inbox && state.page.showClearButton -> view.clearSearch()
 
+                        state.page is Unread && state.page.selected > 0 -> view.clearSelection()
+
                         state.page is Archived && state.page.selected > 0 -> view.clearSelection()
 
                         else -> newState { it.copy(drawerOpen = true) }
