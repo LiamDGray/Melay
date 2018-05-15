@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.RECEIVE_MMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -75,10 +74,10 @@
         <!--activity android:name="tech.mattico.melay.view.notificationprefs.NotificationPrefsActivity" />
 
         <activity android:name="feature.themepicker.ThemePickerActivity" />
-        <activity android:name="feature.plus.PlusActivity" />
+        <activity android:name="feature.plus.PlusActivity" /-->
         <activity
-            android:name="feature.gallery.GalleryActivity"
-            android:theme="@style/AppThemeBlack" /-->
+            android:name="tech.mattico.melay.view.gallery.GalleryActivity"
+            android:theme="@style/AppThemeBlack" />
 
 
         <receiver android:name="tech.mattico.melay.receiver.DefaultSmsChangedReceiver">
@@ -110,6 +109,9 @@
         <receiver
             android:name="tech.mattico.melay.receiver.MmsReceivedReceiver"
             android:taskAffinity="com.klinker.android.messaging.MMS_RECEIVED" />
+        <receiver
+            android:name="tech.mattico.melay.receiver.SendSmsReceiver"
+            android:taskAffinity="tech.mattico.melay.SEND_SMS" />
         <receiver
             android:name="tech.mattico.melay.receiver.SmsSentReceiver"
             android:taskAffinity="tech.mattico.melay.SMS_SENT" />

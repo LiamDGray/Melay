@@ -34,13 +34,23 @@
     <string name="setup_skip">Skip</string>
     <string name="setup_next">Continue</string>
 
-    <string name="menu_clear">Clear</string>
     <string name="menu_call">Call</string>
     <string name="menu_info">Details</string>
     <string name="menu_save">Save image</string>
 
+    <string name="main_title_selected">%d selected</string>
+    <string name="main_menu_clear">Clear</string>
+    <string name="main_menu_archive">Archive</string>
+    <string name="main_menu_unarchive">Unarchive</string>
+    <string name="main_menu_block">Block</string>
+    <string name="main_menu_delete">Delete</string>
     <string name="main_syncing">Optimizing database, this might take a minute…</string>
     <string name="main_sender_you">You: %s</string>
+    <string name="inbox_empty_text">Your conversations will appear here</string>
+    <string name="inbox_search_empty_text">No results</string>
+    <string name="archived_empty_text">Your archived conversations will appear here</string>
+    <string name="scheduled_empty_text">Your scheduled messages will appear here</string>
+    <string name="main_fab_cd">Start new conversation</string>
 
     <string name="drawer_inbox">Inbox</string>
     <string name="drawer_archived">Archived</string>
@@ -55,15 +65,6 @@
     <string name="rate_okay">OKAY!</string>
     <string name="rate_dismiss">DISMISS</string>
 
-    <string name="inbox_empty_text">Your conversations will appear here</string>
-    <string name="inbox_search_empty_text">No results</string>
-    <string name="inbox_menu_archive">Archive</string>
-    <string name="inbox_menu_unarchive">Unarchive</string>
-    <string name="inbox_menu_block">Block</string>
-    <string name="inbox_menu_delete">Delete</string>
-    <string name="archived_empty_text">Your archived conversations will appear here</string>
-    <string name="scheduled_empty_text">Your scheduled messages will appear here</string>
-
     <string name="dialog_delete_title">Delete</string>
     <string name="dialog_delete_message">Are you sure you would like to delete this conversation?</string>
 
@@ -73,11 +74,16 @@
         <item>Delete</item>
     </string-array>
 
+    <string name="compose_title_selected">%d selected</string>
     <string name="compose_messages_empty">This is the start of your conversation. Say something nice!</string>
     <string name="compose_hint">Write a message…</string>
     <string name="compose_menu_copy">Copy text</string>
     <string name="compose_menu_forward">Forward</string>
     <string name="compose_menu_delete">Delete</string>
+    <string name="compose_attach_cd">Add an attachment</string>
+    <string name="compose_gallery_cd">Attach a photo</string>
+    <string name="compose_camera_cd">Take a photo</string>
+    <string name="compose_send_cd">Send message</string>
 
     <string name="message_status_sending">Sending…</string>
     <string name="message_status_delivered">Delivered %s</string>
@@ -106,23 +112,24 @@
     <string name="settings_black_title">Pure black night mode</string>
     <string name="settings_night_start_title">Start time</string>
     <string name="settings_night_end_title">End time</string>
+    <string name="settings_text_size_title">Font size</string>
+    <string name="settings_system_font_title">Use system font</string>
     <string name="settings_auto_emoji_title">Automatic emoji</string>
     <string name="settings_notifications_title">Notifications</string>
     <string name="settings_notification_previews_title">Notification previews</string>
     <string name="settings_vibration_title">Vibration</string>
     <string name="settings_ringtone_title">Sound</string>
-    <string name="settings_blocking_title">Blocking</string>
-    <!-- Do not translate -->
-    <string name="settings_should_i_answer_title">Should I Answer?</string>
-    <string name="settings_should_i_answer_summary">Automatically filter messages from unsolicited numbers by using the \"Should I Answer\" app</string>
-    <string name="settings_delivery_title">Delivery confirmations</string>
-    <string name="settings_delivery_summary">Confirm that messages were sent successfully</string>
     <string name="settings_qkreply_title">QK Reply</string>
     <string name="settings_qkreply_summary">Popup for new messages</string>
     <string name="settings_qkreply_tap_dismiss_title">Tap to dismiss</string>
     <string name="settings_qkreply_tap_dismiss_summary">Tap outside of the popup to close it</string>
-    <string name="settings_text_size_title">Font size</string>
-    <string name="settings_system_font_title">Use system font</string>
+    <string name="settings_blocking_title">Blocking</string>
+    <!-- Do not translate -->
+    <string name="settings_should_i_answer_title">Should I Answer?</string>
+    <string name="settings_should_i_answer_summary">Automatically filter messages from unsolicited numbers by using the \"Should I Answer\" app</string>
+    <string name="settings_delayed_title">Delayed sending</string>
+    <string name="settings_delivery_title">Delivery confirmations</string>
+    <string name="settings_delivery_summary">Confirm that messages were sent successfully</string>
     <string name="settings_unicode_title">Strip accents</string>
     <string name="settings_unicode_summary">Remove accents from characters in outgoing SMS messages</string>
     <string name="settings_mms_size_title">Max MMS attachment size</string>
@@ -130,6 +137,8 @@
     <string name="settings_sync_summary">Re-sync your messages with the native Android SMS database</string>
     <string name="settings_about_title">About QKSMS</string>
     <string name="settings_version">Version %s</string>
+
+    <string name="settings_delay_duration_hint">Enter duration (seconds)</string>
 
     <string name="blocked_title">Blocking</string>
     <string name="blocked_empty">Your blocked conversations will appear here</string>
@@ -194,9 +203,10 @@
 
     <string name="button_cancel">Cancel</string>
     <string name="button_delete">Delete</string>
+    <string name="button_more">More</string>
+    <string name="button_set">Set</string>
     <string name="button_unblock">Unblock</string>
     <string name="button_undo">Undo</string>
-    <string name="button_more">More</string>
 
     <string name="toast_copied">Copied</string>
     <string name="toast_archived">Archived conversation</string>
@@ -214,7 +224,7 @@
         <item>Always on</item>
         <item>Automatic</item>
     </string-array>
-    
+
     <string-array name="notification_preview_options">
         <item>Show name and message</item>
         <item>Show name</item>
@@ -226,6 +236,13 @@
         <item>Normal</item>
         <item>Large</item>
         <item>Larger</item>
+    </string-array>
+
+    <string-array name="delayed_sending_labels">
+        <item>No delay</item>
+        <item>Short</item>
+        <item>Medium</item>
+        <item>Long</item>
     </string-array>
 
     <string-array name="mms_sizes">

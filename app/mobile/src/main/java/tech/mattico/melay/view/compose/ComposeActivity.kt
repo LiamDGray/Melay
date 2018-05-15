@@ -64,7 +64,7 @@ class ComposeActivity : MelayThemedActivity<ComposeViewModel>(), ComposeView {
     override val optionsItemIntent: Subject<Int> = PublishSubject.create()
     override val messageClickIntent: Subject<Message> by lazy { messageAdapter.clicks }
     override val messagesSelectedIntent by lazy { messageAdapter.selectionChanges }
-    //override val cancelSendingIntent: Subject<Message> by lazy { messageAdapter.cancelSending }
+    override val cancelSendingIntent: Subject<Message> by lazy { messageAdapter.cancelSending }
     override val attachmentDeletedIntent: Subject<Attachment> by lazy { attachmentAdapter.attachmentDeleted }
     override val textChangedIntent by lazy { message.textChanges() }
     override val attachIntent by lazy { attach.clicks() }

@@ -20,10 +20,8 @@ package feature.compose
 
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -32,7 +30,6 @@ import com.jakewharton.rxbinding2.widget.textChanges
 import com.moez.QKSMS.R
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.kotlin.autoDisposable
-import common.QkDialog
 import common.base.QkThemedActivity
 import common.util.extensions.autoScrollToStart
 import common.util.extensions.setBackgroundTint
@@ -54,26 +51,26 @@ class ComposeActivity : QkThemedActivity<ComposeViewModel>(), ComposeView {
     override val viewModelClass = ComposeViewModel::class
     override val activityVisibleIntent: Subject<Boolean> = PublishSubject.create()
     override val queryChangedIntent: Observable<CharSequence> by lazy { chipsAdapter.textChanges }
-    override val queryKeyEventIntent: Observable<KeyEvent> by lazy { chipsAdapter.keyEvents }
+    override val queryBackspaceIntent: Observable<*> by lazy { chipsAdapter.backspaces }
     override val queryEditorActionIntent: Observable<Int> by lazy { chipsAdapter.actions }
     override val chipSelectedIntent: Subject<Contact> by lazy { contactsAdapter.contactSelected }
     override val chipDeletedIntent: Subject<Contact> by lazy { chipsAdapter.chipDeleted }
     override val menuReadyIntent: Observable<Unit> = menu.map { Unit }
-    override val callIntent: Subject<Unit> = PublishSubject.create()
-    override val infoIntent: Subject<Unit> = PublishSubject.create()
+    override val optionsItemIntent: Subject<Int> = PublishSubject.create()
     override val messageClickIntent: Subject<Message> by lazy { messageAdapter.clicks }
-    override val messageLongClickIntent: Subject<Message> by lazy { messageAdapter.longClicks }
-    override val menuItemIntent: Subject<Int> by lazy { dialog.adapter.menuItemClicks }
-    override val attachmentDeletedIntent: Subject<Uri> by lazy { attachmentAdapter.attachmentDeleted }
+    override val messagesSelectedIntent by lazy { messageAdapter.selectionChanges }
+    override val cancelSendingIntent: Subject<Message> by lazy { messageAdapter.cancelSending }
+    override val attachmentDeletedIntent: Subject<Attachment> by lazy { attachmentAdapter.attachmentDeleted }
     override val textChangedIntent by lazy { message.textChanges() }
     override val attachIntent by lazy { attach.clicks() }
     override val cameraIntent by lazy { camera.clicks() }
     override val galleryIntent by lazy { gallery.clicks() }
+    override val inputContentIntent by lazy { message.inputContentSelected }
     override val sendIntent by lazy { send.clicks() }
+    override val backPressedIntent: Subject<Unit> = PublishSubject.create()
 
     @Inject lateinit var chipsAdapter: ChipsAdapter
     @Inject lateinit var contactsAdapter: ContactAdapter
-    @Inject lateinit var dialog: QkDialog
     @Inject lateinit var messageAdapter: MessagesAdapter
     @Inject lateinit var attachmentAdapter: AttachmentAdapter
 
@@ -105,6 +102,7 @@ class ComposeActivity : QkThemedActivity<ComposeViewModel>(), ComposeView {
         attachments.adapter = attachmentAdapter
 
         messageBackground.backgroundTintMode = PorterDuff.Mode.MULTIPLY
+        message.supportsInputContent = true
 
         val states = arrayOf(
                 intArrayOf(android.R.attr.state_enabled),
@@ -172,6 +170,11 @@ class ComposeActivity : QkThemedActivity<ComposeViewModel>(), ComposeView {
 
         threadId.onNext(state.selectedConversation)
 
+        title = when (state.selectedMessages) {
+            0 -> state.conversationtitle
+            else -> getString(R.string.compose_title_selected, state.selectedMessages)
+        }
+
         toolbarTitle.setVisible(!state.editingMode)
         chips.setVisible(state.editingMode)
         contacts.setVisible(state.contactsVisible)
@@ -181,8 +184,11 @@ class ComposeActivity : QkThemedActivity<ComposeViewModel>(), ComposeView {
         if (state.editingMode && chips.adapter == null) chips.adapter = chipsAdapter
         if (state.editingMode && contacts.adapter == null) contacts.adapter = contactsAdapter
 
-        toolbar.menu.findItem(R.id.call)?.isVisible = !state.editingMode
-        toolbar.menu.findItem(R.id.info)?.isVisible = !state.editingMode
+        toolbar.menu.findItem(R.id.call)?.isVisible = !state.editingMode && state.selectedMessages == 0
+        toolbar.menu.findItem(R.id.info)?.isVisible = !state.editingMode && state.selectedMessages == 0
+        toolbar.menu.findItem(R.id.copy)?.isVisible = !state.editingMode && state.selectedMessages == 1
+        toolbar.menu.findItem(R.id.delete)?.isVisible = !state.editingMode && state.selectedMessages > 0
+        toolbar.menu.findItem(R.id.forward)?.isVisible = !state.editingMode && state.selectedMessages == 1
 
         if (chipsAdapter.data.isEmpty() && state.selectedContacts.isNotEmpty()) {
             message.showKeyboard()
@@ -199,21 +205,18 @@ class ComposeActivity : QkThemedActivity<ComposeViewModel>(), ComposeView {
         camera.setVisible(state.attaching)
         gallery.setVisible(state.attaching)
 
-        if (title != state.title) title = state.title
-
         counter.text = state.remaining
         counter.setVisible(counter.text.isNotBlank())
 
         send.isEnabled = state.canSend
     }
 
-    override fun setDraft(draft: String) {
-        message.setText(draft)
+    override fun clearSelection() {
+        messageAdapter.clearSelection()
     }
 
-    override fun showMenu(menuItems: List<common.MenuItem>) {
-        dialog.adapter.data = menuItems
-        dialog.show(this)
+    override fun setDraft(draft: String) {
+        message.setText(draft)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -222,13 +225,12 @@ class ComposeActivity : QkThemedActivity<ComposeViewModel>(), ComposeView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.call -> callIntent.onNext(Unit)
-            R.id.info -> infoIntent.onNext(Unit)
-            else -> return super.onOptionsItemSelected(item)
-        }
-
+        optionsItemIntent.onNext(item.itemId)
         return true
+    }
+
+    override fun onBackPressed() {
+        backPressedIntent.onNext(Unit)
     }
 
 }

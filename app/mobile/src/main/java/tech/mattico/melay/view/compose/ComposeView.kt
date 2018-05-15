@@ -42,7 +42,7 @@ interface ComposeView : MelayView<ComposeState> {
     val optionsItemIntent: Observable<Int>
     val messageClickIntent: Subject<Message>
     val messagesSelectedIntent: Observable<List<Long>>
-    //TODO enable cancel sending? val cancelSendingIntent: Subject<Message>
+    val cancelSendingIntent: Subject<Message>
     val attachmentDeletedIntent: Subject<Attachment>
     val textChangedIntent: Observable<CharSequence>
     val attachIntent: Observable<Unit>

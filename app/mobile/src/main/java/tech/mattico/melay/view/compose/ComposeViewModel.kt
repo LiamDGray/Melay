@@ -66,9 +66,8 @@ import javax.inject.Inject
 
 class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeState>(ComposeState()) {
 
-
     @Inject lateinit var context: Context
-    //@Inject lateinit var cancelMessage: CancelDelayedMessage
+    @Inject lateinit var cancelMessage: CancelDelayedMessage
     @Inject lateinit var contactFilter: ContactFilter
     @Inject lateinit var contactsRepo: ContactRepository
     @Inject lateinit var messageRepo: IMessageRepository
@@ -84,8 +83,8 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
     private val contacts: Observable<List<Contact>> by lazy { contactsRepo.getUnmanagedContacts().toObservable() }
     private val contactsReducer: Subject<(List<Contact>) -> List<Contact>> = PublishSubject.create()
     private val selectedContacts: Observable<List<Contact>>
-    private val conversation: Observable<Conversation>
-    private val messages: Observable<List<Message>>
+    private val conversation: Subject<Conversation> = BehaviorSubject.create()
+    private val messages: Subject<List<Message>> = BehaviorSubject.create()
 
     init {
         appComponent.inject(this)
@@ -139,7 +138,7 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
 
         // Merges two potential conversation sources (threadId from constructor and contact selection) into a single
         // stream of conversations. If the conversation was deleted, notify the activity to shut down
-        conversation = selectedContacts
+        disposables += selectedContacts
                 .skipUntil(state.filter { state -> state.editingMode })
                 .takeUntil(state.filter { state -> !state.editingMode })
                 .map { contacts -> contacts.map { it.numbers.firstOrNull()?.address ?: "" } }
@@ -154,9 +153,10 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
                 .filter { conversation -> conversation.isValid }
                 .filter { conversation -> conversation.id != 0L }
                 .distinctUntilChanged()
+                .subscribe { conversation.onNext(it) }
 
         // When the conversation changes, update the threadId and the messages for the adapter
-        messages = conversation
+        disposables += conversation
                 .distinctUntilChanged { conversation -> conversation.id }
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { conversation ->
@@ -165,20 +165,15 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
                     messages
                 }
                 .switchMap { messages -> messages.asObservable() }
-
-        disposables += conversation.subscribe()
-        disposables += messages.subscribe()
+                .subscribe { messages.onNext(it) }
 
         disposables += conversation
-                .distinctUntilChanged { conversation -> conversation.getTitle() }
-                .subscribe { conversation ->
-                    newState { it.copy(conversationtitle = conversation.getTitle()) }
-                }
+                .map { conversation -> conversation.getTitle() }
+                .distinctUntilChanged()
+                .subscribe { title -> newState { it.copy(conversationtitle = title) } }
 
         disposables += attachments
-                .subscribe { attachments ->
-                    newState { it.copy(attachments = attachments) }
-                }
+                .subscribe { attachments -> newState { it.copy(attachments = attachments) } }
 
         if (threadId == 0L) {
             syncContacts.execute(Unit)
@@ -332,10 +327,10 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
                 .subscribe { messages -> newState { it.copy(selectedMessages = messages, editingMode = false) } }
 
         // Cancel sending a message
-        /*view.cancelSendingIntent
+        view.cancelSendingIntent
                 .doOnNext { message -> view.setDraft(message.getText()) }
                 .autoDisposable(view.scope())
-                .subscribe { message -> cancelMessage.execute(message.id) }*/
+                .subscribe { message -> cancelMessage.execute(message.id) }
 
         // Save draft when the activity goes into the background
         view.activityVisibleIntent
@@ -472,6 +467,5 @@ class ComposeViewModel(intent: Intent) : MelayViewModel<ComposeView, ComposeStat
                 .subscribe()
 
     }
-
 
 }

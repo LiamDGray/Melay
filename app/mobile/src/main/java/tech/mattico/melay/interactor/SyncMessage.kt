@@ -21,15 +21,20 @@ package tech.mattico.melay.interactor
 import android.net.Uri
 import io.reactivex.Flowable
 import tech.mattico.melay.model.Message
+import tech.mattico.melay.repository.IMessageRepository
 import tech.mattico.melay.repository.ISyncRepository
 import tech.mattico.melay.utils.extensions.mapNotNull
 import javax.inject.Inject
 
-class SyncMessage @Inject constructor(private val syncManager: ISyncRepository) : Interactor<Uri>() {
+class SyncMessage @Inject constructor(
+        private val messageRepo: IMessageRepository,
+        private val syncManager: ISyncRepository
+) : Interactor<Uri>() {
 
     override fun buildObservable(params: Uri): Flowable<Message> {
         return Flowable.just(params)
                 .mapNotNull { uri -> syncManager.syncMessage(uri) }
+                .doOnNext { message -> messageRepo.updateConversations(message.threadId) }
     }
 
 }

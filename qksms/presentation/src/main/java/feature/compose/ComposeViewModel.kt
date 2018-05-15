@@ -23,22 +23,21 @@ import android.content.Intent
 import android.net.Uri
 import android.telephony.PhoneNumberUtils
 import android.telephony.SmsMessage
-import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import com.mlsdev.rximagepicker.RxImagePicker
 import com.mlsdev.rximagepicker.Sources
 import com.moez.QKSMS.R
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.kotlin.autoDisposable
-import common.MenuItem
 import common.Navigator
 import common.base.QkViewModel
 import common.util.ClipboardUtils
 import common.util.extensions.makeToast
 import common.util.filter.ContactFilter
 import injection.appComponent
+import interactor.CancelDelayedMessage
 import interactor.ContactSync
-import interactor.DeleteMessage
+import interactor.DeleteMessages
 import interactor.MarkRead
 import interactor.RetrySending
 import interactor.SendMessage
@@ -70,6 +69,7 @@ import javax.inject.Inject
 class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(ComposeState()) {
 
     @Inject lateinit var context: Context
+    @Inject lateinit var cancelMessage: CancelDelayedMessage
     @Inject lateinit var contactFilter: ContactFilter
     @Inject lateinit var contactsRepo: ContactRepository
     @Inject lateinit var messageRepo: MessageRepository
@@ -78,19 +78,15 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
     @Inject lateinit var sendMessage: SendMessage
     @Inject lateinit var retrySending: RetrySending
     @Inject lateinit var markRead: MarkRead
-    @Inject lateinit var deleteMessage: DeleteMessage
+    @Inject lateinit var deleteMessages: DeleteMessages
 
     private var sharedText: String = ""
-    private val attachments: Subject<List<Uri>> = BehaviorSubject.createDefault(ArrayList())
+    private val attachments: Subject<List<Attachment>> = BehaviorSubject.createDefault(ArrayList())
     private val contacts: Observable<List<Contact>> by lazy { contactsRepo.getUnmanagedContacts().toObservable() }
     private val contactsReducer: Subject<(List<Contact>) -> List<Contact>> = PublishSubject.create()
     private val selectedContacts: Observable<List<Contact>>
-    private val conversation: Observable<Conversation>
-    private val messages: Observable<List<Message>>
-
-    private val menuCopy by lazy { MenuItem(context.getString(R.string.compose_menu_copy), 0) }
-    private val menuForward by lazy { MenuItem(context.getString(R.string.compose_menu_forward), 1) }
-    private val menuDelete by lazy { MenuItem(context.getString(R.string.compose_menu_delete), 2) }
+    private val conversation: Subject<Conversation> = BehaviorSubject.create()
+    private val messages: Subject<List<Message>> = BehaviorSubject.create()
 
     init {
         appComponent.inject(this)
@@ -102,7 +98,7 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
         val sharedImages = mutableListOf<Uri>()
         intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)?.run { sharedImages += this }
         intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)?.run { sharedImages += this }
-        attachments.onNext(sharedImages)
+        attachments.onNext(sharedImages.map { uri -> Attachment(uri) })
 
         val threadId = intent.extras?.getLong("threadId") ?: 0L
         var address = ""
@@ -144,7 +140,7 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
 
         // Merges two potential conversation sources (threadId from constructor and contact selection) into a single
         // stream of conversations. If the conversation was deleted, notify the activity to shut down
-        conversation = selectedContacts
+        disposables += selectedContacts
                 .skipUntil(state.filter { state -> state.editingMode })
                 .takeUntil(state.filter { state -> !state.editingMode })
                 .map { contacts -> contacts.map { it.numbers.firstOrNull()?.address ?: "" } }
@@ -159,9 +155,10 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
                 .filter { conversation -> conversation.isValid }
                 .filter { conversation -> conversation.id != 0L }
                 .distinctUntilChanged()
+                .subscribe { conversation.onNext(it) }
 
         // When the conversation changes, update the threadId and the messages for the adapter
-        messages = conversation
+        disposables += conversation
                 .distinctUntilChanged { conversation -> conversation.id }
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { conversation ->
@@ -170,22 +167,15 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
                     messages
                 }
                 .switchMap { messages -> messages.asObservable() }
-
-        disposables += sendMessage
-        disposables += markRead
-        disposables += conversation.subscribe()
-        disposables += messages.subscribe()
+                .subscribe { messages.onNext(it) }
 
         disposables += conversation
-                .distinctUntilChanged { conversation -> conversation.getTitle() }
-                .subscribe { conversation ->
-                    newState { it.copy(title = conversation.getTitle()) }
-                }
+                .map { conversation -> conversation.getTitle() }
+                .distinctUntilChanged()
+                .subscribe { title -> newState { it.copy(conversationtitle = title) } }
 
         disposables += attachments
-                .subscribe { attachments ->
-                    newState { it.copy(attachments = attachments) }
-                }
+                .subscribe { attachments -> newState { it.copy(attachments = attachments) } }
 
         if (threadId == 0L) {
             syncContacts.execute(Unit)
@@ -238,21 +228,11 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
 
         // Backspaces should delete the most recent contact if there's no text input
         // Close the activity if user presses back
-        view.queryKeyEventIntent
-                .filter { event -> event.action == KeyEvent.ACTION_DOWN }
+        view.queryBackspaceIntent
                 .withLatestFrom(selectedContacts, view.queryChangedIntent, { event, contacts, query ->
-                    when (event.keyCode) {
-                        KeyEvent.KEYCODE_DEL -> {
-                            if (contacts.isNotEmpty() && query.isEmpty()) {
-                                contactsReducer.onNext { it.dropLast(1) }
-                            }
-                        }
-
-                        KeyEvent.KEYCODE_BACK -> {
-                            newState { it.copy(hasError = true) }
-                        }
+                    if (contacts.isNotEmpty() && query.isEmpty()) {
+                        contactsReducer.onNext { it.dropLast(1) }
                     }
-
                 })
                 .autoDisposable(view.scope())
                 .subscribe()
@@ -287,7 +267,8 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
                 .subscribe { newState { it.copy() } }
 
         // Open the phone dialer if the call button is clicked
-        view.callIntent
+        view.optionsItemIntent
+                .filter { it == R.id.call }
                 .withLatestFrom(conversation, { _, conversation -> conversation })
                 .map { conversation -> conversation.recipients.first() }
                 .map { recipient -> recipient.address }
@@ -295,10 +276,44 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
                 .subscribe { address -> navigator.makePhoneCall(address) }
 
         // Open the conversation settings if info button is clicked
-        view.infoIntent
+        view.optionsItemIntent
+                .filter { it == R.id.info }
                 .withLatestFrom(conversation, { _, conversation -> conversation })
                 .autoDisposable(view.scope())
                 .subscribe { conversation -> navigator.showConversationInfo(conversation.id) }
+
+        // Copy the message contents
+        view.optionsItemIntent
+                .filter { it == R.id.copy }
+                .withLatestFrom(view.messagesSelectedIntent, { _, messages ->
+                    messages?.firstOrNull()?.let { messageRepo.getMessage(it) }?.let { message ->
+                        ClipboardUtils.copy(context, message.getText())
+                        context.makeToast(R.string.toast_copied)
+                    }
+                })
+                .autoDisposable(view.scope())
+                .subscribe { view.clearSelection() }
+
+        // Delete the messages
+        view.optionsItemIntent
+                .filter { it == R.id.delete }
+                .withLatestFrom(view.messagesSelectedIntent, conversation, { _, messages, conversation ->
+                    deleteMessages.execute(DeleteMessages.Params(messages, conversation.id))
+                })
+                .autoDisposable(view.scope())
+                .subscribe { view.clearSelection() }
+
+        // Forward the message
+        view.optionsItemIntent
+                .filter { it == R.id.forward }
+                .withLatestFrom(view.messagesSelectedIntent, { _, messages ->
+                    messages?.firstOrNull()?.let { messageRepo.getMessage(it) }?.let { message ->
+                        val images = message.parts.filter { it.isImage() }.mapNotNull { it.getUri() }
+                        navigator.showCompose(message.body, images)
+                    }
+                })
+                .autoDisposable(view.scope())
+                .subscribe { view.clearSelection() }
 
         // Retry sending
         view.messageClickIntent
@@ -307,30 +322,17 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
                 .autoDisposable(view.scope())
                 .subscribe()
 
-        // Show menu
-        view.messageLongClickIntent
+        // Update the State when the message selected count changes
+        view.messagesSelectedIntent
+                .map { selection -> selection.size }
                 .autoDisposable(view.scope())
-                .subscribe { view.showMenu(listOf(menuCopy, menuForward, menuDelete)) }
+                .subscribe { messages -> newState { it.copy(selectedMessages = messages, editingMode = false) } }
 
-        // Handle long-press menu item click
-        view.menuItemIntent
-                .withLatestFrom(view.messageLongClickIntent, { actionId, message ->
-                    when (actionId) {
-                        menuCopy.actionId -> {
-                            ClipboardUtils.copy(context, message.getText())
-                            context.makeToast(R.string.toast_copied)
-                        }
-
-                        menuForward.actionId -> {
-                            val images = message.parts.filter { it.isImage() }.mapNotNull { it.getUri() }
-                            navigator.showCompose(message.body, images)
-                        }
-
-                        menuDelete.actionId -> deleteMessage.execute(message.id)
-                    }
-                })
+        // Cancel sending a message
+        view.cancelSendingIntent
+                .doOnNext { message -> view.setDraft(message.getText()) }
                 .autoDisposable(view.scope())
-                .subscribe()
+                .subscribe { message -> cancelMessage.execute(message.id) }
 
         // Save draft when the activity goes into the background
         view.activityVisibleIntent
@@ -360,6 +362,7 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
         // Attach a photo from camera
         view.cameraIntent
                 .flatMap { RxImagePicker.with(context).requestImage(Sources.CAMERA) }
+                .map { uri -> Attachment(uri) }
                 .withLatestFrom(attachments, { attachment, attachments -> attachments + attachment })
                 .doOnNext { attachments.onNext(it) }
                 .autoDisposable(view.scope())
@@ -368,6 +371,15 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
         // Attach a photo from gallery
         view.galleryIntent
                 .flatMap { RxImagePicker.with(context).requestImage(Sources.GALLERY) }
+                .map { uri -> Attachment(uri) }
+                .withLatestFrom(attachments, { attachment, attachments -> attachments + attachment })
+                .doOnNext { attachments.onNext(it) }
+                .autoDisposable(view.scope())
+                .subscribe { newState { it.copy(attaching = false) } }
+
+        // Attach media from the keyboard
+        view.inputContentIntent
+                .map { inputContent -> Attachment(uri = null, inputContent = inputContent) }
                 .withLatestFrom(attachments, { attachment, attachments -> attachments + attachment })
                 .doOnNext { attachments.onNext(it) }
                 .autoDisposable(view.scope())
@@ -441,6 +453,21 @@ class ComposeViewModel(intent: Intent) : QkViewModel<ComposeView, ComposeState>(
                 })
                 .autoDisposable(view.scope())
                 .subscribe()
+
+        // Navigate back
+        view.optionsItemIntent
+                .filter { it == android.R.id.home }
+                .map { Unit }
+                .mergeWith(view.backPressedIntent)
+                .withLatestFrom(state, { _, state ->
+                    when {
+                        state.selectedMessages > 0 -> view.clearSelection()
+                        else -> newState { it.copy(hasError = true) }
+                    }
+                })
+                .autoDisposable(view.scope())
+                .subscribe()
+
     }
 
 }
