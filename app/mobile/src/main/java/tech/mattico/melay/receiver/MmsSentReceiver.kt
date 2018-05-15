@@ -40,7 +40,7 @@ class MmsSentReceiver : MmsSentReceiver() {
             //what is p2?
             //TODO analytic center
             //TODO timber wrapper?
-            Timber.d("SENT MMS$p2")
+            Timber.d("SENT MMS$resultCode")
             //Analytics.trackEvent("Recieved MMS "+p2);
 
             //we've already gone async
